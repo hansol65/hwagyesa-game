@@ -1,54 +1,265 @@
 {
   "_note": "장면 id → 배경과 연출. bg는 public/art/bg 안의 파일 이름(확장자 뺌). night: true면 배경을 밤처럼 더 어둡게. cast를 적으면 자동으로 고른 등장인물 대신 그 사람들만 나온다(hero는 늘 나옴). pose는 idle·run·hapjang·happy·surprised. 여기 없는 장면은 일정 종류의 기본값(defaults)을 쓴다. 등장인물은 글에 이름이 나오는 사람을 자동으로 고른다.",
   "defaults": {
-    "sunday": { "bg": "home" },
-    "program": { "bg": "kids-room" },
-    "lantern": { "bg": "lantern-street", "night": true },
-    "buddha": { "bg": "lantern-temple" },
-    "may": { "bg": "lantern-temple" },
-    "camp": { "bg": "courtyard" },
-    "newyear": { "bg": "bell-yard", "night": true },
-    "graduation": { "bg": "kids-room" },
-    "rep": { "bg": "kids-room" },
-    "president": { "bg": "kids-room" }
+    "sunday": {
+      "bg": "home"
+    },
+    "program": {
+      "bg": "kids-room"
+    },
+    "lantern": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "buddha": {
+      "bg": "lantern-temple"
+    },
+    "may": {
+      "bg": "lantern-temple"
+    },
+    "camp": {
+      "bg": "bell-yard"
+    },
+    "newyear": {
+      "bg": "lantern-temple",
+      "night": true
+    },
+    "graduation": {
+      "bg": "kids-room"
+    },
+    "rep": {
+      "bg": "kids-room"
+    },
+    "president": {
+      "bg": "kids-room"
+    }
   },
   "scenes": {
-    "sunday-return": { "bg": "kids-room" },
-
-    "dodgeball": { "bg": "courtyard", "pose": "run" },
-    "bazaar": { "bg": "courtyard" },
-    "treasure-hunt": { "bg": "courtyard", "pose": "run" },
-    "cleaning": { "bg": "courtyard" },
-    "jump-rope": { "bg": "courtyard", "pose": "run" },
-    "flower-bed": { "bg": "courtyard" },
-    "kimchi": { "bg": "courtyard" },
-    "walk": { "bg": "outdoor-buddha", "pose": "run" },
-    "seon-visit": { "bg": "seonwon", "cast": ["monk", "gansa"] },
-    "dharma-talk": { "pose": "hapjang" },
-    "bows-108": { "pose": "hapjang" },
-    "meditation": { "pose": "hapjang" },
-    "role-president-moktak": { "pose": "hapjang" },
-    "role-rep-line": { "bg": "courtyard" },
-
-    "story-fight-jiho": { "bg": "courtyard", "pose": "surprised" },
-    "cb-jiho-ignored": { "bg": "courtyard" },
-    "story-friends-split": { "bg": "courtyard", "pose": "surprised" },
-    "cb-split-jiho": { "bg": "courtyard" },
-    "story-cat": { "bg": "bell-yard", "cast": [] },
-    "cb-cat-kittens": { "bg": "bell-yard", "pose": "happy", "cast": [] },
-    "cb-cat-gone": { "bg": "bell-yard", "cast": [] },
-    "story-monk-name": { "bg": "courtyard", "pose": "surprised" },
-    "story-bell-peek": { "bg": "bell-yard" },
-    "story-lost-beads": { "bg": "courtyard", "pose": "surprised" },
-    "story-meditation-kid": { "pose": "hapjang", "cast": [] },
-    "story-scolded": { "pose": "surprised" },
-
-    "lantern-rain": { "bg": "lantern-street", "night": true },
-    "buddha-lunch": { "bg": "courtyard" },
-    "camp-night": { "bg": "kids-room", "night": true },
-    "camp-last": { "bg": "outdoor-buddha", "pose": "run" },
-    "water-camp": { "bg": "courtyard", "pose": "happy" },
-    "camp-first": { "bg": "courtyard", "pose": "happy" },
-    "newyear-wish": { "bg": "bell-yard", "night": true, "pose": "hapjang" }
+    "sunday-return": {
+      "bg": "kids-room"
+    },
+    "dodgeball": {
+      "bg": "courtyard",
+      "pose": "run"
+    },
+    "bazaar": {
+      "bg": "courtyard"
+    },
+    "treasure-hunt": {
+      "bg": "courtyard",
+      "pose": "run"
+    },
+    "cleaning": {
+      "bg": "courtyard"
+    },
+    "jump-rope": {
+      "bg": "courtyard",
+      "pose": "run"
+    },
+    "flower-bed": {
+      "bg": "courtyard"
+    },
+    "kimchi": {
+      "bg": "courtyard"
+    },
+    "walk": {
+      "bg": "outdoor-buddha",
+      "pose": "run"
+    },
+    "seon-visit": {
+      "bg": "seonwon",
+      "cast": [
+        "monk",
+        "gansa"
+      ]
+    },
+    "dharma-talk": {
+      "pose": "hapjang"
+    },
+    "bows-108": {
+      "pose": "hapjang"
+    },
+    "meditation": {
+      "pose": "hapjang"
+    },
+    "role-president-moktak": {
+      "pose": "hapjang"
+    },
+    "role-rep-line": {
+      "bg": "courtyard"
+    },
+    "story-fight-jiho": {
+      "bg": "courtyard",
+      "pose": "surprised",
+      "castPose": {
+        "jiho": "angry"
+      }
+    },
+    "cb-jiho-ignored": {
+      "bg": "courtyard"
+    },
+    "story-friends-split": {
+      "bg": "courtyard",
+      "pose": "surprised"
+    },
+    "cb-split-jiho": {
+      "bg": "courtyard"
+    },
+    "story-cat": {
+      "bg": "bell-yard",
+      "cast": [],
+      "cat": true
+    },
+    "cb-cat-kittens": {
+      "bg": "bell-yard",
+      "pose": "happy",
+      "cast": [],
+      "cat": true,
+      "kittens": 3
+    },
+    "cb-cat-gone": {
+      "bg": "bell-yard",
+      "cast": [],
+      "pose": "cry"
+    },
+    "story-monk-name": {
+      "bg": "courtyard",
+      "pose": "surprised"
+    },
+    "story-bell-peek": {
+      "bg": "bell-yard"
+    },
+    "story-lost-beads": {
+      "bg": "courtyard",
+      "pose": "surprised"
+    },
+    "story-meditation-kid": {
+      "pose": "hapjang",
+      "cast": []
+    },
+    "story-scolded": {
+      "pose": "surprised",
+      "cast": [
+        "teacher",
+        "jiho"
+      ],
+      "castPose": {
+        "teacher": "angry"
+      }
+    },
+    "lantern-rain": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "buddha-lunch": {
+      "bg": "courtyard"
+    },
+    "camp-night": {
+      "bg": "kids-room",
+      "night": true
+    },
+    "camp-last": {
+      "bg": "outdoor-buddha",
+      "pose": "run"
+    },
+    "water-camp": {
+      "bg": "bell-yard",
+      "pose": "happy"
+    },
+    "camp-first": {
+      "bg": "bell-yard",
+      "pose": "happy"
+    },
+    "newyear-wish": {
+      "bg": "lantern-temple",
+      "night": true,
+      "pose": "hapjang"
+    },
+    "lantern-first": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "lantern-leader": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "lantern-parade": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "newyear-first": {
+      "bg": "lantern-temple",
+      "night": true
+    },
+    "newyear-last": {
+      "bg": "lantern-temple",
+      "night": true
+    },
+    "new-year-bell": {
+      "bg": "lantern-temple",
+      "night": true
+    },
+    "story-cry-mom": {
+      "bg": "kids-room",
+      "pose": "cry",
+      "cast": [
+        "teacher",
+        "jiho"
+      ]
+    },
+    "story-cry-dodgeball": {
+      "bg": "courtyard",
+      "pose": "cry",
+      "cast": [
+        "gansa",
+        "jiho"
+      ],
+      "castPose": {
+        "jiho": "surprised"
+      }
+    },
+    "story-cry-jisol-scold": {
+      "pose": "cry",
+      "cast": [
+        "gansa",
+        "seoyun"
+      ]
+    },
+    "story-cry-ocarina": {
+      "pose": "cry",
+      "cast": [
+        "gansa",
+        "haram"
+      ]
+    },
+    "story-cry-friend": {
+      "cast": [
+        "haram",
+        "teacher"
+      ],
+      "castPose": {
+        "haram": "cry",
+        "teacher": "angry"
+      }
+    },
+    "story-cry-snack": {
+      "pose": "cry",
+      "cast": [
+        "teacher",
+        "seoyun",
+        "jiho"
+      ]
+    },
+    "kids-graduation": {
+      "bg": "kids-room",
+      "cast": [
+        "gansa",
+        "teacher",
+        "monk"
+      ],
+      "castPose": {
+        "gansa": "cry"
+      }
+    }
   }
 }

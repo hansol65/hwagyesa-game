@@ -21,14 +21,19 @@ const MAY_EVENTS: Record<number, Slot> = {
   6: { kind: 'buddha', month: 5, label: '부처님오신날' },
 };
 
-/** 1년 = 투표 + 일요일 3번 + (5월 행사) + 여름 캠프 + 제야. 6학년은 졸업식이 붙는다. */
+/** 학년 대표 투표는 매년 하면 지루해서 1·3학년에만. 6학년은 회장 선거. */
+const VOTE_GRADES = [1, 3];
+
+/** 1년 = (투표) + 일요일 3번 + (5월 행사) + 여름 캠프 + 제야. 6학년은 졸업식이 붙는다. */
 export function slotsForGrade(grade: number): Slot[] {
   const [a, b, c] = SUNDAY_MONTHS[grade % 2 === 1 ? 'odd' : 'even'];
   const sunday = (m: number): Slot => ({ kind: 'sunday', month: m, label: `${m}월 일요일` });
   const slots: Slot[] = [
-    grade === KIDS_LAST_GRADE
-      ? { kind: 'president', month: 3, label: '3월 회장 선거' }
-      : { kind: 'rep', month: 3, label: '3월 학년 대표 투표' },
+    ...(grade === KIDS_LAST_GRADE
+      ? [{ kind: 'president', month: 3, label: '3월 회장 선거' } as Slot]
+      : VOTE_GRADES.includes(grade)
+        ? [{ kind: 'rep', month: 3, label: '3월 학년 대표 투표' } as Slot]
+        : []),
     sunday(a),
     ...(MAY_EVENTS[grade] ? [MAY_EVENTS[grade]] : []),
     sunday(b),

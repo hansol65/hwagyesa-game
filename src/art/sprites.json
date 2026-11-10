@@ -103,5 +103,45 @@
     "frames": 6,
     "w": 139,
     "h": 305
+  },
+  "kid/hero-f-cry": {
+    "frames": 1,
+    "w": 104,
+    "h": 213
+  },
+  "kid/hero-m-cry": {
+    "frames": 1,
+    "w": 88,
+    "h": 230
+  },
+  "kid/friend-a-cry": {
+    "frames": 1,
+    "w": 104,
+    "h": 227
+  },
+  "kid/friend-b-cry": {
+    "frames": 1,
+    "w": 102,
+    "h": 217
+  },
+  "kid/friend-c-cry": {
+    "frames": 1,
+    "w": 90,
+    "h": 219
+  },
+  "kid/teacher-angry": {
+    "frames": 1,
+    "w": 126,
+    "h": 244
+  },
+  "kid/gansa-angry": {
+    "frames": 1,
+    "w": 111,
+    "h": 244
+  },
+  "kid/gansa-cry": {
+    "frames": 1,
+    "w": 116,
+    "h": 244
   }
 }

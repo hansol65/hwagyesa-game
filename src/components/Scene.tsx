@@ -33,14 +33,16 @@ export function Scene({ game }: { game: GameState }) {
   const eventId = game.event?.id;
   // 결과가 나오면 주인공 표정이 바뀐다: 크게 얻으면 기뻐하고, 크게 잃으면 놀란다
   const statSum = Object.values(game.result?.deltas.stats ?? {}).reduce((a, b) => a + (b ?? 0), 0);
-  const mood = isResult ? (statSum >= 4 ? 'happy' : statSum <= -3 ? 'surprised' : undefined) : undefined;
+  const mood = isResult ? (statSum >= 4 ? 'happy' : statSum <= -6 ? 'cry' : statSum <= -3 ? 'surprised' : undefined) : undefined;
   const scene =
     game.event &&
     staging({
       id: game.event.id,
       slotKind: slot.kind,
       isProgram: !!game.prelude,
+      // 선택지에 나오는 사람(선생님께 말씀드린다, 스님께 여쭌다…)도 장면에 세운다
       text: `${game.event.title} ${game.eventText}`,
+      castText: choices.map((c) => c.label).join(' '),
       game,
       mood,
       alone: slot.kind === 'sunday' && !game.prelude,
@@ -128,12 +130,8 @@ export function Scene({ game }: { game: GameState }) {
                     {c.attend === false && choices[i - 1]?.attend !== false && <p className="or">법회에 안 간다면</p>}
                     <button className="choice" onClick={() => choose(i)}>
                       <span className="key" aria-hidden="true">{i + 1}</span>
+                      {/* 결과(스탯 변화)는 고른 뒤에만 보여 준다 */}
                       <span className="label">{c.label}</span>
-                      {(c.effects?.stats || c.roll) && (
-                        <span className="meta">
-                          <Deltas effects={c.effects} showRel={false} luck={!!c.roll} />
-                        </span>
-                      )}
                     </button>
                   </li>
                 ))}

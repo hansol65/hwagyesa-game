@@ -21,6 +21,65 @@ const ALPHA = 40; // 이보다 불투명한 칸만 그림으로 본다
 const PAD = 4;
 /** 원본 시트는 도트 한 칸이 3~4px라 반으로 줄여도 화면에서 충분히 또렷하다 */
 const SPRITE_SCALE = 0.5;
+/**
+ * 감정 그림(울기·화내기). 한 장에 여러 사람이 있어도 되고, 왼쪽부터 out 순서대로 자른다.
+ * 각 그림은 그 사람의 서 있기(기본 시트 1번 칸)와 키·발끝 위치가 같아지게 맞춰서
+ * public/art/sprites/<단계>/<인물>-<감정>.webp 한 칸짜리로 저장한다.
+ */
+const EMOTES: { file: string; stage: string; out: string[] }[] = [
+  { file: 'kids-cry.webp', stage: 'kid', out: ['hero-f-cry', 'hero-m-cry', 'friend-a-cry', 'friend-b-cry', 'friend-c-cry'] },
+  { file: 'teacher-angry.png', stage: 'kid', out: ['teacher-angry'] },
+  { file: 'gansa-angry-cry.webp', stage: 'kid', out: ['gansa-angry', 'gansa-cry'] },
+];
+
+type Meta = Record<string, { frames: number; w: number; h: number }>;
+
+/** 기본 시트에서 서 있기 칸의 그림 위·아래 (줄인 뒤 픽셀) */
+async function idleBox(stripFile: string, frameW: number) {
+  const img = await load(stripFile);
+  let y0 = img.h, y1 = 0;
+  for (let y = 0; y < img.h; y++) {
+    for (let x = 0; x < frameW; x++) {
+      if (img.data[(y * img.w + x) * 4 + 3] > ALPHA) { y0 = Math.min(y0, y); y1 = Math.max(y1, y + 1); }
+    }
+  }
+  return { y0, y1 };
+}
+
+async function buildEmotes(meta: Meta) {
+  const dir = path.join(SRC, 'emote-raw');
+  for (const e of EMOTES) {
+    const file = path.join(dir, e.file);
+    if (!fs.existsSync(file)) continue;
+    const img = await load(file);
+    const frames = findFrames(img, 12, e.out.length);
+    if (frames.length !== e.out.length) console.warn(`  ! ${e.file}: ${frames.length}명 (${e.out.length}명이어야 함)`);
+    for (const [i, f] of frames.entries()) {
+      const name = e.out[i];
+      if (!name) continue;
+      const baseKey = `${e.stage}/${name.replace(/-(cry|angry)$/, '')}`;
+      const base = meta[baseKey];
+      if (!base) { console.warn(`  ! 기본 시트 없음: ${baseKey}`); continue; }
+      const idle = await idleBox(path.join(OUT, 'sprites', `${baseKey}.webp`), base.w);
+      const figH = idle.y1 - idle.y0;
+      const fw = Math.max(1, Math.round(((f.x1 - f.x0) * figH) / (f.y1 - f.y0)));
+      const fig = await sharp(file)
+        .extract({ left: f.x0, top: f.y0, width: f.x1 - f.x0, height: f.y1 - f.y0 })
+        .resize(fw, figH, { kernel: 'lanczos3' })
+        .png()
+        .toBuffer();
+      const w = fw + 4;
+      const key = `${e.stage}/${name}`;
+      await sharp({ create: { width: w, height: base.h, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+        .composite([{ input: fig, left: 2, top: idle.y0 }])
+        .webp({ quality: 90, alphaQuality: 100 })
+        .toFile(path.join(OUT, 'sprites', `${key}.webp`));
+      meta[key] = { frames: 1, w, h: base.h };
+      console.log('emote', key, meta[key]);
+    }
+  }
+}
+
 const PROP_NAMES = ['lantern', 'ball', 'moktak', 'ocarina', 'beads', 'broom', 'watergun'];
 
 type Box = { x0: number; x1: number; y0: number; y1: number };
@@ -114,6 +173,7 @@ async function main() {
       console.log('sprite', key, meta[key]);
     }
   }
+  await buildEmotes(meta);
   fs.writeFileSync(path.join(ROOT, 'src/art/sprites.json'), JSON.stringify(meta, null, 2) + '\n');
 
   // 소품: 하나씩 잘라 따로 저장
@@ -130,6 +190,22 @@ async function main() {
         .toFile(path.join(OUT, 'props', `${name}.webp`));
     }
     console.log('props', frames.length);
+  }
+
+  // 고양이: 한 장에 여러 마리. 판마다 한 마리를 골라 쓴다 (이름은 names.ts의 catName)
+  const catFile = path.join(SRC, 'props/cats.webp');
+  if (fs.existsSync(catFile)) {
+    const img = await load(catFile);
+    const frames = findFrames(img, 12);
+    fs.mkdirSync(path.join(OUT, 'props'), { recursive: true });
+    for (const [i, f] of frames.entries()) {
+      await sharp(catFile)
+        .extract({ left: f.x0, top: f.y0, width: f.x1 - f.x0, height: f.y1 - f.y0 })
+        .resize({ height: Math.round((f.y1 - f.y0) * SPRITE_SCALE) })
+        .webp({ quality: 90, alphaQuality: 100 })
+        .toFile(path.join(OUT, 'props', `cat-${i + 1}.webp`));
+    }
+    console.log('cats', frames.length);
   }
 }
 

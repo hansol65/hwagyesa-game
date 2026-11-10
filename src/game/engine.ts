@@ -7,6 +7,7 @@ import epilogueData from '../data/epilogue.json';
 import storiesData from '../data/stories.json';
 import charactersData from '../data/characters.json';
 import { KIDS_LAST_GRADE, SEASON_LINES, slotsForGrade } from './calendar';
+import { catName } from './names';
 import {
   REL_KEYS,
   STAT_KEYS,
@@ -50,7 +51,11 @@ const RECENT_WINDOW = 14;
 export const OPEN_STATS: StatKey[] = ['health', 'intellect', 'charm', 'mental', 'faith'];
 
 /** 1년 장면이 적은 만큼 한 장면에서 오르는 폭을 키운다 */
-const GAIN_SCALE = 1.4;
+const GAIN_SCALE = 2.2;
+/** 잃는 쪽도 크게: 무언가를 고르면 확실히 다른 무언가를 놓친다 */
+const LOSS_SCALE = 1.6;
+/** 사람과의 정도 선택에 따라 크게 움직인다 */
+const REL_SCALE = 1.5;
 /** 단계별 스탯 목표치. 이 근처에 가까워질수록 오르는 폭이 줄어든다 (어린이회 = 60) */
 const SOFT_CAP = 60;
 const STATUS_THRESHOLD = 30;
@@ -160,6 +165,7 @@ export function fillTokens(raw: string, state: GameState, rng: Rng): string {
     .replaceAll('{jiho}', friendlyName(state.friends.jiho))
     .replaceAll('{seoyun}', friendlyName(state.friends.seoyun))
     .replaceAll('{haram}', friendlyName(state.friends.haram))
+    .replaceAll('{cat}', catName(state))
     .replaceAll('{nameCall}', callName(state.name))
     .replaceAll('{name}', state.name)
     .replace(/\s{2,}/g, ' ')
@@ -257,6 +263,12 @@ function pickProgram(state: GameState, rng: Rng): { event: GameEvent; state: Gam
     return { event: RETURN, state };
   }
   const base = state;
+  // 피구는 어린이회에서 제일 많이 하는 놀이: 법회에 나오면 2학년까지 한 번, 5학년까지 두 번은 꼭 한다
+  const dodge = PROGRAMS.find((e) => e.id === 'dodgeball');
+  const dodgeNeed = state.grade >= 5 ? 2 : state.grade >= 2 ? 1 : 0;
+  if (dodge && state.log.filter((l) => l.title === dodge.title).length < dodgeNeed) {
+    return { event: dodge, state: remember(base, dodge.id) };
+  }
   const stories = STORIES.filter((e) => !state.seen.includes(e.id) && eligible(e, state));
   // 예전 선택이 돌아오는 장면은 조건이 맞으면 거의 바로 나온다
   const callbacks = stories.filter((e) => e.requires?.flags?.length);
@@ -271,7 +283,8 @@ function pickProgram(state: GameState, rng: Rng): { event: GameEvent; state: Gam
     return { event: ev, state: remember(base, ev.id) };
   }
   if (stories.length && rng() < STORY_CHANCE) {
-    const story = pick(stories, rng);
+    // 우는 이야기는 두 배로 잘 뽑힌다 (어린이회에선 우는 일이 많다)
+    const story = pick([...stories, ...stories.filter((e) => e.id.startsWith('story-cry'))], rng);
     return { event: story, state: remember(base, story.id) };
   }
   const event = pickFresh(PROGRAMS.filter((e) => !e.requires?.flags?.length && eligible(e, state)), state, rng);
@@ -306,11 +319,13 @@ function addEffects(target: Deltas, eff: Effects | undefined, choice: Choice | n
       // 한쪽에 몰아주면 80까지도 갈 수 있게 넉넉히 두고, 대신 다른 쪽이 깎인다.
       const f = clamp((SOFT_CAP + 25 - state.stats[k]) / 45, 0.15, 1);
       v = Math.max(f >= 0.3 ? 1 : 0, Math.round(v * f));
+    } else if (v < 0) {
+      v = Math.round(v * LOSS_SCALE);
     }
     target.stats[k] = (target.stats[k] ?? 0) + v;
   }
   for (const [k, v] of Object.entries(eff.rel ?? {}) as [RelKey, number][]) {
-    target.rel[k] = (target.rel[k] ?? 0) + v;
+    target.rel[k] = (target.rel[k] ?? 0) + Math.round(v * REL_SCALE);
   }
 }
 

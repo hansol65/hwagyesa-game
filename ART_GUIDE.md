@@ -97,7 +97,7 @@ Scene: [장소 설명]
 | 3 | 걷기·뛰기 | 피구, 보물찾기, 산책 |
 | 4 | 합장 | 예불, 법문, 명상, 목탁 |
 | 5 | 기뻐하기 | 결과가 크게 좋을 때 (콩콩 뛴다) |
-| 6 | 놀라기 | 결과가 크게 나쁠 때, 다툼, 혼남 |
+| 6 | 놀라기 | 결과가 나쁠 때, 혼남 (아주 크게 잃으면 울기) |
 
 ### 스프라이트 프롬프트 (공통)
 
@@ -134,6 +134,38 @@ Transparent background. No shadows, no ground, no text. 3:2 landscape, 1536x1024
 | `monk` | 스님 | ✓ | ✓ | |
 
 대학생회는 학생이 직접 꾸리니 간사·지도 선생님이 없다. 스님은 학생회 그림을 같이 쓴다.
+
+### 감정 그림 (울기·화내기)
+
+기본 시트와 따로 만든다. 한 장에 여러 사람이 있어도 되고, 한 사람이 울기·화내기 둘 다 있어도 된다.
+
+1. 원본을 `art-src/emote-raw/`에 넣는다 (투명 배경).
+2. `scripts/build-art.ts`의 `EMOTES` 표에 파일 이름과, 왼쪽부터 누구의 무슨 감정인지 적는다.
+   예: `{ file: 'kids-cry.webp', stage: 'kid', out: ['hero-f-cry', 'hero-m-cry', ...] }`
+3. `npm run art`. 각 그림을 그 사람의 서 있기와 키·발끝이 같게 맞춰 자른다.
+
+지금 있는 것 (어린이회):
+
+| 인물 | 울기 | 화내기 |
+|---|---|---|
+| 주인공 여자아이·남자아이 | ✓ | |
+| 친구 셋 | ✓ | |
+| 지솔 쌤 | ✓ | ✓ |
+| 정 선생님 | | ✓ |
+
+없는 그림은 울기 대신 놀라기, 화내기 대신 서 있기(부르르 떨기)로 나온다.
+주인공이 울면 지솔 쌤과 정 선생님은 달래지 않고 **화내기**로 선다.
+장면마다 특정 사람만 다른 동작을 시키려면 `scenes.json`에 `"castPose": { "haram": "cry" }`처럼 적는다.
+
+```
+[첨부: 그 인물의 기존 스프라이트 시트 (생김새와 크기 기준)]
+
+Create pixel art of the SAME character as the attached sprite sheet,
+same proportions, same outfit, same pixel art style, body turned three-quarter to the right:
+[crying: tears streaming down, rubbing eyes, mouth open wailing]
+[angry: eyebrows sharply down, frowning, hands on hips or pointing a finger]
+Transparent background. No shadows, no ground, no text.
+```
 
 ## 3. 소품
 

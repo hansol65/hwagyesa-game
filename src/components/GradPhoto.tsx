@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from 'react';
-import { POSE_FRAME, SPRITES, type Pose } from '../art/scene';
+import { frameFor, SPRITES, type Pose } from '../art/scene';
 import { attendRate } from '../game/engine';
 import { personName } from '../game/names';
 import type { GameState } from '../game/types';
@@ -30,17 +30,26 @@ function jisolNote(g: GameState): string {
 
 type Person = { key: string; sprite: string; pose: Pose; x: number; back?: boolean; flip?: boolean; edge?: boolean };
 
+/** 졸업 날이라 친구 중 한 명은 결국 운다. 누가 울지는 판마다 다르다 (한 판 안에서는 같다). */
+function crier(g: GameState): string {
+  let h = 3;
+  for (const c of Object.values(g.friends).join('') + g.name) h = (h * 33 + c.charCodeAt(0)) >>> 0;
+  return ['haram', 'jiho', 'seoyun'][h % 3];
+}
+
 function cast(g: GameState, shot: boolean, holding: boolean): Person[] {
   const smile: Pose = shot ? 'happy' : 'idle';
+  const cries = crier(g);
+  const friend = (key: string): Pose => (shot && key === cries ? 'cry' : smile);
   return [
     { key: 'teacher', sprite: 'kid/teacher', pose: smile, x: 23, back: true },
     { key: 'monk', sprite: 'kid/monk', pose: shot ? 'hapjang' : 'idle', x: 80, back: true, flip: true },
-    { key: 'haram', sprite: 'kid/friend-c', pose: smile, x: 12 },
-    { key: 'jiho', sprite: 'kid/friend-a', pose: smile, x: 32 },
+    { key: 'haram', sprite: 'kid/friend-c', pose: friend('haram'), x: 12 },
+    { key: 'jiho', sprite: 'kid/friend-a', pose: friend('jiho'), x: 32 },
     { key: 'hero', sprite: g.gender === 'male' ? 'kid/hero-m' : 'kid/hero-f', pose: holding ? 'idle' : smile, x: 50 },
-    { key: 'seoyun', sprite: 'kid/friend-b', pose: smile, x: 67, flip: true },
-    // 타이머 맞추고 뛰어든 지솔 쌤: 찍힐 때는 가장자리에 반쯤
-    { key: 'gansa', sprite: 'kid/gansa', pose: shot ? 'happy' : 'run', x: 95, flip: true, edge: true },
+    { key: 'seoyun', sprite: 'kid/friend-b', pose: friend('seoyun'), x: 67, flip: true },
+    // 타이머 맞추고 뛰어든 지솔 쌤: 찍힐 때는 가장자리에 반쯤, 결국 울고 있다
+    { key: 'gansa', sprite: 'kid/gansa', pose: shot ? 'cry' : 'run', x: 95, flip: true, edge: true },
   ];
 }
 
@@ -48,9 +57,12 @@ const FRONT_H = 42;
 const REF_H = SPRITES['kid/hero-f']?.h ?? 213;
 
 function Figure({ p, prop, still }: { p: Person; prop?: { prop: string; size: number }; still: boolean }) {
-  const meta = SPRITES[p.sprite];
-  if (!meta) return null;
-  const h = (meta.h / REF_H) * FRONT_H * (p.back ? 0.92 : 1) * (p.key === 'monk' ? 1.12 : 1);
+  const base = SPRITES[p.sprite];
+  if (!base) return null;
+  const h = (base.h / REF_H) * FRONT_H * (p.back ? 0.92 : 1) * (p.key === 'monk' ? 1.12 : 1);
+  // 울기는 한 칸짜리 감정 그림을 쓴다
+  const { sprite, frame } = frameFor(p.sprite, p.pose);
+  const meta = SPRITES[sprite];
   const step = 100 / (meta.frames - 1);
   const box = {
     left: `${p.x}%`,
@@ -60,9 +72,9 @@ function Figure({ p, prop, still }: { p: Person; prop?: { prop: string; size: nu
     zIndex: p.back ? 1 : 2,
   } as CSSProperties;
   const body = {
-    backgroundImage: `url(${BASE}art/sprites/${p.sprite}.webp)`,
+    backgroundImage: `url(${BASE}art/sprites/${sprite}.webp)`,
     backgroundSize: `${meta.frames * 100}% 100%`,
-    backgroundPositionX: `${POSE_FRAME[p.pose] * step}%`,
+    backgroundPositionX: `${meta.frames > 1 ? frame * step : 0}%`,
     '--f0': '0%',
     '--f1': `${step}%`,
   } as CSSProperties;
@@ -84,7 +96,7 @@ function Figure({ p, prop, still }: { p: Person; prop?: { prop: string; size: nu
 
 /**
  * 어린이회 졸업사진. 지솔 쌤이 타이머를 맞추고 뛰어 들어오면 찰칵, 밝은 사진 한 장이 남는다.
- * 모두 웃는다(관계는 후일담에서). 누르면 바로 찍힌다.
+ * 다들 웃지만 지솔 쌤과 친구 한 명은 운다(관계는 후일담에서). 누르면 바로 찍힌다.
  */
 export function GradPhoto({ game }: { game: GameState }) {
   const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
