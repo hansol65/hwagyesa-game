@@ -1,0 +1,1752 @@
+[
+  {
+    "id": "dodgeball",
+    "title": "청팀 백팀 피구",
+    "text": [
+      "짧게 예불을 드리고 나니, 오늘 프로그램은 피구예요! 마당에 선이 그어졌어요.",
+      "지솔 쌤이 공을 들고 나와요. \"오늘은 청팀 백팀 피구다! 쌤 맞히는 사람은 간식 쏜다!\""
+    ],
+    "choices": [
+      {
+        "label": "맨 앞에서 공을 받아낸다",
+        "tag": "active",
+        "roll": {
+          "chance": 0.45,
+          "talent": "sports",
+          "stat": "health",
+          "success": {
+            "text": "날아오는 공을 척척 받아내 우리 팀이 이겼어요! 다들 \"피구왕!\" 하고 불러요.",
+            "effects": {
+              "stats": {
+                "health": 6,
+                "charm": 5
+              },
+              "rel": {
+                "jiho": 2
+              }
+            },
+            "record": "dodgeball_win",
+            "highlight": "피구 시합에서 우리 팀을 승리로 이끌었어요."
+          },
+          "fail": {
+            "text": "첫 공에 맞고 아웃됐어요. 그래도 밖에서 목이 쉬도록 응원했어요.",
+            "effects": {
+              "stats": {
+                "health": 2,
+                "mental": -4
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "구석에서 피하기만 한다",
+        "text": "끝까지 살아남았어요. 공은 한 번도 못 잡았지만요.",
+        "effects": {
+          "stats": {
+            "health": 3,
+            "charm": -3
+          }
+        }
+      },
+      {
+        "label": "응원단장을 맡는다",
+        "text": "목청껏 응원하다 보니 다른 팀 친구들도 웃었어요.",
+        "effects": {
+          "stats": {
+            "charm": 6,
+            "health": -2
+          },
+          "rel": {
+            "jiho": 1,
+            "seoyun": 1,
+            "haram": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "bazaar",
+    "title": "어린이회 바자회",
+    "text": [
+      "오늘은 바자회 날이에요. 집에서 가져온 물건들이 마당에 줄지어 놓였어요."
+    ],
+    "choices": [
+      {
+        "label": "가게 주인이 되어 물건을 판다",
+        "tag": "active",
+        "roll": {
+          "chance": 0.45,
+          "talent": "craft",
+          "stat": "charm",
+          "success": {
+            "text": "손님을 척척 불러 모아 물건을 다 팔았어요. 번 돈은 불우이웃 돕기에 냈어요.",
+            "effects": {
+              "stats": {
+                "charm": 6,
+                "intellect": 3
+              }
+            },
+            "record": "bazaar_sold",
+            "highlight": "바자회에서 물건을 다 팔았어요."
+          },
+          "fail": {
+            "text": "부끄러워서 말을 잘 못 걸었어요. 그래도 두 개는 팔았어요.",
+            "effects": {
+              "stats": {
+                "charm": 1,
+                "mental": -4
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "손님이 되어 구경한다",
+        "text": "500원짜리 팽이를 샀어요. 오늘의 보물이에요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "faith": -2
+          }
+        }
+      },
+      {
+        "label": "아끼던 장난감을 내놓는다",
+        "text": "조금 아까웠지만, 정 선생님이 \"좋은 마음이네\" 하며 머리를 쓱쓱 쓰다듬어 주셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 6,
+            "mental": -3
+          },
+          "rel": {
+            "teacher": 3
+          }
+        },
+        "flag": "donated_toy"
+      }
+    ]
+  },
+  {
+    "id": "dharma-talk",
+    "title": "스님 법문",
+    "text": [
+      "오늘은 스님이 법문을 해 주시는 날이에요. 법당에 방석을 깔고 앉았어요."
+    ],
+    "choices": [
+      {
+        "label": "스님 말씀에 귀를 기울인다",
+        "tag": "calm",
+        "text": "\"남을 도우면 내 마음이 먼저 따뜻해진단다.\" 스님 말씀이 마음에 남았어요.",
+        "effects": {
+          "stats": {
+            "faith": 6,
+            "intellect": 3,
+            "charm": -3
+          },
+          "rel": {
+            "monk": 3
+          }
+        }
+      },
+      {
+        "label": "{jiho}랑 몰래 장난친다",
+        "text": "킥킥대다 정 선생님과 눈이 마주쳤어요. 그래도 재밌었어요.",
+        "effects": {
+          "stats": {
+            "charm": 5,
+            "faith": -4
+          },
+          "rel": {
+            "jiho": 3,
+            "teacher": -1
+          }
+        }
+      },
+      {
+        "label": "꾸벅꾸벅 존다",
+        "text": "눈을 떠 보니 법문이 끝나 있었어요. 스님이 웃고 계셨어요.",
+        "effects": {
+          "stats": {
+            "health": 3,
+            "faith": -3
+          },
+          "rel": {
+            "monk": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "lantern-craft",
+    "title": "연등 만들기",
+    "text": [
+      "한지와 철사로 연등을 만드는 날이에요. 책상 위에 알록달록한 꽃잎 종이가 가득해요."
+    ],
+    "choices": [
+      {
+        "label": "꽃잎을 한 장 한 장 정성껏 붙인다",
+        "tag": "calm",
+        "roll": {
+          "chance": 0.4,
+          "talent": "craft",
+          "stat": "mental",
+          "success": {
+            "text": "동그랗고 예쁜 연등이 완성됐어요. 법당 앞에 걸어 주셨어요!",
+            "effects": {
+              "stats": {
+                "faith": 3,
+                "mental": 5
+              },
+              "rel": {
+                "gansa": 2
+              }
+            },
+            "record": "lantern_craft",
+            "highlight": "내가 만든 연등이 법당 앞에 걸렸어요."
+          },
+          "fail": {
+            "text": "모양이 조금 찌그러졌어요. 그래도 내 연등이라 좋아요.",
+            "effects": {
+              "stats": {
+                "mental": -4,
+                "faith": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "{haram}를 도와준다",
+        "text": "손재주 좋은 {haram}와 둘이 하나를 함께 만들었어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "mental": -2
+          },
+          "rel": {
+            "haram": 4
+          }
+        }
+      },
+      {
+        "label": "대충 붙이고 놀러 나간다",
+        "text": "마당에서 다람쥐를 쫓아다녔어요.",
+        "effects": {
+          "stats": {
+            "health": 5,
+            "faith": -4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "treasure-hunt",
+    "title": "경내 보물찾기",
+    "text": [
+      "지솔 쌤이 절 곳곳에 쪽지를 숨겨 놓았대요. 보물찾기 시작!"
+    ],
+    "choices": [
+      {
+        "label": "범종각 쪽을 샅샅이 뒤진다",
+        "tag": "active",
+        "roll": {
+          "chance": 0.4,
+          "stat": "intellect",
+          "success": {
+            "text": "범종 아래에서 '1등' 쪽지를 찾았어요! 상품은 연필 세트예요.",
+            "effects": {
+              "stats": {
+                "intellect": 5,
+                "health": 3
+              }
+            },
+            "record": "treasure_win",
+            "highlight": "보물찾기에서 1등 쪽지를 찾았어요."
+          },
+          "fail": {
+            "text": "쪽지는 못 찾았지만 범종을 가까이서 처음 봤어요.",
+            "effects": {
+              "stats": {
+                "health": 2,
+                "mental": -3
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "친구들과 팀을 짜서 찾는다",
+        "text": "셋이 함께 쪽지 네 장을 찾았어요.",
+        "effects": {
+          "stats": {
+            "charm": 5,
+            "intellect": -2
+          },
+          "rel": {
+            "jiho": 2,
+            "seoyun": 2
+          }
+        }
+      },
+      {
+        "label": "못 찾은 동생에게 쪽지를 양보한다",
+        "text": "동생 얼굴이 환해졌어요.",
+        "effects": {
+          "stats": {
+            "faith": 5,
+            "mental": -3
+          },
+          "rel": {
+            "gansa": 2
+          }
+        }
+      }
+    ],
+    "maxGrade": 5
+  },
+  {
+    "id": "meditation",
+    "title": "5분 명상",
+    "text": [
+      "정 선생님이 \"오늘은 5분 동안 숨소리만 들어 볼까?\" 하고 말씀하셨어요."
+    ],
+    "choices": [
+      {
+        "label": "눈을 감고 숨을 센다",
+        "tag": "calm",
+        "text": "하나, 둘, 셋… 5분이 생각보다 짧았어요.",
+        "effects": {
+          "stats": {
+            "mental": 7,
+            "faith": 3,
+            "charm": -2
+          }
+        }
+      },
+      {
+        "label": "실눈으로 친구들을 훔쳐본다",
+        "text": "{seoyun}는 진짜로 눈을 감고 있었어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "mental": -3
+          },
+          "rel": {
+            "seoyun": 1
+          }
+        }
+      },
+      {
+        "label": "몸이 근질거려 꼼지락댄다",
+        "text": "5분이 1시간 같았어요.",
+        "effects": {
+          "stats": {
+            "health": 3,
+            "mental": -4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "lunch",
+    "title": "절밥 먹는 날",
+    "text": [
+      "법회가 끝나고 공양간에서 다 같이 점심을 먹어요. 나물 반찬이 많아요."
+    ],
+    "choices": [
+      {
+        "label": "남기지 않고 싹싹 비운다",
+        "text": "보살님이 \"아이고 잘 먹네\" 하고 누룽지를 더 주셨어요.",
+        "effects": {
+          "stats": {
+            "health": 6,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "친구들과 반찬 바꿔 먹기",
+        "text": "{jiho}는 고사리를, 나는 콩자반을 넘겨줬어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "health": -1
+          },
+          "rel": {
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "설거지를 돕는다",
+        "text": "그릇을 나르다 보니 손이 차가웠지만 뿌듯했어요.",
+        "effects": {
+          "stats": {
+            "faith": 5,
+            "health": -3
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "birthday",
+    "title": "이달의 생일잔치",
+    "text": [
+      "이번 달 생일인 친구들을 위해 작은 케이크가 준비됐어요."
+    ],
+    "choices": [
+      {
+        "label": "큰 소리로 생일 노래를 부른다",
+        "tag": "active",
+        "text": "노래가 법당 밖까지 울렸어요.",
+        "effects": {
+          "stats": {
+            "charm": 6,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "생일인 {haram}에게 카드를 써 준다",
+        "text": "{haram}가 카드를 가방에 소중히 넣었어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "charm": -1
+          },
+          "rel": {
+            "haram": 4
+          }
+        }
+      },
+      {
+        "label": "케이크 자르는 걸 돕는다",
+        "text": "똑같이 나누느라 진땀을 뺐어요.",
+        "effects": {
+          "stats": {
+            "intellect": 3,
+            "charm": 2,
+            "health": -1
+          },
+          "rel": {
+            "gansa": 2
+          }
+        }
+      }
+    ],
+    "maxGrade": 5
+  },
+  {
+    "id": "cleaning",
+    "title": "마당 쓸기 봉사",
+    "text": [
+      "오늘은 다 같이 절 마당을 쓰는 날이에요. 싸리 빗자루가 키보다 커요."
+    ],
+    "choices": [
+      {
+        "label": "열심히 마당을 쓴다",
+        "text": "쓸고 나니 마당이 반짝반짝해 보였어요.",
+        "effects": {
+          "stats": {
+            "faith": 5,
+            "health": 3,
+            "charm": -3
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      },
+      {
+        "label": "낙엽으로 산을 쌓아 뛰어든다",
+        "tag": "active",
+        "text": "다시 쓸어야 했지만 제일 재밌었어요.",
+        "effects": {
+          "stats": {
+            "health": 4,
+            "charm": 5,
+            "faith": -4
+          },
+          "rel": {
+            "jiho": 2,
+            "teacher": -1
+          }
+        }
+      },
+      {
+        "label": "스님께 빗자루질을 배운다",
+        "text": "\"마음도 이렇게 쓸어 내는 거란다.\"",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "mental": 5,
+            "charm": -3
+          },
+          "rel": {
+            "monk": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "beads",
+    "title": "단주 만들기",
+    "text": [
+      "나무 구슬을 꿰어 손목에 차는 단주를 만들어요."
+    ],
+    "choices": [
+      {
+        "label": "구슬 하나에 소원 하나씩 담는다",
+        "tag": "calm",
+        "roll": {
+          "chance": 0.5,
+          "talent": "craft",
+          "success": {
+            "text": "구슬이 가지런한 단주가 완성됐어요. 손목에 차고 다닐래요.",
+            "effects": {
+              "stats": {
+                "faith": 6,
+                "mental": 3
+              }
+            },
+            "record": "beads_made",
+            "highlight": "직접 만든 단주를 손목에 찼어요."
+          },
+          "fail": {
+            "text": "줄이 끊어져 구슬이 데굴데굴 굴러갔어요. 다 같이 주워 줬어요.",
+            "effects": {
+              "stats": {
+                "mental": -4,
+                "charm": 1
+              },
+              "rel": {
+                "seoyun": 1,
+                "haram": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "엄마 것도 하나 더 만든다",
+        "text": "집에 가서 드렸더니 엄마가 한참 웃으셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "mental": 5,
+            "health": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "letter",
+    "title": "부모님께 편지 쓰기",
+    "text": [
+      "지솔 쌤이 편지지를 나눠 줬어요. \"오늘은 부모님께 편지를 써 볼까?\""
+    ],
+    "choices": [
+      {
+        "label": "솔직한 마음을 꾹꾹 눌러 쓴다",
+        "tag": "calm",
+        "text": "쓰다 보니 조금 눈물이 났어요.",
+        "effects": {
+          "stats": {
+            "mental": 6,
+            "intellect": 2,
+            "charm": -2
+          },
+          "rel": {
+            "gansa": 2
+          }
+        }
+      },
+      {
+        "label": "그림 편지로 그린다",
+        "text": "{haram}가 \"우와, 잘 그렸다\" 하고 감탄했어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "charm": 3
+          },
+          "rel": {
+            "haram": 2
+          }
+        }
+      },
+      {
+        "label": "\"사랑해요\" 네 글자만 쓴다",
+        "text": "짧지만 진심이었어요.",
+        "effects": {
+          "stats": {
+            "mental": 2,
+            "faith": -1
+          }
+        }
+      }
+    ],
+    "maxGrade": 5
+  },
+  {
+    "id": "quiz",
+    "title": "불교 퀴즈 대회",
+    "text": [
+      "\"부처님이 태어나신 날은?\" 정 선생님의 퀴즈 대회가 열렸어요."
+    ],
+    "choices": [
+      {
+        "label": "손을 번쩍 들고 정답을 외친다",
+        "tag": "active",
+        "roll": {
+          "chance": 0.35,
+          "stat": "intellect",
+          "success": {
+            "text": "연달아 정답! 퀴즈왕 스티커를 받았어요.",
+            "effects": {
+              "stats": {
+                "intellect": 6,
+                "faith": 3,
+                "charm": 2
+              }
+            },
+            "record": "quiz_win",
+            "highlight": "불교 퀴즈 대회에서 퀴즈왕이 됐어요."
+          },
+          "fail": {
+            "text": "자신 있게 외쳤는데 틀렸어요. 다들 웃었지만 괜찮아요.",
+            "effects": {
+              "stats": {
+                "charm": -4,
+                "intellect": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "{seoyun}와 머리를 맞댄다",
+        "text": "둘이서 다섯 문제를 맞혔어요.",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "charm": -2
+          },
+          "rel": {
+            "seoyun": 3
+          }
+        }
+      },
+      {
+        "label": "구경하며 답을 외워 둔다",
+        "text": "다음엔 꼭 손을 들 거예요.",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "charm": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "ocarina-practice",
+    "title": "오카리나 연습",
+    "text": [
+      "부처님오신날 공연을 위해 오카리나를 연습해요. 삑삑 소리가 법당에 가득해요."
+    ],
+    "choices": [
+      {
+        "label": "어려운 부분을 될 때까지 연습한다",
+        "tag": "calm",
+        "roll": {
+          "chance": 0.4,
+          "talent": "music",
+          "success": {
+            "text": "드디어 한 곡을 끝까지 불었어요! 지솔 쌤이 박수를 쳐 줬어요.",
+            "effects": {
+              "stats": {
+                "mental": 4,
+                "intellect": 2
+              },
+              "rel": {
+                "gansa": 2
+              }
+            },
+            "record": "ocarina_practice",
+            "highlight": "오카리나 한 곡을 끝까지 불 수 있게 됐어요."
+          },
+          "fail": {
+            "text": "자꾸 같은 데서 삑사리가 나요. 다음 주에 또 해 봐요.",
+            "effects": {
+              "stats": {
+                "mental": -4,
+                "intellect": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "친구들과 합주를 맞춘다",
+        "text": "서로 박자를 세어 주다 보니 소리가 하나로 모였어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "intellect": -1
+          },
+          "rel": {
+            "seoyun": 1,
+            "haram": 1,
+            "jiho": 1
+          }
+        }
+      }
+    ],
+    "months": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": "walk",
+    "title": "삼각산 산책",
+    "text": [
+      "날씨가 좋아서 법회 뒤에 다 같이 절 뒤편 산길을 걸었어요."
+    ],
+    "choices": [
+      {
+        "label": "맨 앞에서 길을 안내한다",
+        "tag": "active",
+        "text": "숨이 찼지만 꼭대기 바위에서 본 풍경이 멋졌어요.",
+        "effects": {
+          "stats": {
+            "health": 6,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "다람쥐를 관찰한다",
+        "tag": "calm",
+        "text": "다람쥐가 도토리를 볼에 잔뜩 넣는 걸 봤어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "intellect": 2,
+            "health": -1
+          }
+        }
+      },
+      {
+        "label": "느린 친구와 같이 걷는다",
+        "text": "{haram}와 이야기를 많이 했어요.",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "health": -2
+          },
+          "rel": {
+            "haram": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "paper-lotus",
+    "title": "종이 연꽃 접기",
+    "maxGrade": 3,
+    "text": [
+      "분홍 종이로 연꽃을 접어요. 지솔 쌤이 접는 순서를 크게 보여 주다가 자기 연꽃을 찢어 먹었어요. 다들 깔깔 놀려요."
+    ],
+    "choices": [
+      {
+        "label": "끝까지 혼자 접어 본다",
+        "tag": "calm",
+        "roll": {
+          "chance": 0.45,
+          "talent": "craft",
+          "success": {
+            "text": "꽃잎이 활짝 핀 연꽃이 됐어요! 엄마 선물로 가져갈래요.",
+            "effects": {
+              "stats": {
+                "mental": 5,
+                "intellect": 2
+              }
+            },
+            "record": "paper_lotus",
+            "highlight": "종이 연꽃을 혼자 끝까지 접었어요."
+          },
+          "fail": {
+            "text": "꽃잎이 자꾸 찢어졌어요. 쌤이 하나 접어 주셨어요.",
+            "effects": {
+              "stats": {
+                "mental": -3
+              },
+              "rel": {
+                "gansa": 2
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "옆 친구 것을 따라 접는다",
+        "text": "{seoyun}가 천천히 다시 보여 줬어요.",
+        "effects": {
+          "stats": {
+            "intellect": 3,
+            "mental": -2
+          },
+          "rel": {
+            "seoyun": 3
+          }
+        }
+      },
+      {
+        "label": "종이로 비행기를 접어 날린다",
+        "text": "법당 밖까지 날아갔어요. 정 선생님 얼굴이 굳었어요. 법당이 쥐 죽은 듯 조용해졌어요.",
+        "effects": {
+          "stats": {
+            "charm": 5,
+            "faith": -3
+          },
+          "rel": {
+            "jiho": 2,
+            "teacher": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "jump-rope",
+    "title": "줄넘기 대회",
+    "minGrade": 2,
+    "months": [
+      4,
+      6,
+      9,
+      10
+    ],
+    "text": [
+      "마당에서 긴 줄넘기 대회를 해요. \"꼬마야 꼬마야\" 노래가 울려요."
+    ],
+    "choices": [
+      {
+        "label": "줄 안으로 뛰어든다",
+        "tag": "active",
+        "roll": {
+          "chance": 0.4,
+          "talent": "sports",
+          "stat": "health",
+          "success": {
+            "text": "스무 번 넘게 걸리지 않았어요! 우리 반이 1등이에요.",
+            "effects": {
+              "stats": {
+                "health": 6,
+                "charm": 3
+              }
+            },
+            "record": "jump_rope",
+            "highlight": "긴 줄넘기 대회에서 끝까지 살아남았어요."
+          },
+          "fail": {
+            "text": "세 번째에 발이 걸렸어요. 다들 \"괜찮아!\" 해 줬어요.",
+            "effects": {
+              "stats": {
+                "health": 2,
+                "mental": -4
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "줄 돌리는 역할을 맡는다",
+        "text": "팔이 아팠지만 박자를 끝까지 맞췄어요.",
+        "effects": {
+          "stats": {
+            "health": 4,
+            "charm": 1,
+            "mental": -1
+          },
+          "rel": {
+            "gansa": 2
+          }
+        }
+      },
+      {
+        "label": "숫자를 세어 준다",
+        "text": "목이 쉬도록 숫자를 셌어요.",
+        "effects": {
+          "stats": {
+            "intellect": 3,
+            "charm": 2,
+            "health": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "rice-ball",
+    "title": "주먹밥 만들기",
+    "minGrade": 3,
+    "text": [
+      "공양간 보살님이 오늘은 주먹밥을 같이 만들재요. 손에 참기름을 바르고 시작!"
+    ],
+    "choices": [
+      {
+        "label": "동그랗고 예쁘게 빚는다",
+        "tag": "calm",
+        "text": "보살님이 \"솜씨 좋네\" 하며 하나 더 집어 주셨어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "health": 3,
+            "charm": -1
+          }
+        }
+      },
+      {
+        "label": "엄청 큰 주먹밥에 도전한다",
+        "tag": "active",
+        "text": "어른 주먹만 한 주먹밥이 완성됐어요. {jiho}랑 반씩 나눠 먹었어요.",
+        "effects": {
+          "stats": {
+            "health": 4,
+            "charm": 4,
+            "faith": -2
+          },
+          "rel": {
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "어르신 신도님들께 나눠 드린다",
+        "text": "할머니 신도님들이 머리를 쓰다듬어 주셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 6,
+            "charm": 2,
+            "health": -3
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "bows-108",
+    "title": "108배 도전",
+    "minGrade": 4,
+    "text": [
+      "정 선생님이 \"오늘은 고학년만 108배에 도전해 볼까? 선생님도 같이 한다! 아이고 무릎이야\" 하셨어요. 염주 알을 하나씩 넘기며 절해요."
+    ],
+    "choices": [
+      {
+        "label": "끝까지 해 본다",
+        "tag": "calm",
+        "roll": {
+          "chance": 0.35,
+          "stat": "health",
+          "success": {
+            "text": "108번째 절을 마치자 땀이 뚝뚝 떨어졌어요. 이상하게 마음이 개운해요.",
+            "effects": {
+              "stats": {
+                "faith": 7,
+                "health": 3,
+                "mental": 3
+              },
+              "rel": {
+                "monk": 2
+              }
+            },
+            "record": "bows_108",
+            "highlight": "처음으로 108배를 끝까지 했어요."
+          },
+          "fail": {
+            "text": "54배에서 다리가 후들거려 멈췄어요. 그래도 절반이에요!",
+            "effects": {
+              "stats": {
+                "health": -5,
+                "faith": 3
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "친구들과 숫자를 맞춰 함께 한다",
+        "text": "서로 \"하나 더!\" 하며 끝까지 했어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "charm": 3,
+            "health": -3
+          },
+          "rel": {
+            "seoyun": 2,
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "동생들 자세를 봐 준다",
+        "text": "1학년 동생 무릎 방석을 바로 놓아 줬어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "faith": 1,
+            "mental": -2
+          },
+          "rel": {
+            "gansa": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "songs",
+    "title": "찬불가 배우기",
+    "maxGrade": 4,
+    "text": [
+      "지솔 쌤이 기타를 들고 왔어요. 오늘은 새 찬불가를 배워요."
+    ],
+    "choices": [
+      {
+        "label": "큰 소리로 따라 부른다",
+        "tag": "active",
+        "roll": {
+          "chance": 0.45,
+          "talent": "music",
+          "success": {
+            "text": "음정이 딱딱 맞았어요. 지솔 쌤이 \"오늘 솔로 해 볼래?\" 했어요.",
+            "effects": {
+              "stats": {
+                "charm": 5,
+                "faith": 3
+              },
+              "rel": {
+                "gansa": 3
+              }
+            },
+            "record": "song_solo",
+            "highlight": "찬불가를 혼자 불러 봤어요."
+          },
+          "fail": {
+            "text": "목소리만 컸어요. 그래도 신났어요.",
+            "effects": {
+              "stats": {
+                "charm": -3,
+                "mental": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "가사를 공책에 적는다",
+        "text": "집에 가서도 흥얼거렸어요.",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "faith": 1,
+            "charm": -2
+          }
+        }
+      },
+      {
+        "label": "율동을 만들어 붙인다",
+        "text": "친구들이 내 율동을 따라 했어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "health": 2,
+            "intellect": -1
+          },
+          "rel": {
+            "haram": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "movie-day",
+    "title": "영화 보는 날",
+    "text": [
+      "오늘은 법당 옆방에서 다 같이 애니메이션을 봐요. 불을 끄니 아늑해요."
+    ],
+    "choices": [
+      {
+        "label": "맨 앞에 앉아 집중한다",
+        "text": "주인공이 친구를 용서하는 장면에서 울컥했어요.",
+        "effects": {
+          "stats": {
+            "mental": 6,
+            "charm": -2
+          }
+        }
+      },
+      {
+        "label": "친구들과 과자를 나눠 먹는다",
+        "text": "바스락 소리에 쌤이 \"쉿\" 했지만 웃고 계셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "mental": 1
+          },
+          "rel": {
+            "jiho": 2,
+            "haram": 1
+          }
+        }
+      },
+      {
+        "label": "끝나고 줄거리를 동생들에게 설명한다",
+        "text": "동생들이 \"그래서 어떻게 됐어?\" 하고 졸랐어요.",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "charm": 2,
+            "mental": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "talent-practice",
+    "title": "장기자랑 연습",
+    "minGrade": 3,
+    "months": [
+      6,
+      9,
+      10,
+      11
+    ],
+    "text": [
+      "다음 달 어린이회 장기자랑이 있대요. 조별로 무엇을 할지 정해요."
+    ],
+    "choices": [
+      {
+        "label": "조장을 맡아 아이디어를 낸다",
+        "tag": "active",
+        "text": "\"연등 들고 하는 콩트 어때?\" 다들 좋다고 했어요.",
+        "effects": {
+          "stats": {
+            "charm": 6,
+            "mental": -4
+          }
+        }
+      },
+      {
+        "label": "대본을 쓴다",
+        "tag": "calm",
+        "text": "웃긴 대사를 세 개나 넣었어요.",
+        "effects": {
+          "stats": {
+            "intellect": 5,
+            "mental": 1,
+            "charm": -2
+          },
+          "rel": {
+            "seoyun": 2
+          }
+        }
+      },
+      {
+        "label": "소품을 만든다",
+        "text": "{haram}와 종이 상자로 범종을 만들었어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "charm": -1
+          },
+          "rel": {
+            "haram": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "ask-monk",
+    "title": "스님께 물어보세요",
+    "maxGrade": 4,
+    "text": [
+      "스님이 \"궁금한 거 아무거나 물어보렴\" 하셨어요. 손들이 번쩍번쩍 올라가요."
+    ],
+    "choices": [
+      {
+        "label": "\"스님은 왜 머리를 깎으세요?\"",
+        "text": "\"마음에 붙은 걸 하나씩 덜어 내려고 그런단다.\" 스님이 껄껄 웃으셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "intellect": 3,
+            "charm": -1
+          },
+          "rel": {
+            "monk": 3
+          }
+        },
+        "flag": "asked_monk_hair"
+      },
+      {
+        "label": "\"부처님도 화가 나요?\"",
+        "text": "\"화가 나도 금방 알아차리는 분이셨지.\" 그 말이 오래 생각났어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "faith": 4,
+            "charm": -1
+          },
+          "rel": {
+            "monk": 3
+          }
+        },
+        "flag": "asked_monk_angry"
+      },
+      {
+        "label": "\"스님도 피자 드세요?\"",
+        "text": "다들 빵 터졌어요. 스님도 웃으시며 \"비밀이다\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 5,
+            "faith": -2
+          },
+          "rel": {
+            "monk": 2,
+            "jiho": 1
+          }
+        },
+        "flag": "asked_monk_pizza"
+      }
+    ]
+  },
+  {
+    "id": "flower-bed",
+    "title": "연꽃 화분 가꾸기",
+    "months": [
+      3,
+      4,
+      6
+    ],
+    "text": [
+      "마당 한쪽 연꽃 화분에 물을 갈아 주는 날이에요. 작은 연잎이 동동 떠 있어요."
+    ],
+    "choices": [
+      {
+        "label": "물을 갈고 잎을 닦아 준다",
+        "tag": "calm",
+        "text": "스님이 \"여름이면 꽃이 필 거다\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "faith": 3,
+            "health": -1
+          },
+          "rel": {
+            "monk": 2
+          }
+        }
+      },
+      {
+        "label": "올챙이를 찾는다",
+        "tag": "active",
+        "text": "화분 바닥에서 올챙이 세 마리를 발견했어요!",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "health": 2,
+            "faith": -1
+          },
+          "rel": {
+            "jiho": 1
+          }
+        }
+      },
+      {
+        "label": "화분 이름표를 만든다",
+        "text": "'어린이회 연꽃'이라고 예쁘게 써 붙였어요.",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "mental": 2
+          },
+          "rel": {
+            "haram": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "seon-visit",
+    "title": "국제선원 수행자 만나기",
+    "minGrade": 4,
+    "text": [
+      "오늘은 국제선원에서 수행하시는 외국인 스님이 어린이회에 오셨어요. \"안녕하세요!\" 한국말이 제법이에요."
+    ],
+    "choices": [
+      {
+        "label": "영어로 인사해 본다",
+        "tag": "active",
+        "text": "\"Hello! Nice to meet you!\" 스님이 엄지를 들어 주셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "intellect": 3,
+            "mental": -2
+          }
+        },
+        "highlight": "국제선원 외국인 스님과 영어로 인사했어요."
+      },
+      {
+        "label": "어느 나라에서 오셨는지 묻는다",
+        "text": "멀리서 한국 절에 수행하러 오셨대요. 신기했어요.",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "faith": 1
+          }
+        }
+      },
+      {
+        "label": "같이 앉아 명상한다",
+        "tag": "calm",
+        "text": "\"숨을 그냥 바라봐요.\" 서툰 한국말이 오히려 마음에 쏙 들어왔어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "faith": 3,
+            "charm": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "songpyeon",
+    "title": "송편 빚기",
+    "months": [
+      9
+    ],
+    "text": [
+      "추석을 앞두고 공양간에서 송편을 빚어요. 반죽에서 쑥 냄새가 나요."
+    ],
+    "choices": [
+      {
+        "label": "반달 모양으로 예쁘게 빚는다",
+        "tag": "calm",
+        "text": "\"예쁘게 빚으면 예쁜 짝 만난대\" 보살님이 놀리셨어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "charm": 1,
+            "health": -1
+          }
+        }
+      },
+      {
+        "label": "소를 듬뿍 넣는다",
+        "text": "꿀이 터져서 손이 끈적끈적해졌어요. 그래도 제일 맛있었어요.",
+        "effects": {
+          "stats": {
+            "health": 4,
+            "charm": 2,
+            "faith": -1
+          }
+        }
+      },
+      {
+        "label": "빚은 송편을 신도님들께 나른다",
+        "text": "쟁반이 무거웠지만 다들 고맙다고 하셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "health": -2
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "kimchi",
+    "title": "김장 돕기",
+    "months": [
+      11
+    ],
+    "text": [
+      "절에서 김장을 하는 날이에요. 마당에 배추가 산처럼 쌓였어요."
+    ],
+    "choices": [
+      {
+        "label": "배추를 나른다",
+        "tag": "active",
+        "text": "배추가 생각보다 무거웠어요. 보살님들이 \"장사네!\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "health": 6,
+            "faith": 1,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "속 넣는 걸 거든다",
+        "text": "손이 빨개졌지만 갓 버무린 김치를 한 입 얻어먹었어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "charm": 2,
+            "health": -1
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      },
+      {
+        "label": "수육 냄새를 따라 공양간으로 간다",
+        "text": "들켰지만 보살님이 한 점 싸 주셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "mental": 2,
+            "faith": -3
+          },
+          "rel": {
+            "jiho": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-rep-attendance",
+    "title": "대표의 일요일",
+    "requires": {
+      "flags": [
+        "year:rep"
+      ]
+    },
+    "text": [
+      "학년 대표라 법회 전에 친구들 출석을 불러요. 한 명이 안 보여요. {jiho}예요."
+    ],
+    "choices": [
+      {
+        "label": "{jiho}네 집에 전화해 본다",
+        "text": "늦잠이었대요. {jiho}가 머리도 안 말리고 뛰어왔어요. \"대표님, 고마워!\"",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "mental": -1
+          },
+          "rel": {
+            "jiho": 4,
+            "teacher": 2
+          }
+        }
+      },
+      {
+        "label": "빠진 친구는 신경 쓰지 않는다",
+        "text": "예불은 무사히 끝났지만, 정 선생님이 \"대표는 빈자리도 보는 거야\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "mental": 1
+          },
+          "rel": {
+            "teacher": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-rep-line",
+    "title": "줄이 엉망이에요",
+    "requires": {
+      "flags": [
+        "year:rep"
+      ]
+    },
+    "text": [
+      "점심 공양 시간, 우리 학년 줄이 엉망이에요. 다들 대표인 나를 쳐다봐요."
+    ],
+    "choices": [
+      {
+        "label": "큰 소리로 줄을 세운다",
+        "tag": "active",
+        "text": "\"키 순서대로!\" 금방 줄이 섰어요. 보살님이 \"대표 노릇 하네\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "mental": -2
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      },
+      {
+        "label": "내가 맨 뒤로 간다",
+        "tag": "calm",
+        "text": "내가 양보하자 다른 친구들도 하나둘 뒤로 갔어요. 조용히 줄이 정리됐어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "charm": 1,
+            "health": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-president-moktak",
+    "title": "목탁을 치는 일요일",
+    "requires": {
+      "flags": [
+        "president"
+      ]
+    },
+    "minGrade": 6,
+    "text": [
+      "예불 시간, 법당 앞에 서서 목탁을 들어요. 모두가 내 박자를 기다려요. 숨을 한 번 고르고…",
+      "회장이 된 뒤로 일요일 아침이 달라졌어요. 법당 앞, 목탁이 내 손에 있어요."
+    ],
+    "choices": [
+      {
+        "label": "천천히, 또박또박 친다",
+        "tag": "calm",
+        "roll": {
+          "chance": 0.45,
+          "talent": "music",
+          "stat": "mental",
+          "success": {
+            "text": "똑, 똑, 똑. 내 박자에 맞춰 친구들 염불이 하나로 모였어요. 스님이 뒤에서 고개를 끄덕이셨어요.",
+            "effects": {
+              "stats": {
+                "faith": 5,
+                "charm": 2
+              },
+              "rel": {
+                "monk": 3
+              }
+            },
+            "record": "moktak_good",
+            "highlight": "예불 목탁을 한 번도 틀리지 않고 쳤어요."
+          },
+          "fail": {
+            "text": "박자가 점점 빨라져서 염불이 엉켰어요. {seoyun}가 옆에서 작게 \"천천히\" 했어요.",
+            "effects": {
+              "stats": {
+                "mental": -4,
+                "faith": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "스님 목소리에 귀를 기울이며 친다",
+        "text": "내 박자보다 스님 염불을 따라가니 마음이 놓였어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "mental": 2,
+            "charm": -1
+          },
+          "rel": {
+            "monk": 4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-president-conflict",
+    "title": "회장이라 못 빠지는 날",
+    "requires": {
+      "flags": [
+        "president"
+      ]
+    },
+    "minGrade": 6,
+    "text": [
+      "학교 친구들이 일요일에 놀이공원에 간대요. 같이 가자고 조르는데, 목탁을 칠 사람이 나밖에 없어요."
+    ],
+    "choices": [
+      {
+        "label": "법회에 간다",
+        "text": "놀이공원 사진이 단톡방에 잔뜩 올라왔어요. 그래도 예불을 마치고 나니 뿌듯했어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "charm": -3
+          },
+          "rel": {
+            "teacher": 3,
+            "monk": 2
+          }
+        }
+      },
+      {
+        "label": "부회장에게 목탁을 부탁하고 놀러 간다",
+        "text": "신나게 놀았지만, 다음 주 법회에서 정 선생님 눈을 못 마주쳤어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "mental": 2,
+            "faith": -5
+          },
+          "rel": {
+            "teacher": -5
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-president-juniors",
+    "title": "회장에게 온 쪽지",
+    "requires": {
+      "flags": [
+        "president"
+      ]
+    },
+    "minGrade": 6,
+    "text": [
+      "2학년 동생이 쪽지를 내밀어요. '회장 {senior}, 저도 목탁 쳐 보고 싶어요.'"
+    ],
+    "choices": [
+      {
+        "label": "법회 끝나고 몰래 쳐 보게 해 준다",
+        "text": "작은 손으로 똑, 똑. 동생 얼굴이 환해졌어요. 스님이 못 본 척 지나가셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "faith": 1
+          },
+          "rel": {
+            "gansa": 3
+          }
+        },
+        "record": "helped_kid"
+      },
+      {
+        "label": "회장이 되면 칠 수 있다고 말해 준다",
+        "text": "동생이 \"그럼 저도 회장 할래요!\" 하고 주먹을 쥐었어요.",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "intellect": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-vice",
+    "title": "부회장의 일요일",
+    "requires": {
+      "flags": [
+        "vice"
+      ]
+    },
+    "minGrade": 6,
+    "text": [
+      "회장 {seoyun}가 목탁을 치기 전에 손을 덜덜 떨어요. \"나 오늘 왜 이러지?\""
+    ],
+    "choices": [
+      {
+        "label": "옆에서 박자를 같이 세 준다",
+        "text": "작게 \"하나, 둘\" 세 주자 {seoyun} 목탁이 차분해졌어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "charm": 1
+          },
+          "rel": {
+            "seoyun": 5
+          }
+        }
+      },
+      {
+        "label": "오늘은 내가 대신 칠까 묻는다",
+        "tag": "active",
+        "text": "{seoyun}가 고개를 저었어요. \"아니, 내가 할게.\" 그 말에 내가 더 든든해졌어요.",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "seoyun": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "role-backed",
+    "title": "회장 {seoyun}의 목탁",
+    "requires": {
+      "flags": [
+        "backed_friend"
+      ]
+    },
+    "minGrade": 6,
+    "text": [
+      "내가 밀어준 회장 {seoyun}가 목탁을 쳐요. 그런데 오늘따라 박자가 자꾸 빨라져요."
+    ],
+    "choices": [
+      {
+        "label": "염불 소리를 크게 내서 박자를 잡아 준다",
+        "text": "내 목소리에 맞춰 목탁이 차분해졌어요. 예불이 끝나고 {seoyun}가 엄지를 들었어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "charm": 2
+          },
+          "rel": {
+            "seoyun": 4
+          }
+        }
+      },
+      {
+        "label": "모른 척 눈을 감는다",
+        "text": "엉킨 염불 끝에 {seoyun}가 울상이 됐어요.",
+        "effects": {
+          "stats": {
+            "mental": 1
+          },
+          "rel": {
+            "seoyun": -3
+          }
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,1439 @@
+{
+  "_note": "큰 행사. 종류마다 학년별 버전이 있고, 그 학년에 맞는 것 중 안 본 것이 먼저 나와요.",
+  "lantern": [
+    {
+      "id": "lantern-first",
+      "title": "처음 가 보는 연등회",
+      "text": [
+        "종로 거리가 사람으로 꽉 찼어요. 이렇게 많은 연등은 처음 봐요. 지솔 쌤 손을 꼭 잡았어요. 쌤은 다른 손으로 연신 우리 사진을 찍어요."
+      ],
+      "choices": [
+        {
+          "label": "쌤 손을 꼭 잡고 율동하며 걷는다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.45,
+            "temper": "active",
+            "stat": "charm",
+            "success": {
+              "text": "구경하던 외국인 관광객이 \"So cute!\" 하며 사진을 찍었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "faith": 2
+                }
+              },
+              "record": "lantern_dance",
+              "highlight": "처음 간 연등회에서 율동을 끝까지 해냈어요."
+            },
+            "fail": {
+              "text": "사람이 많아 겁이 났지만 쌤 손을 놓지 않고 끝까지 걸었어요.",
+              "effects": {
+                "stats": {
+                  "faith": 2,
+                  "mental": 1
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "하늘을 덮은 연등을 올려다본다",
+          "tag": "calm",
+          "text": "고개가 아플 때까지 봤어요. 꿈속 같았어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 3
+            }
+          },
+          "highlight": "처음 본 연등회 불빛을 잊을 수 없어요."
+        },
+        {
+          "label": "코끼리 연등을 쫓아간다",
+          "text": "줄에서 벗어나 지솔 쌤이 깜짝 놀라 데리러 왔어요.",
+          "effects": {
+            "stats": {
+              "health": 2,
+              "charm": 1
+            },
+            "rel": {
+              "gansa": -1
+            }
+          },
+          "flag": "chased_elephant"
+        }
+      ],
+      "maxGrade": 1
+    },
+    {
+      "id": "lantern-rain",
+      "title": "비 오는 연등회",
+      "text": [
+        "연등회 날인데 오후부터 비가 와요. 우비를 입고 연등에 비닐을 씌웠어요."
+      ],
+      "choices": [
+        {
+          "label": "빗속에서도 율동을 한다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.4,
+            "temper": "active",
+            "stat": "health",
+            "success": {
+              "text": "흠뻑 젖었지만 동작 하나 안 틀렸어요. 길가 어른들이 박수를 크게 쳐 줬어요.",
+              "effects": {
+                "stats": {
+                  "charm": 3,
+                  "health": 2,
+                  "faith": 2
+                }
+              },
+              "record": "lantern_dance",
+              "highlight": "비 오는 연등회에서 끝까지 율동했어요."
+            },
+            "fail": {
+              "text": "미끄러져 엉덩방아를 찧었어요. {jiho}가 일으켜 줬어요.",
+              "effects": {
+                "stats": {
+                  "health": -1,
+                  "charm": 1
+                },
+                "rel": {
+                  "jiho": 3
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "내 연등이 꺼지지 않게 지킨다",
+          "tag": "calm",
+          "text": "손으로 감싸 안고 걸었어요. 끝까지 불이 꺼지지 않았어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2
+            }
+          }
+        },
+        {
+          "label": "동생 우비 모자를 씌워 준다",
+          "text": "1학년 동생이 \"고마워요\" 하고 작게 말했어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "faith": 1
+            },
+            "rel": {
+              "gansa": 2
+            }
+          }
+        }
+      ],
+      "minGrade": 2,
+      "maxGrade": 4
+    },
+    {
+      "id": "lantern-leader",
+      "title": "동생들 앞에 선 연등회",
+      "text": [
+        "이제 어린이회 고학년이에요. 지솔 쌤이 \"올해는 너희가 동생들 앞줄이야\" 했어요."
+      ],
+      "choices": [
+        {
+          "label": "맨 앞에서 율동을 이끈다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.45,
+            "temper": "active",
+            "stat": "charm",
+            "success": {
+              "text": "내 동작을 보고 동생들이 따라 했어요. 행렬이 하나처럼 움직였어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "faith": 2
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              },
+              "record": "lantern_dance",
+              "highlight": "연등회 맨 앞줄에서 동생들을 이끌었어요."
+            },
+            "fail": {
+              "text": "박자가 한 번 꼬였는데 동생들도 같이 꼬였어요. 다 같이 웃었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "길 잃은 동생을 찾아 데려온다",
+          "text": "울고 있던 1학년을 찾아 행렬로 데려왔어요. 지솔 쌤이 \"역시\" 했어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "mental": 1
+            },
+            "rel": {
+              "gansa": 4
+            }
+          },
+          "record": "helped_kid",
+          "highlight": "연등회에서 길 잃은 동생을 찾아 줬어요."
+        },
+        {
+          "label": "친구들과 마지막으로 연등 구경을 한다",
+          "text": "\"내년엔 학생회로 오겠지?\" {haram}가 말했어요.",
+          "effects": {
+            "stats": {
+              "mental": 2
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          }
+        }
+      ],
+      "minGrade": 5
+    },
+    {
+      "id": "lantern-parade",
+      "title": "연등회 행렬",
+      "minGrade": 2,
+      "maxGrade": 4,
+      "text": [
+        "해가 지자 거리가 연등 불빛으로 가득해요. 어린이회 행렬이 출발해요!",
+        "올해도 연등회예요. 손에 든 연등에 불이 들어오자 친구들이 환호했어요."
+      ],
+      "choices": [
+        {
+          "label": "맨 앞줄에서 율동을 한다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.45,
+            "temper": "active",
+            "stat": "charm",
+            "success": {
+              "text": "동작 하나 틀리지 않았어요! 구경하던 사람들이 박수를 쳐 줬어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "faith": 2,
+                  "health": 1
+                }
+              },
+              "record": "lantern_dance",
+              "highlight": "연등회 맨 앞줄에서 율동을 해냈어요."
+            },
+            "fail": {
+              "text": "동작을 까먹어서 옆 친구를 따라 했어요. 그래도 끝까지 걸었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "faith": 2,
+                  "health": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "연등을 들고 묵묵히 걷는다",
+          "tag": "calm",
+          "text": "불빛 사이를 걸으니 마음이 이상하게 차분해졌어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2,
+              "health": 1
+            }
+          }
+        },
+        {
+          "label": "친구들과 다른 절 연등을 구경한다",
+          "text": "용 모양, 코끼리 모양 연등! 입이 떡 벌어졌어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "mental": 2
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "buddha": [
+    {
+      "id": "buddha-first",
+      "title": "첫 부처님오신날 공연",
+      "maxGrade": 1,
+      "text": [
+        "부처님오신날이에요. 마당이 사람으로 북적여요. 어린이회는 오카리나 연주를 하고 이어서 율동을 해요. 첫 공연이라 다리가 덜덜 떨려요."
+      ],
+      "choices": [
+        {
+          "label": "맨 앞줄에서 오카리나도 율동도 해낸다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.35,
+            "talent": "music",
+            "stat": "charm",
+            "success": {
+              "text": "삑 소리 없이 오카리나를 불고, 율동까지 하나도 안 틀렸어요! 엄마가 맨 앞에서 손을 흔들었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "faith": 3
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              },
+              "record": "ocarina_success",
+              "highlight": "첫 부처님오신날 공연을 맨 앞줄에서 해냈어요."
+            },
+            "fail": {
+              "text": "오카리나는 첫 음을 놓쳤고, 율동은 혼자 반대로 돌았어요. 그래도 할머니 신도님들이 제일 크게 박수 쳐 주셨어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "mental": -3
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "뒷줄에서 친구들과 박자를 맞춘다",
+          "tag": "calm",
+          "text": "{seoyun}랑 눈으로 박자를 세며 오카리나도 율동도 끝까지 했어요. 실수 하나 없이요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2
+            },
+            "rel": {
+              "seoyun": 3,
+              "jiho": 1,
+              "haram": 1
+            }
+          }
+        },
+        {
+          "label": "공연이 끝나고 아기 부처님을 씻겨 드린다",
+          "text": "작은 국자로 물을 부어 드리며 소원을 빌었어요.",
+          "effects": {
+            "stats": {
+              "faith": 5,
+              "charm": -1
+            },
+            "rel": {
+              "monk": 2
+            }
+          },
+          "record": "bathing"
+        }
+      ]
+    },
+    {
+      "id": "buddha-lunch",
+      "title": "부처님오신날, 비빔밥 줄",
+      "text": [
+        "공연이 끝나자 공양간 앞에 비빔밥을 받으려는 줄이 길게 늘어섰어요. 오늘은 신도님이 수천 명은 오신 것 같아요."
+      ],
+      "choices": [
+        {
+          "label": "공연 때 맨 앞줄에 선다",
+          "tag": "calm",
+          "roll": {
+            "chance": 0.4,
+            "talent": "music",
+            "success": {
+              "text": "오카리나도 율동도 맨 앞에서 해냈어요. 스님이 고개를 끄덕이셨어요.",
+              "effects": {
+                "stats": {
+                  "faith": 3,
+                  "charm": 2
+                },
+                "rel": {
+                  "monk": 2
+                }
+              },
+              "record": "ocarina_success",
+              "highlight": "부처님오신날 공연에서 맨 앞줄에 섰어요."
+            },
+            "fail": {
+              "text": "오카리나에서 한 번 삑사리가 났어요. 그래도 율동은 끝까지 웃으며 했어요.",
+              "effects": {
+                "stats": {
+                  "faith": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "공양간에서 비빔밥 나르기를 돕는다",
+          "text": "그릇을 백 개는 나른 것 같아요. 보살님들이 떡을 챙겨 주셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "health": 1
+            },
+            "rel": {
+              "teacher": 3
+            }
+          }
+        },
+        {
+          "label": "친구들과 연등 아래서 비빔밥을 먹는다",
+          "text": "연등 그림자가 비빔밥 위에 알록달록 비쳤어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "mental": 2
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2
+            }
+          }
+        }
+      ],
+      "minGrade": 2,
+      "maxGrade": 4
+    },
+    {
+      "id": "buddha-solo",
+      "title": "고학년의 부처님오신날",
+      "text": [
+        "올해 부처님오신날 오카리나 연주와 율동은 고학년이 앞에서 꾸려요. 지솔 쌤이 \"오카리나 독주 할 사람?\" 하고 물었어요."
+      ],
+      "choices": [
+        {
+          "label": "오카리나 독주를 맡는다",
+          "tag": "calm",
+          "roll": {
+            "chance": 0.35,
+            "talent": "music",
+            "success": {
+              "text": "마당이 조용해지고 내 소리만 울렸어요. 끝나자 박수가 쏟아졌어요.",
+              "effects": {
+                "stats": {
+                  "faith": 3,
+                  "charm": 3,
+                  "mental": 2
+                },
+                "rel": {
+                  "monk": 3,
+                  "gansa": 2
+                }
+              },
+              "record": "ocarina_success",
+              "highlight": "부처님오신날에 오카리나 독주를 했어요."
+            },
+            "fail": {
+              "text": "손이 떨려 한 소절을 건너뛰었어요. 그래도 끝까지 서 있었어요.",
+              "effects": {
+                "stats": {
+                  "faith": 2,
+                  "mental": -2
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "공연 사회를 본다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.4,
+            "stat": "charm",
+            "success": {
+              "text": "\"다음 순서는 1학년 동생들의 율동입니다!\" 목소리가 또랑또랑했대요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "intellect": 1
+                }
+              },
+              "record": "mc",
+              "highlight": "부처님오신날 공연 사회를 봤어요."
+            },
+            "fail": {
+              "text": "순서를 한 번 헷갈렸어요. 정 선생님이 귓속말로 알려 주셨어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1
+                },
+                "rel": {
+                  "teacher": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "동생들 율동 연습을 도와준다",
+          "text": "무대 뒤에서 동작을 같이 맞춰 줬어요. 동생들이 무대에서 실수 없이 해냈어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "faith": 2
+            },
+            "rel": {
+              "gansa": 3
+            }
+          },
+          "record": "helped_kid"
+        }
+      ],
+      "minGrade": 5
+    },
+    {
+      "id": "buddha-birthday",
+      "title": "부처님오신날",
+      "minGrade": 2,
+      "maxGrade": 4,
+      "text": [
+        "부처님오신날이에요. 올해도 어린이회는 오카리나 연주와 율동을 다 같이 해요. 지솔 쌤이 \"오카리나 솔로 부분이랑 율동 맨 앞줄, 해 볼 사람?\" 하고 물어요."
+      ],
+      "choices": [
+        {
+          "label": "오카리나 솔로 부분을 맡는다",
+          "tag": "calm",
+          "roll": {
+            "chance": 0.4,
+            "talent": "music",
+            "success": {
+              "text": "내 솔로가 끝나자 마당이 조용해졌다가 박수가 터졌어요. 스님이 고개를 끄덕이셨어요.",
+              "effects": {
+                "stats": {
+                  "faith": 3,
+                  "charm": 3,
+                  "mental": 2
+                },
+                "rel": {
+                  "monk": 2,
+                  "gansa": 2
+                }
+              },
+              "record": "ocarina_success",
+              "highlight": "부처님오신날 공연에서 오카리나 솔로를 했어요."
+            },
+            "fail": {
+              "text": "솔로에서 삑사리가 났어요. 얼굴이 빨개졌지만, 이어지는 율동은 끝까지 했어요.",
+              "effects": {
+                "stats": {
+                  "faith": 2,
+                  "mental": -3
+                },
+                "rel": {
+                  "gansa": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "율동 맨 앞줄에 선다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.45,
+            "temper": "active",
+            "stat": "health",
+            "success": {
+              "text": "오카리나를 내려놓고 바로 율동! 맨 앞에서 신나게 췄더니 신도님들 박수가 쏟아졌어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "faith": 2,
+                  "health": 2
+                }
+              },
+              "record": "dance_success",
+              "highlight": "부처님오신날 율동 맨 앞줄에 섰어요."
+            },
+            "fail": {
+              "text": "맨 앞에서 박자를 한 번 놓쳤어요. 뒤에서 다들 따라 틀려서 오히려 웃음바다가 됐어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "공연이 끝나고 아기 부처님을 씻겨 드린다",
+          "text": "작은 국자로 물을 부어 드리며 소원을 빌었어요.",
+          "effects": {
+            "stats": {
+              "faith": 5,
+              "charm": -1
+            },
+            "rel": {
+              "monk": 2
+            }
+          },
+          "record": "bathing"
+        }
+      ]
+    }
+  ],
+  "camp": [
+    {
+      "id": "camp-first",
+      "title": "처음 가는 물놀이캠프",
+      "maxGrade": 1,
+      "text": [
+        "물놀이캠프 날, 절 마당에 커다란 물놀이 미끄럼틀이 들어왔어요! 학생회 형·누나·언니·오빠들이 물총을 들고 기다려요. 오늘 밤은 절에서 자요."
+      ],
+      "choices": [
+        {
+          "label": "꼭대기까지 올라가 미끄럼틀을 탄다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.4,
+            "talent": "sports",
+            "stat": "health",
+            "success": {
+              "text": "꼭대기에서 눈을 질끈 감고 슝! 물보라 속에서 학생회 언니가 \"잘했어!\" 하고 소리쳤어요.",
+              "effects": {
+                "stats": {
+                  "health": 4,
+                  "mental": 2
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              },
+              "record": "swim",
+              "highlight": "물놀이캠프에서 처음으로 큰 미끄럼틀을 탔어요."
+            },
+            "fail": {
+              "text": "꼭대기까지 갔다가 무서워서 계단으로 내려왔어요. 학생회 형이 어깨를 토닥여 줬어요.",
+              "effects": {
+                "stats": {
+                  "health": 1,
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "학생회 형·누나들과 물총 싸움을 한다",
+          "tag": "active",
+          "text": "형·누나들이 일부러 져 줬어요. 흠뻑 젖어서 깔깔 웃었어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "charm": 3
+            },
+            "rel": {
+              "jiho": 2
+            }
+          },
+          "record": "water_fight"
+        },
+        {
+          "label": "밤에 엄마가 보고 싶어 운다",
+          "text": "법당 옆방에 이불을 펴고 누웠는데 눈물이 났어요. 지솔 쌤이 옆에 누워 이야기를 해 주다가 먼저 잠들었어요.",
+          "effects": {
+            "stats": {
+              "mental": -1
+            },
+            "rel": {
+              "gansa": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "camp-night",
+      "title": "절에서 자는 밤",
+      "minGrade": 2,
+      "maxGrade": 4,
+      "text": [
+        "캠프 첫날 밤, 법당 옆방에 이불을 쭉 펴고 누웠어요. 불을 끄자 누군가 귀신 이야기를 시작해요."
+      ],
+      "choices": [
+        {
+          "label": "끝까지 듣고 더 무서운 이야기로 받아친다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.4,
+            "temper": "active",
+            "stat": "mental",
+            "success": {
+              "text": "내 이야기에 다들 이불을 뒤집어썼어요. 순찰 돌던 지솔 쌤까지 깜짝 놀랐대요.",
+              "effects": {
+                "stats": {
+                  "mental": 3,
+                  "charm": 2
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              },
+              "record": "brave",
+              "highlight": "캠프 밤에 제일 무서운 이야기를 했어요."
+            },
+            "fail": {
+              "text": "말하다가 내가 더 무서워져서 이불 속으로 숨었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "{haram} 손을 꼭 잡고 잔다",
+          "text": "{haram} 손이 땀으로 축축했어요. 내 손도요.",
+          "effects": {
+            "stats": {
+              "mental": 1
+            },
+            "rel": {
+              "haram": 4
+            }
+          }
+        },
+        {
+          "label": "몰래 과자 파티를 연다",
+          "text": "부스럭 소리에 정 선생님이 문을 열었어요. 과자는 압수, 그래도 재밌었어요.",
+          "effects": {
+            "stats": {
+              "charm": 4,
+              "faith": -2
+            },
+            "rel": {
+              "teacher": -3,
+              "jiho": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "camp-last",
+      "title": "마지막 어린이회 캠프",
+      "minGrade": 5,
+      "text": [
+        "어린이회로 가는 마지막 물놀이캠프예요. 절에서 하룻밤을 자고 난 아침, 다 같이 삼각산에 올라요."
+      ],
+      "choices": [
+        {
+          "label": "맨 앞에서 동생들을 이끌고 오른다",
+          "tag": "active",
+          "text": "숨이 찼지만 동생들 손을 잡아 주며 끝까지 올랐어요. 꼭대기 바위에서 절 지붕이 작게 보였어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "charm": 2
+            },
+            "rel": {
+              "gansa": 4
+            }
+          },
+          "record": "helped_kid",
+          "highlight": "캠프 등산에서 동생들을 이끌고 꼭대기까지 올랐어요."
+        },
+        {
+          "label": "꼭대기 바위에서 친구들과 소리친다",
+          "text": "\"학생회 가서도 같이 오자!\" 메아리가 돌아왔어요.",
+          "effects": {
+            "stats": {
+              "mental": 3
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          },
+          "record": "summit",
+          "highlight": "캠프 등산 꼭대기에서 친구들과 소리쳤어요."
+        },
+        {
+          "label": "내려와서 마당 그늘에서 꾸벅 존다",
+          "text": "어젯밤 늦게까지 떠든 탓이에요. 학생회 누나가 부채질을 해 줬어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "charm": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-camp",
+      "title": "어린이회 물놀이캠프",
+      "minGrade": 2,
+      "maxGrade": 4,
+      "text": [
+        "올해도 절 마당에 물놀이 기구가 들어왔어요. 학생회 형·누나들이 봉사하러 왔어요.",
+        "물놀이캠프 날, 마당 한가운데 커다란 풀장이 생겼어요. 오늘 밤은 다 같이 절에서 자요."
+      ],
+      "choices": [
+        {
+          "label": "학생회 형·누나들을 물총으로 기습한다",
+          "tag": "active",
+          "text": "{jiho}랑 둘이서 학생회 오빠를 흠뻑 적셨어요. 바로 물 양동이로 복수당했어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "charm": 3
+            },
+            "rel": {
+              "jiho": 3
+            }
+          },
+          "record": "water_fight"
+        },
+        {
+          "label": "튜브를 타고 풀장 한가운데 둥둥 떠 있는다",
+          "tag": "calm",
+          "text": "하늘을 보고 떠 있으니 처마 끝 풍경 소리가 들렸어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "charm": -1
+            }
+          }
+        },
+        {
+          "label": "그늘에서 지솔 쌤과 이야기한다",
+          "tag": "calm",
+          "text": "쌤도 어릴 때 이 물놀이캠프에 왔었대요. 그땐 학생회 형·누나들이 지금 우리처럼 놀아 줬대요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "faith": 1
+            },
+            "rel": {
+              "gansa": 5
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "newyear": [
+    {
+      "id": "newyear-first",
+      "title": "처음 맞는 제야 타종",
+      "text": [
+        "12월 31일 밤, 이렇게 늦게까지 안 자 본 건 처음이에요. 범종각 앞이 사람들로 가득해요."
+      ],
+      "choices": [
+        {
+          "label": "졸음을 참고 종소리를 기다린다",
+          "tag": "calm",
+          "text": "뎅— 첫 종소리가 가슴까지 울렸어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2,
+              "health": -2
+            }
+          },
+          "record": "new_year_bell",
+          "highlight": "처음으로 제야의 종소리를 들었어요."
+        },
+        {
+          "label": "엄마 품에서 잠든다",
+          "text": "눈을 떠 보니 새해 아침, 내 방이었어요.",
+          "effects": {
+            "stats": {
+              "health": 2
+            }
+          }
+        }
+      ],
+      "maxGrade": 1
+    },
+    {
+      "id": "newyear-wish",
+      "title": "소원지 쓰는 밤",
+      "text": [
+        "제야 타종을 기다리며 소원지를 써요. 종소리가 울리면 소원이 하늘에 닿는대요."
+      ],
+      "choices": [
+        {
+          "label": "끝까지 깨어 종소리를 센다",
+          "tag": "calm",
+          "text": "서른셋까지 셌어요. 마지막 종소리가 한참 동안 남았어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2,
+              "health": -1
+            }
+          },
+          "record": "new_year_bell",
+          "highlight": "제야의 종소리를 끝까지 셌어요."
+        },
+        {
+          "label": "스님께 소원지를 보여 드린다",
+          "text": "스님이 \"그 소원, 네가 반은 이뤄야 한다\" 하며 웃으셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "intellect": 1
+            },
+            "rel": {
+              "monk": 4
+            }
+          }
+        },
+        {
+          "label": "따뜻한 떡국을 먹으러 간다",
+          "text": "공양간 떡국 한 그릇에 몸이 녹았어요. 한 살 더 먹었어요.",
+          "effects": {
+            "stats": {
+              "health": 2,
+              "mental": 1
+            }
+          }
+        }
+      ],
+      "minGrade": 2,
+      "maxGrade": 5
+    },
+    {
+      "id": "newyear-last",
+      "title": "어린이회의 마지막 제야",
+      "text": [
+        "범종각 앞에서 친구들과 새해를 기다려요. 내년이면, 아니 곧 학생회예요."
+      ],
+      "choices": [
+        {
+          "label": "친구들과 카운트다운을 한다",
+          "tag": "active",
+          "text": "\"셋, 둘, 하나!\" 종소리와 함께 서로 껴안았어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "mental": 2
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          },
+          "record": "new_year_bell"
+        },
+        {
+          "label": "조용히 한 해를 돌아본다",
+          "tag": "calm",
+          "text": "종소리 사이사이 올해 있었던 일이 떠올랐어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 3
+            }
+          },
+          "record": "new_year_bell",
+          "highlight": "종소리 속에서 조용히 한 해를 돌아봤어요."
+        },
+        {
+          "label": "스님께 새해 인사를 드린다",
+          "text": "스님이 \"벌써 이렇게 컸구나\" 하셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 2
+            },
+            "rel": {
+              "monk": 4
+            }
+          }
+        }
+      ],
+      "minGrade": 6
+    },
+    {
+      "id": "new-year-bell",
+      "title": "12월 31일 제야 타종",
+      "minGrade": 2,
+      "maxGrade": 5,
+      "text": [
+        "12월 31일 밤, 입김이 하얗게 나와요. 범종각 앞에 사람들이 모여 종소리를 기다려요."
+      ],
+      "choices": [
+        {
+          "label": "졸음을 참고 끝까지 종소리를 듣는다",
+          "tag": "calm",
+          "text": "뎅— 종소리가 가슴까지 울렸어요. 한 해가 정말 끝났어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2,
+              "health": -2
+            }
+          },
+          "record": "new_year_bell",
+          "highlight": "제야의 종소리를 끝까지 들었어요."
+        },
+        {
+          "label": "스님께 새해 소원을 말씀드린다",
+          "text": "스님이 \"그 소원, 꼭 이루어질 거다\" 하며 머리를 쓰다듬어 주셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "mental": 2
+            },
+            "rel": {
+              "monk": 4
+            }
+          }
+        },
+        {
+          "label": "엄마 품에서 잠든다",
+          "text": "눈을 떠 보니 새해 아침, 내 방이었어요.",
+          "effects": {
+            "stats": {
+              "health": 2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "graduation": [
+    {
+      "id": "kids-graduation",
+      "title": "어린이회 졸업식",
+      "text": [
+        "6년을 다닌 어린이회를 졸업해요. 법당에 꽃다발이 놓여 있어요. 다음 주부터는 학생회예요."
+      ],
+      "choices": [
+        {
+          "label": "지솔 쌤께 편지를 드린다",
+          "text": "편지를 읽던 쌤 눈가가 빨개졌어요.",
+          "effects": {
+            "rel": {
+              "gansa": 6
+            }
+          }
+        },
+        {
+          "label": "친구들과 법당 앞에서 사진을 찍는다",
+          "text": "{jiho}, {seoyun}, {haram}와 어깨동무를 하고 찰칵.",
+          "effects": {
+            "rel": {
+              "jiho": 4,
+              "seoyun": 4,
+              "haram": 4
+            }
+          }
+        },
+        {
+          "label": "스님께 큰절을 올린다",
+          "text": "스님이 \"학생회에서도 자주 보자\" 하셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 3
+            },
+            "rel": {
+              "monk": 4
+            }
+          }
+        }
+      ],
+      "addenda": [
+        {
+          "flags": [
+            "chased_elephant"
+          ],
+          "text": "지솔 쌤이 휴대폰 사진첩을 거슬러 올라가 1학년 때 사진을 보여 줘요. \"너 1학년 연등회 때 코끼리 연등 쫓아가서 내가 얼마나 놀랐는지 알아?\""
+        },
+        {
+          "flags": [
+            "haram_stayed"
+          ],
+          "text": "법당 뒤쪽에, 이사 간 {haram}가 버스를 타고 와 앉아 있어요.",
+          "group": "haram"
+        },
+        {
+          "flags": [
+            "haram_letter"
+          ],
+          "text": "{haram}에게서 졸업 축하 편지가 왔어요.",
+          "group": "haram"
+        },
+        {
+          "flags": [
+            "haram_silent"
+          ],
+          "text": "문득 {haram}가 생각났지만, 연락할 방법을 몰라요.",
+          "group": "haram"
+        },
+        {
+          "flags": [
+            "asked_monk_pizza"
+          ],
+          "text": "스님이 \"피자는 아직도 비밀이다\" 하며 눈을 찡긋하셨어요.",
+          "group": "monk"
+        },
+        {
+          "flags": [
+            "asked_monk_hair"
+          ],
+          "text": "스님이 \"마음에 붙은 것 좀 덜어 냈니?\" 하고 물으셨어요.",
+          "group": "monk"
+        },
+        {
+          "flags": [
+            "asked_monk_angry"
+          ],
+          "text": "스님이 \"요즘도 화가 나면 금방 알아차리니?\" 하고 물으셨어요.",
+          "group": "monk"
+        },
+        {
+          "flags": [
+            "kittens"
+          ],
+          "text": "연등이 새끼들이 법당 앞 계단에 나란히 앉아 있어요."
+        },
+        {
+          "flags": [
+            "mentor_ocarina"
+          ],
+          "text": "오카리나를 가르쳐 준 동생이 꽃 한 송이를 건네요."
+        },
+        {
+          "flags": [
+            "president"
+          ],
+          "group": "role",
+          "text": "회장으로 졸업 답사를 읽어요. 첫 줄에서 목소리가 떨렸지만, 목탁 치던 박자를 떠올리며 끝까지 읽었어요."
+        },
+        {
+          "flags": [
+            "vice"
+          ],
+          "group": "role",
+          "text": "부회장으로 회장 {seoyun} 옆에 서서 꽃다발을 받았어요."
+        },
+        {
+          "flags": [
+            "backed_friend"
+          ],
+          "group": "role",
+          "text": "회장 {seoyun}가 답사 끝에 \"그리고 내 선거를 도와준 친구\" 하며 내 이름을 불렀어요."
+        },
+        {
+          "flags": [
+            "lost_gracefully"
+          ],
+          "group": "role",
+          "text": "답사를 읽던 회장 {seoyun}와 눈이 마주쳤어요. 둘이 동시에 웃었어요."
+        },
+        {
+          "flags": [
+            "peacemaker"
+          ],
+          "group": "friends",
+          "text": "{jiho}와 {seoyun}가 양쪽에서 동시에 어깨동무를 해 왔어요."
+        },
+        {
+          "flags": [
+            "mended_split"
+          ],
+          "group": "friends",
+          "text": "한동안 서먹했던 친구와 나란히 서서 사진을 찍었어요."
+        }
+      ]
+    }
+  ],
+  "rep": [
+    {
+      "id": "rep-first",
+      "title": "처음 하는 학년 대표 투표",
+      "maxGrade": 1,
+      "text": [
+        "1학년끼리 학년 대표를 뽑는대요. 정 선생님이 \"대표는 친구들을 챙기고 앞에 서는 사람이야. 해 볼 사람?\" 하고 물으세요. 아직 이름도 다 모르는 친구들이 두리번거려요."
+      ],
+      "choices": [
+        {
+          "label": "손을 번쩍 든다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.2,
+            "stat": "charm",
+            "friends": true,
+            "success": {
+              "text": "친구들이 내 이름을 적었어요! 1학년 대표가 됐어요. 오늘부터 법회 때 친구들 줄을 세워요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "mental": 2
+                }
+              },
+              "record": "rep_years",
+              "flag": "year:rep",
+              "highlight": "1학년 대표로 뽑혔어요."
+            },
+            "fail": {
+              "text": "두 표 차이로 떨어졌어요. 집에 오는 길에 괜히 돌멩이를 찼어요.",
+              "effects": {
+                "stats": {
+                  "mental": -4,
+                  "charm": 1
+                }
+              },
+              "record": "rep_lost"
+            }
+          }
+        },
+        {
+          "label": "옆자리 {jiho}를 추천한다",
+          "text": "{jiho}가 대표가 됐어요. \"네 덕이야!\" 하며 어깨동무를 했어요.",
+          "effects": {
+            "stats": {
+              "charm": 1
+            },
+            "rel": {
+              "jiho": 6
+            }
+          }
+        },
+        {
+          "label": "조용히 손을 무릎에 둔다",
+          "text": "다른 친구가 대표가 됐어요. 마음은 편했어요.",
+          "effects": {
+            "stats": {
+              "mental": 2,
+              "charm": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rep-vote",
+      "title": "{grade}학년 대표 뽑는 날",
+      "minGrade": 2,
+      "text": [
+        "새 학년 첫 일요일, {grade}학년 대표를 투표로 뽑아요. 대표는 한 해 동안 친구들을 챙기고 행사 때 맨 앞에 서요.",
+        "{season} 오늘은 {grade}학년 대표 투표가 있어요. 칠판에 벌써 후보 이름이 두 개 적혀 있어요."
+      ],
+      "addenda": [
+        {
+          "flags": [
+            "year:rep_before"
+          ],
+          "text": "작년에도 대표였던 걸 친구들이 기억하고 있어요."
+        }
+      ],
+      "choices": [
+        {
+          "label": "대표에 나간다",
+          "tag": "active",
+          "roll": {
+            "chance": 0.15,
+            "stat": "charm",
+            "friends": true,
+            "recordBonus": {
+              "key": "rep_years",
+              "per": 0.05
+            },
+            "success": {
+              "text": "친구들 표를 가장 많이 받았어요! 올해 {grade}학년 대표예요. 대표는 빠지면 티가 나요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "mental": 1
+                }
+              },
+              "record": "rep_years",
+              "flag": "year:rep",
+              "highlight": "{grade}학년 대표로 뽑혔어요."
+            },
+            "fail": {
+              "text": "아깝게 떨어졌어요. 박수는 쳤지만 얼굴이 화끈거렸어요.",
+              "effects": {
+                "stats": {
+                  "mental": -4,
+                  "charm": 1
+                }
+              },
+              "record": "rep_lost"
+            }
+          }
+        },
+        {
+          "label": "{haram}를 추천한다",
+          "text": "부끄러워하던 {haram}가 대표가 됐어요. \"나 잘할 수 있을까?\" 하며 내 소매를 잡았어요.",
+          "effects": {
+            "stats": {
+              "charm": 1
+            },
+            "rel": {
+              "haram": 6
+            }
+          }
+        },
+        {
+          "label": "올해는 쉰다",
+          "text": "다른 친구가 대표가 됐어요. 일요일이 조금 가벼워졌어요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "charm": -2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "president": [
+    {
+      "id": "president-election",
+      "title": "어린이회 회장 선거",
+      "text": [
+        "6학년이 됐어요. 오늘은 어린이회 회장과 부회장을 투표로 뽑아요. 회장은 일요일 예불 때 목탁을 쳐요. {seoyun}가 벌써 회장 후보로 손을 들었어요."
+      ],
+      "addenda": [
+        {
+          "flags": [
+            "listened_seoyun"
+          ],
+          "text": "{seoyun}가 눈짓으로 \"너도 나와\" 하고 웃어요."
+        }
+      ],
+      "choices": [
+        {
+          "label": "회장에 나간다",
+          "tag": "active",
+          "roll": {
+            "chance": 0,
+            "stat": "charm",
+            "friends": true,
+            "recordBonus": {
+              "key": "rep_years",
+              "per": 0.07
+            },
+            "success": {
+              "text": "{seoyun}를 한 표 차이로 이겼어요! 올해 일요일마다 목탁을 쳐요. {seoyun}가 먼저 축하한다며 손을 내밀었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 5,
+                  "faith": 3,
+                  "mental": -2
+                },
+                "rel": {
+                  "seoyun": -2
+                }
+              },
+              "flag": "president",
+              "highlight": "어린이회 회장이 되었어요."
+            },
+            "fail": {
+              "text": "{seoyun}가 회장이 됐어요. 박수를 쳤지만 손바닥이 얼얼할 만큼 아팠어요.",
+              "effects": {
+                "stats": {
+                  "mental": -5
+                },
+                "rel": {
+                  "seoyun": 2
+                }
+              },
+              "flag": "president_lost"
+            }
+          }
+        },
+        {
+          "label": "부회장에 나간다",
+          "roll": {
+            "chance": 0.15,
+            "stat": "charm",
+            "friends": true,
+            "recordBonus": {
+              "key": "rep_years",
+              "per": 0.05
+            },
+            "success": {
+              "text": "부회장이 됐어요. 회장 옆에서 법회 준비를 돕게 됐어요.",
+              "effects": {
+                "stats": {
+                  "charm": 3,
+                  "faith": 2
+                },
+                "rel": {
+                  "seoyun": 4
+                }
+              },
+              "flag": "vice",
+              "highlight": "어린이회 부회장이 되었어요."
+            },
+            "fail": {
+              "text": "아깝게 떨어졌어요. 그래도 회장이 된 {seoyun}가 \"같이 하자\" 하며 일을 나눠 줬어요.",
+              "effects": {
+                "stats": {
+                  "mental": -3
+                },
+                "rel": {
+                  "seoyun": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "{seoyun}를 회장으로 밀어준다",
+          "text": "선거 포스터를 같이 그리고, 연설 연습도 들어 줬어요. {seoyun}가 회장이 됐어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "mental": 2
+            },
+            "rel": {
+              "seoyun": 8
+            }
+          },
+          "flag": "backed_friend",
+          "highlight": "{seoyun}를 회장으로 만드는 데 힘을 보탰어요."
+        },
+        {
+          "label": "나는 안 나간다",
+          "text": "구경만 했어요. 마음은 편했지만, 목탁 소리를 들을 때마다 조금 아쉬울 것 같아요.",
+          "effects": {
+            "stats": {
+              "mental": 2,
+              "charm": -2
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

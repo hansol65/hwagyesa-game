@@ -1,0 +1,522 @@
+{
+  "_note": "어린이회 졸업 때 나오는 미니 후일담과 칭호. 조건이 맞는 것 중 우선순위(priority)가 높은 순으로 최대 6장.",
+  "cards": [
+    {
+      "id": "jiho",
+      "priority": 9,
+      "when": {
+        "bestFriend": {
+          "key": "jiho",
+          "min": 55
+        }
+      },
+      "text": "{jiho}와 단짝이 되었다. 학생회도 같이 가기로 새끼손가락을 걸었다."
+    },
+    {
+      "id": "seoyun",
+      "priority": 8,
+      "when": {
+        "bestFriend": {
+          "key": "seoyun",
+          "min": 55
+        }
+      },
+      "text": "{seoyun}와 법문 시간마다 나란히 앉는 사이가 되었다."
+    },
+    {
+      "id": "haram",
+      "priority": 8,
+      "when": {
+        "bestFriend": {
+          "key": "haram",
+          "min": 55
+        }
+      },
+      "text": "{haram}가 그려 준 그림을 아직 책상 앞에 붙여 두었다."
+    },
+    {
+      "id": "gansa",
+      "priority": 7,
+      "when": {
+        "rel": {
+          "gansa": 75
+        }
+      },
+      "text": "지솔 쌤 같은 대학생이 되고 싶다고 처음 생각했다."
+    },
+    {
+      "id": "monk",
+      "priority": 7,
+      "when": {
+        "rel": {
+          "monk": 40
+        }
+      },
+      "text": "스님이 멀리서도 이름을 불러 주시는 아이가 되었다."
+    },
+    {
+      "id": "teacher-low",
+      "priority": 3,
+      "when": {
+        "relBelow": {
+          "teacher": 15
+        }
+      },
+      "text": "정 선생님께 혼난 기억이 많지만, 졸업식 날 꽉 안아 주셨다."
+    },
+    {
+      "id": "faith-high",
+      "priority": 6,
+      "when": {
+        "stats": {
+          "faith": 50
+        }
+      },
+      "text": "부처님 앞에서 두 손 모으는 게 어색하지 않게 되었다."
+    },
+    {
+      "id": "mental-high",
+      "priority": 4,
+      "when": {
+        "stats": {
+          "mental": 64
+        }
+      },
+      "text": "속상한 날엔 눈을 감고 숨을 세는 버릇이 생겼다."
+    },
+    {
+      "id": "health-high",
+      "priority": 4,
+      "when": {
+        "stats": {
+          "health": 64
+        }
+      },
+      "text": "어린이회에서 제일 튼튼한 아이로 통했다."
+    },
+    {
+      "id": "charm-high",
+      "priority": 4,
+      "when": {
+        "stats": {
+          "charm": 64
+        }
+      },
+      "text": "새로 온 동생들이 제일 먼저 따르는 {senior}가 되었다."
+    },
+    {
+      "id": "swim",
+      "priority": 6,
+      "when": {
+        "records": {
+          "swim": 1
+        }
+      },
+      "text": "물놀이캠프에서 처음으로 큰 미끄럼틀을 탔다. 이제 물이 무섭지 않다."
+    },
+    {
+      "id": "ocarina",
+      "priority": 6,
+      "when": {
+        "records": {
+          "ocarina_success": 1
+        }
+      },
+      "text": "오카리나 소리가 제법 맑아졌다. 학생회에서도 불고 싶다."
+    },
+    {
+      "id": "lantern-craft",
+      "priority": 5,
+      "when": {
+        "records": {
+          "lantern_craft": 1
+        }
+      },
+      "text": "내 손으로 만든 연등이 법당 앞에 걸린 날을 잊지 못한다."
+    },
+    {
+      "id": "full",
+      "priority": 10,
+      "when": {
+        "attendRate": 0.9
+      },
+      "text": "6년 동안 거의 빠지지 않고 일요일마다 법회에 나왔다."
+    },
+    {
+      "id": "rare",
+      "priority": 10,
+      "when": {
+        "attendRateBelow": 0.4
+      },
+      "text": "자주 빠졌지만, 졸업식 날만큼은 맨 앞줄에 앉았다."
+    },
+    {
+      "id": "late-faith",
+      "priority": 2,
+      "when": {
+        "lateFaith": true
+      },
+      "text": "어쩐지 절이 점점 더 좋아질 것 같은 예감이 든다."
+    },
+    {
+      "id": "cat",
+      "priority": 6,
+      "when": {
+        "records": {
+          "cat": 1
+        }
+      },
+      "text": "공양간 뒤 고양이 연등이는 지금도 법회 시간마다 마당에 나와 있다."
+    },
+    {
+      "id": "helped",
+      "priority": 6,
+      "when": {
+        "records": {
+          "helped_kid": 2
+        }
+      },
+      "text": "동생들을 챙기는 게 어느새 몸에 뱄다."
+    },
+    {
+      "id": "madeup",
+      "priority": 5,
+      "when": {
+        "records": {
+          "made_up": 1
+        }
+      },
+      "text": "{jiho}와 크게 싸운 날, 먼저 사과할 줄 알게 되었다."
+    },
+    {
+      "id": "haram-stayed",
+      "priority": 6,
+      "when": {
+        "records": {
+          "haram_stayed": 1
+        }
+      },
+      "text": "이사 간 {haram}는 6학년 졸업식에도 버스를 타고 왔다."
+    },
+    {
+      "id": "bows",
+      "priority": 6,
+      "when": {
+        "records": {
+          "bows_108": 1
+        }
+      },
+      "text": "열두 살에 처음으로 108배를 끝까지 해냈다."
+    },
+    {
+      "id": "listened",
+      "priority": 5,
+      "when": {
+        "records": {
+          "listened": 1
+        }
+      },
+      "text": "친구 고민을 끝까지 들어 주는 아이라는 말을 들었다."
+    },
+    {
+      "id": "apologized",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "apologized_jiho"
+        ]
+      },
+      "text": "1학년 때 {jiho}를 고자질한 일을 4학년이 되어서야 사과했다. 그 뒤로 더 친해졌다."
+    },
+    {
+      "id": "kittens",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "kittens"
+        ]
+      },
+      "text": "공양간 뒤 연등이네 가족은 이제 절 마당의 명물이 되었다."
+    },
+    {
+      "id": "cat-gone",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "cat_gone"
+        ]
+      },
+      "text": "연등이를 더 자주 들여다보지 못한 게 아직도 마음에 남아 있다."
+    },
+    {
+      "id": "mentor",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "mentor_ocarina"
+        ]
+      },
+      "text": "오카리나를 가르쳐 준 동생은 이제 어린이회에서 제일 잘 부는 아이가 되었다."
+    },
+    {
+      "id": "seoyun-promise",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "seoyun_promise"
+        ]
+      },
+      "text": "{seoyun}와 학생회도 같이 가기로 도장을 찍었다."
+    },
+    {
+      "id": "late-makeup",
+      "priority": 5,
+      "when": {
+        "flags": [
+          "made_up_late"
+        ]
+      },
+      "text": "말 안 하던 {jiho}와는 피구공 하나로 화해했다."
+    },
+    {
+      "id": "president",
+      "priority": 9,
+      "when": {
+        "flags": [
+          "president"
+        ]
+      },
+      "text": "어린이회 회장으로 1년 동안 일요일마다 목탁을 쳤다. 그 박자가 아직 손에 남아 있다."
+    },
+    {
+      "id": "vice",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "vice"
+        ]
+      },
+      "text": "부회장으로 회장 옆에서 한 해를 함께 꾸렸다."
+    },
+    {
+      "id": "backed",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "backed_friend"
+        ]
+      },
+      "text": "내가 밀어준 {seoyun}가 회장이 됐다. 그 목탁 소리가 내 일처럼 기뻤다."
+    },
+    {
+      "id": "lost-gracefully",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "lost_gracefully"
+        ]
+      },
+      "text": "회장 선거에서 졌지만, 이긴 친구에게 먼저 축하할 줄 알게 되었다."
+    },
+    {
+      "id": "rep-veteran",
+      "priority": 6,
+      "when": {
+        "records": {
+          "rep_years": 3
+        }
+      },
+      "text": "학년 대표를 세 번이나 했다. 앞에 서는 일이 어느새 익숙해졌다."
+    },
+    {
+      "id": "peacemaker",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "peacemaker"
+        ]
+      },
+      "text": "싸운 친구 둘 사이에서 다리를 놓아 본 적이 있다."
+    },
+    {
+      "id": "split-unmended",
+      "priority": 5,
+      "when": {
+        "flags": [
+          "sided_jiho"
+        ],
+        "notFlags": [
+          "mended_split"
+        ]
+      },
+      "text": "{seoyun}와는 끝내 예전처럼 돌아가지 못했다. 그 편 가르기가 가끔 생각난다."
+    },
+    {
+      "id": "split-unmended-2",
+      "priority": 5,
+      "when": {
+        "flags": [
+          "sided_seoyun"
+        ],
+        "notFlags": [
+          "mended_split"
+        ]
+      },
+      "text": "{jiho}와는 끝내 예전처럼 돌아가지 못했다. 그 편 가르기가 가끔 생각난다."
+    }
+  ],
+  "fallback": "평범하지만 따뜻한 어린이회 6년이었다.",
+  "titles": [
+    {
+      "id": "perfect",
+      "name": "개근상",
+      "when": {
+        "attendRate": 1
+      }
+    },
+    {
+      "id": "dodgeball",
+      "name": "피구왕",
+      "when": {
+        "records": {
+          "dodgeball_win": 1
+        }
+      }
+    },
+    {
+      "id": "ocarina",
+      "name": "오카리나 소리꾼",
+      "when": {
+        "records": {
+          "ocarina_success": 1
+        }
+      }
+    },
+    {
+      "id": "lantern",
+      "name": "연등회 율동 에이스",
+      "when": {
+        "records": {
+          "lantern_dance": 1
+        }
+      }
+    },
+    {
+      "id": "swim",
+      "name": "물총 대장",
+      "when": {
+        "records": {
+          "water_fight": 2
+        }
+      }
+    },
+    {
+      "id": "bell",
+      "name": "제야의 종 지킴이",
+      "when": {
+        "records": {
+          "new_year_bell": 4
+        }
+      }
+    },
+    {
+      "id": "bazaar",
+      "name": "바자회 장사꾼",
+      "when": {
+        "records": {
+          "bazaar_sold": 1
+        }
+      }
+    },
+    {
+      "id": "craft",
+      "name": "연등 장인",
+      "when": {
+        "records": {
+          "lantern_craft": 1
+        }
+      }
+    },
+    {
+      "id": "quiz",
+      "name": "퀴즈왕",
+      "when": {
+        "records": {
+          "quiz_win": 1
+        }
+      }
+    },
+    {
+      "id": "mc",
+      "name": "꼬마 사회자",
+      "when": {
+        "records": {
+          "mc": 1
+        }
+      }
+    },
+    {
+      "id": "kid-keeper",
+      "name": "동생 지킴이",
+      "when": {
+        "records": {
+          "helped_kid": 3
+        }
+      }
+    },
+    {
+      "id": "brave",
+      "name": "담력왕",
+      "when": {
+        "records": {
+          "brave": 1
+        }
+      }
+    },
+    {
+      "id": "president",
+      "name": "어린이회 회장",
+      "when": {
+        "flags": [
+          "president"
+        ]
+      }
+    },
+    {
+      "id": "vice",
+      "name": "어린이회 부회장",
+      "when": {
+        "flags": [
+          "vice"
+        ]
+      }
+    },
+    {
+      "id": "rep",
+      "name": "학년 대표",
+      "when": {
+        "records": {
+          "rep_years": 1
+        }
+      }
+    },
+    {
+      "id": "moktak",
+      "name": "목탁 박자 장인",
+      "when": {
+        "records": {
+          "moktak_good": 3
+        }
+      }
+    },
+    {
+      "id": "peace",
+      "name": "화해 도우미",
+      "when": {
+        "flags": [
+          "peacemaker"
+        ]
+      }
+    }
+  ]
+}

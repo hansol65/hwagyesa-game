@@ -1,0 +1,52 @@
+[
+  {
+    "id": "low-health",
+    "lowStat": "health",
+    "title": "몸이 으슬으슬해요",
+    "text": ["일요일 아침, 이불 밖으로 나가기가 힘들어요. 몸이 으슬으슬해요."],
+    "choices": [
+      { "label": "그래도 법회에 간다", "attend": true, "next": "program", "effects": { "stats": { "faith": 5, "health": -5 } } },
+      { "label": "집에서 푹 쉰다", "attend": false, "text": "죽을 먹고 하루 종일 잤어요. 몸이 한결 가벼워졌어요.", "effects": { "stats": { "health": 8, "faith": -2 } } }
+    ]
+  },
+  {
+    "id": "low-mental",
+    "lowStat": "mental",
+    "title": "아무것도 하기 싫어요",
+    "text": ["요즘 왠지 아무것도 하기 싫어요. 일요일 아침인데 마음이 무거워요."],
+    "choices": [
+      { "label": "법회에 가서 명상을 한다", "attend": true, "text": "법당에 가만히 앉아 있으니 마음이 조금 풀렸어요.", "effects": { "stats": { "mental": 6, "faith": 3 } } },
+      { "label": "하루 종일 누워 있는다", "attend": false, "text": "천장만 보다 하루가 갔어요. 그래도 좀 쉬었어요.", "effects": { "stats": { "mental": 4, "charm": -2 } } }
+    ]
+  },
+  {
+    "id": "low-intellect",
+    "lowStat": "intellect",
+    "title": "다음 주는 받아쓰기 시험",
+    "text": ["다음 주 학교에서 받아쓰기 시험이 있어요. 오늘은 일요일이에요."],
+    "choices": [
+      { "label": "법회에 갔다가 와서 공부한다", "attend": true, "text": "법회 다녀와서 저녁까지 받아쓰기 연습을 했어요.", "effects": { "stats": { "faith": 4, "intellect": 2, "health": -3 } } },
+      { "label": "집에서 공부만 한다", "attend": false, "text": "열 번씩 써 보니 이제 안 틀릴 것 같아요.", "effects": { "stats": { "intellect": 6, "faith": -3 } } }
+    ]
+  },
+  {
+    "id": "low-charm",
+    "lowStat": "charm",
+    "title": "나만 빼고 친한 것 같아요",
+    "text": ["법회에 가면 친구들끼리만 웃고 떠드는 것 같아요."],
+    "choices": [
+      { "label": "먼저 말을 걸어 본다", "attend": true, "text": "\"같이 할래?\" 한마디에 {jiho}가 자리를 내줬어요.", "effects": { "stats": { "charm": 5, "mental": -2 }, "rel": { "jiho": 3 } } },
+      { "label": "조용히 예불만 하고 온다", "attend": true, "text": "법당에서 부처님만 보고 왔어요. 마음은 편했어요.", "effects": { "stats": { "faith": 3, "charm": -1 } } }
+    ]
+  },
+  {
+    "id": "low-faith",
+    "lowStat": "faith",
+    "title": "절에 가기 귀찮아요",
+    "text": ["\"오늘 꼭 가야 돼?\" 일요일마다 절에 가는 게 귀찮아졌어요."],
+    "choices": [
+      { "label": "엄마 손에 이끌려 간다", "attend": true, "next": "program", "effects": { "stats": { "faith": 2, "mental": -1 } } },
+      { "label": "끝까지 버틴다", "attend": false, "text": "결국 안 갔어요. 조금 신났지만, 조금 허전했어요.", "effects": { "stats": { "mental": 2, "faith": -2 }, "rel": { "teacher": -1 } } }
+    ]
+  }
+]

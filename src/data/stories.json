@@ -1,0 +1,1097 @@
+[
+  {
+    "id": "story-fight-jiho",
+    "title": "{jiho}와 다툰 날",
+    "minGrade": 2,
+    "maxGrade": 3,
+    "requires": {
+      "rel": {
+        "jiho": 40
+      }
+    },
+    "text": [
+      "피구하다 {jiho}가 내 공을 가로챘어요. \"내 거잖아!\" 소리를 지르고 말았어요. {jiho}도 씩씩대며 돌아섰어요."
+    ],
+    "choices": [
+      {
+        "label": "법회 끝나고 먼저 사과한다",
+        "text": "\"아까 미안해.\" {jiho}가 \"나도\" 하더니 아이스크림을 반 나눠 줬어요.",
+        "effects": {
+          "stats": {
+            "mental": 2,
+            "charm": 2
+          },
+          "rel": {
+            "jiho": 6
+          }
+        },
+        "record": "made_up",
+        "highlight": "{jiho}와 다퉜다가 먼저 사과하고 화해했어요."
+      },
+      {
+        "label": "지솔 쌤께 이야기한다",
+        "text": "쌤이 둘을 불러 앉혔어요. 서로 이야기하다 보니 별일 아니었어요.",
+        "effects": {
+          "stats": {
+            "mental": 1
+          },
+          "rel": {
+            "jiho": 3,
+            "gansa": 3
+          }
+        }
+      },
+      {
+        "label": "모른 척한다",
+        "text": "일주일 내내 마음이 찜찜했어요.",
+        "effects": {
+          "stats": {
+            "mental": -3
+          },
+          "rel": {
+            "jiho": -5
+          }
+        },
+        "flag": "ignored_jiho"
+      }
+    ]
+  },
+  {
+    "id": "story-cat",
+    "title": "공양간 뒤 아기 고양이",
+    "months": [
+      4,
+      6,
+      9,
+      10
+    ],
+    "text": [
+      "공양간 뒤에서 작은 울음소리가 들려요. 들여다보니 아기 고양이가 비를 맞고 떨고 있어요."
+    ],
+    "choices": [
+      {
+        "label": "보살님께 도와 달라고 한다",
+        "text": "보살님이 상자에 수건을 깔아 주셨어요. 고양이 이름은 '연등이'가 됐어요.",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "mental": 2
+          },
+          "rel": {
+            "teacher": 2
+          }
+        },
+        "record": "cat",
+        "highlight": "공양간 뒤 아기 고양이에게 '연등이'라는 이름을 지어 줬어요.",
+        "flag": "cat_named"
+      },
+      {
+        "label": "친구들과 매주 밥을 챙겨 주기로 한다",
+        "text": "일요일마다 들르는 곳이 하나 생겼어요.",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "mental": 2
+          },
+          "rel": {
+            "haram": 3,
+            "seoyun": 2
+          }
+        },
+        "record": "cat",
+        "highlight": "친구들과 아기 고양이를 돌보기로 했어요.",
+        "flag": "cat_cared"
+      },
+      {
+        "label": "무서워서 멀리서 본다",
+        "text": "고양이가 나를 빤히 쳐다봤어요.",
+        "effects": {
+          "stats": {
+            "mental": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-haram-move",
+    "title": "{haram}의 이사 소식",
+    "minGrade": 3,
+    "maxGrade": 5,
+    "requires": {
+      "rel": {
+        "haram": 40
+      }
+    },
+    "text": [
+      "{haram}가 조용히 말했어요. \"우리 집 이사 가. 좀 멀리.\" 어린이회에 계속 올 수 있을지 모르겠대요."
+    ],
+    "choices": [
+      {
+        "label": "\"버스 타고라도 와!\" 하고 졸라 본다",
+        "text": "다음 주에 {haram}가 왔어요. \"엄마가 일요일엔 데려다 준대.\"",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "haram": 6
+          }
+        },
+        "record": "haram_stayed",
+        "highlight": "이사 간 {haram}가 그래도 일요일마다 법회에 와요.",
+        "flag": "haram_stayed"
+      },
+      {
+        "label": "편지를 써서 건넨다",
+        "text": "{haram}가 편지를 접어 필통에 넣었어요. 이사 가서도 꼭 답장한대요.",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "haram": 5
+          }
+        },
+        "flag": "haram_letter"
+      },
+      {
+        "label": "아무 말도 못 한다",
+        "text": "집에 와서야 하고 싶었던 말이 떠올랐어요.",
+        "effects": {
+          "stats": {
+            "mental": -2
+          },
+          "rel": {
+            "haram": 1
+          }
+        },
+        "flag": "haram_silent"
+      }
+    ]
+  },
+  {
+    "id": "story-gansa-busy",
+    "title": "지솔 쌤이 바빠졌어요",
+    "minGrade": 3,
+    "maxGrade": 5,
+    "text": [
+      "지솔 쌤이 졸업 준비에 과제까지 겹쳐서 한동안 격주로만 온대요. 지난주에도 눈 밑이 퀭했어요. 오늘은 쌤 대신 정 선생님이 혼자 우리를 챙기세요."
+    ],
+    "choices": [
+      {
+        "label": "정 선생님 일을 거든다",
+        "text": "출석부를 대신 불렀어요. 선생님이 \"다 컸네\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "intellect": 1
+          },
+          "rel": {
+            "teacher": 5
+          }
+        },
+        "highlight": "지솔 쌤이 없는 날 정 선생님을 도왔어요."
+      },
+      {
+        "label": "지솔 쌤께 응원 쪽지를 쓴다",
+        "text": "다음 주에 쌤이 쪽지를 들고 와서 \"이거 보고 힘냈어\" 했어요.",
+        "effects": {
+          "stats": {
+            "mental": 1
+          },
+          "rel": {
+            "gansa": 6
+          }
+        }
+      },
+      {
+        "label": "쌤이 없으니 시시하다",
+        "text": "괜히 심통이 났어요.",
+        "effects": {
+          "stats": {
+            "mental": -1
+          },
+          "rel": {
+            "teacher": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-monk-name",
+    "title": "스님이 이름을 부르셨다",
+    "minGrade": 2,
+    "requires": {
+      "rel": {
+        "monk": 30
+      }
+    },
+    "text": [
+      "마당을 지나는데 스님이 \"{nameCall}!\" 하고 부르셨어요. 스님이 내 이름을 아세요!"
+    ],
+    "choices": [
+      {
+        "label": "달려가서 합장 인사를 한다",
+        "text": "스님이 사탕 하나를 손에 쥐여 주셨어요. 주머니에서 한참 안 꺼냈어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "mental": 2
+          },
+          "rel": {
+            "monk": 6
+          }
+        },
+        "highlight": "스님이 내 이름을 불러 주셨어요."
+      },
+      {
+        "label": "부끄러워서 꾸벅 인사만 한다",
+        "text": "스님이 웃으며 고개를 끄덕이셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 2
+          },
+          "rel": {
+            "monk": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-scolded",
+    "title": "법당에서 뛰다 혼난 날",
+    "maxGrade": 2,
+    "text": [
+      "예불 전에 친구들과 법당 안을 뛰어다니다 정 선생님께 딱 걸렸어요. 늘 허허 웃던 선생님 얼굴에서 웃음이 싹 사라졌어요. 낮고 무거운 목소리예요. \"여기는 어떤 곳이지?\""
+    ],
+    "choices": [
+      {
+        "label": "솔직하게 잘못했다고 한다",
+        "text": "선생님이 \"알면 됐다\" 하시고는 등을 토닥여 주셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "mental": 1
+          },
+          "rel": {
+            "teacher": 3
+          }
+        }
+      },
+      {
+        "label": "{jiho}가 먼저 뛰었다고 한다",
+        "text": "{jiho}가 서운한 얼굴로 나를 봤어요.",
+        "effects": {
+          "stats": {
+            "mental": -1
+          },
+          "rel": {
+            "jiho": -4,
+            "teacher": -1
+          }
+        },
+        "flag": "blamed_jiho"
+      },
+      {
+        "label": "울음을 터뜨린다",
+        "text": "선생님이 당황하시며 휴지를 건네주셨어요.",
+        "effects": {
+          "stats": {
+            "mental": -1
+          },
+          "rel": {
+            "teacher": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-seoyun-worry",
+    "title": "{seoyun}의 고민",
+    "minGrade": 4,
+    "requires": {
+      "rel": {
+        "seoyun": 40
+      }
+    },
+    "text": [
+      "늘 웃던 {seoyun}가 오늘은 법당 구석에 앉아 있어요. \"엄마가 이제 학원 때문에 법회 그만 다니래.\""
+    ],
+    "choices": [
+      {
+        "label": "옆에 앉아 이야기를 들어 준다",
+        "text": "한참 이야기하더니 {seoyun}가 \"그래도 한 달에 한 번은 올래\" 했어요.",
+        "effects": {
+          "stats": {
+            "mental": 1,
+            "charm": 1
+          },
+          "rel": {
+            "seoyun": 6
+          }
+        },
+        "record": "listened",
+        "highlight": "고민하는 {seoyun} 이야기를 끝까지 들어 줬어요.",
+        "flag": "listened_seoyun"
+      },
+      {
+        "label": "같이 정 선생님께 말씀드린다",
+        "text": "선생님이 {seoyun} 엄마께 전화해 보겠다고 하셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 1
+          },
+          "rel": {
+            "seoyun": 4,
+            "teacher": 3
+          }
+        }
+      },
+      {
+        "label": "\"나도 학원 가고 싶어\" 하고 말한다",
+        "text": "{seoyun}가 피식 웃었어요. 그게 위로가 됐대요.",
+        "effects": {
+          "stats": {
+            "charm": 1
+          },
+          "rel": {
+            "seoyun": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-new-kid",
+    "title": "새로 온 1학년 짝꿍",
+    "minGrade": 3,
+    "months": [
+      3,
+      4
+    ],
+    "text": [
+      "올해 새로 온 1학년 동생이 엄마 손을 놓지 못하고 울먹여요. 지솔 쌤이 \"네가 짝꿍 해 줄래?\" 하고 물어요."
+    ],
+    "choices": [
+      {
+        "label": "손을 잡고 절 구경을 시켜 준다",
+        "text": "범종각, 연못, 공양간까지 다 보여 줬어요. 동생이 \"{senior}!\" 하고 졸졸 따라와요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "mental": 1
+          },
+          "rel": {
+            "gansa": 3
+          }
+        },
+        "record": "helped_kid",
+        "highlight": "새로 온 1학년 동생의 짝꿍이 되어 줬어요.",
+        "flag": "mentored_kid"
+      },
+      {
+        "label": "내가 좋아하는 간식을 나눠 준다",
+        "text": "울음이 뚝 그쳤어요. 간식의 힘은 대단해요.",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "gansa": 1
+          }
+        }
+      },
+      {
+        "label": "친구한테 부탁한다",
+        "text": "{jiho}가 대신 짝꿍이 됐어요. 조금 아쉬웠어요.",
+        "effects": {
+          "rel": {
+            "jiho": 1
+          }
+        }
+      }
+    ],
+    "maxGrade": 4
+  },
+  {
+    "id": "story-bell-peek",
+    "title": "범종각에 몰래 올라간 날",
+    "minGrade": 2,
+    "maxGrade": 5,
+    "text": [
+      "범종각 계단에 아무도 없어요. 커다란 종이 바로 코앞이에요. {jiho}가 \"만져 볼래?\" 하고 속삭여요."
+    ],
+    "choices": [
+      {
+        "label": "손바닥으로 살짝 만져 본다",
+        "tag": "active",
+        "text": "차가운 쇠가 웅— 하고 떨리는 것 같았어요. 그때 스님이 나타나셨어요. \"그 종 이름이 뭔지 아니?\"",
+        "effects": {
+          "stats": {
+            "intellect": 2,
+            "faith": 1
+          },
+          "rel": {
+            "monk": 3,
+            "jiho": 2
+          }
+        },
+        "highlight": "범종을 처음 가까이서 만져 봤어요."
+      },
+      {
+        "label": "안 된다고 {jiho}를 말린다",
+        "tag": "calm",
+        "text": "{jiho}가 \"쳇\" 했지만 같이 내려왔어요.",
+        "effects": {
+          "stats": {
+            "faith": 1
+          },
+          "rel": {
+            "teacher": 2,
+            "jiho": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-lost-beads",
+    "title": "단주를 잃어버렸어요",
+    "requires": {
+      "records": {
+        "beads_made": 1
+      }
+    },
+    "text": [
+      "손목에 늘 차던 단주가 없어요! 마당을 다 뒤져도 안 보여요."
+    ],
+    "choices": [
+      {
+        "label": "친구들과 경내를 샅샅이 찾는다",
+        "text": "{haram}가 연못가 돌 틈에서 찾아냈어요!",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "haram": 4,
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "스님께 여쭤본다",
+        "text": "\"잃어버린 것도 공부란다.\" 그러고는 새 단주를 하나 주셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 3
+          },
+          "rel": {
+            "monk": 4
+          }
+        },
+        "highlight": "스님께 새 단주를 받았어요."
+      }
+    ]
+  },
+  {
+    "id": "story-meditation-kid",
+    "title": "가만히 앉아 있는 재미",
+    "minGrade": 3,
+    "requires": {
+      "stats": {
+        "mental": 45
+      }
+    },
+    "text": [
+      "법회가 끝났는데 집에 가기 싫어요. 텅 빈 법당에 혼자 앉아 있으니 바깥 소리가 하나씩 들려요."
+    ],
+    "choices": [
+      {
+        "label": "눈을 감고 소리를 센다",
+        "tag": "calm",
+        "text": "새소리, 바람 소리, 멀리 목탁 소리… 열두 개까지 셌어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "faith": 2
+          }
+        },
+        "highlight": "텅 빈 법당에서 혼자 가만히 앉아 있어 봤어요."
+      },
+      {
+        "label": "부처님 얼굴을 오래 바라본다",
+        "text": "웃고 계신 것 같기도, 아닌 것 같기도 했어요.",
+        "effects": {
+          "stats": {
+            "faith": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-parents-day",
+    "title": "엄마가 처음 법회에 오신 날",
+    "minGrade": 2,
+    "maxGrade": 4,
+    "months": [
+      4,
+      6,
+      10
+    ],
+    "text": [
+      "오늘은 부모님 참관 법회예요. 엄마가 맨 뒤에 앉아 계세요. 자꾸 뒤를 돌아보게 돼요."
+    ],
+    "choices": [
+      {
+        "label": "평소보다 더 바르게 앉는다",
+        "text": "끝나고 엄마가 \"우리 애 맞아?\" 하며 웃으셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "mental": 1
+          }
+        }
+      },
+      {
+        "label": "엄마께 친구들을 소개한다",
+        "text": "{jiho}가 넙죽 인사해서 엄마가 웃음을 터뜨렸어요.",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "jiho": 2,
+            "seoyun": 1,
+            "haram": 1
+          }
+        }
+      },
+      {
+        "label": "엄마 손을 잡고 절을 구경시켜 드린다",
+        "text": "\"여기서 피구하고, 여기서 밥 먹어.\" 엄마가 신기해하셨어요.",
+        "effects": {
+          "stats": {
+            "mental": 2,
+            "charm": 1
+          }
+        },
+        "highlight": "엄마에게 내가 다니는 절을 구경시켜 드렸어요."
+      }
+    ]
+  },
+  {
+    "id": "cb-jiho-grudge",
+    "title": "{jiho}가 아직 기억하고 있었다",
+    "minGrade": 4,
+    "requires": {
+      "flags": [
+        "blamed_jiho"
+      ],
+      "notFlags": [
+        "apologized_jiho"
+      ]
+    },
+    "text": [
+      "짝꿍을 정하는 시간, {jiho}에게 같이 하자고 했더니 고개를 저어요. \"너 1학년 때 나 일렀잖아. 정 선생님한테.\" 그 일을 아직 기억하고 있었어요."
+    ],
+    "choices": [
+      {
+        "label": "그때 정말 미안했다고 사과한다",
+        "text": "{jiho}가 한참 말이 없다가 \"…그래, 이제 됐어\" 하고 옆자리를 툭 쳤어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "mental": -2
+          },
+          "rel": {
+            "jiho": 12
+          }
+        },
+        "flag": "apologized_jiho",
+        "highlight": "몇 년 전 일을 {jiho}에게 사과했어요."
+      },
+      {
+        "label": "\"그게 언제 적 일인데\" 하고 넘긴다",
+        "text": "{jiho}가 다른 친구 옆으로 가 앉았어요. 그 뒤로 {jiho}와 조금 어색해졌어요.",
+        "effects": {
+          "stats": {
+            "mental": 1
+          },
+          "rel": {
+            "jiho": -10
+          }
+        }
+      },
+      {
+        "label": "{seoyun}와 짝꿍을 한다",
+        "text": "{seoyun}는 반가워했지만, {jiho} 쪽은 자꾸 신경이 쓰였어요.",
+        "effects": {
+          "rel": {
+            "seoyun": 5,
+            "jiho": -4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cb-jiho-ignored",
+    "title": "같은 편이 된 날",
+    "minGrade": 3,
+    "requires": {
+      "flags": [
+        "ignored_jiho"
+      ]
+    },
+    "text": [
+      "{jiho}와 다투고 말을 안 한 지 한참이에요. 그런데 오늘 피구에서 하필 같은 편이 됐어요. 공이 내 손에 있어요."
+    ],
+    "choices": [
+      {
+        "label": "공을 {jiho}에게 넘긴다",
+        "text": "{jiho}가 공을 받아 던져 상대를 맞혔어요. 하이파이브를 하고 나니, 다툰 일이 흐릿해졌어요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          },
+          "rel": {
+            "jiho": 10
+          }
+        },
+        "flag": "made_up_late",
+        "highlight": "말 안 하던 {jiho}와 피구공 하나로 화해했어요."
+      },
+      {
+        "label": "내가 끝까지 던진다",
+        "text": "공은 빗나갔고, {jiho}는 끝까지 나를 보지 않았어요.",
+        "effects": {
+          "stats": {
+            "mental": -3
+          },
+          "rel": {
+            "jiho": -6
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cb-cat-kittens",
+    "title": "연등이가 새끼를 낳았다",
+    "minGrade": 4,
+    "requires": {
+      "flags": [
+        "cat_cared"
+      ]
+    },
+    "text": [
+      "공양간 뒤 상자에서 낯익은 울음소리가 나요. 몇 년째 밥을 챙겨 준 연등이가 새끼 세 마리를 낳았어요! 보살님이 \"너희가 매주 챙겨 준 덕이다\" 하세요."
+    ],
+    "choices": [
+      {
+        "label": "새끼들 이름을 지어 준다",
+        "text": "초파일이, 동지, 팥죽이. 이름을 부를 때마다 {haram}가 웃음을 터뜨렸어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "charm": 2
+          },
+          "rel": {
+            "haram": 4
+          }
+        },
+        "flag": "kittens",
+        "highlight": "연등이가 낳은 새끼들에게 이름을 지어 줬어요."
+      },
+      {
+        "label": "새끼들을 키울 집을 찾아 준다",
+        "text": "신도님들께 부탁해 세 마리 모두 좋은 집으로 갔어요. 정 선생님이 \"다 컸다\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "charm": 3,
+            "intellect": 1
+          },
+          "rel": {
+            "teacher": 4
+          }
+        },
+        "flag": "kittens",
+        "highlight": "연등이 새끼들에게 좋은 집을 찾아 줬어요."
+      }
+    ]
+  },
+  {
+    "id": "cb-cat-gone",
+    "title": "빈 상자",
+    "minGrade": 4,
+    "requires": {
+      "flags": [
+        "cat_named"
+      ],
+      "notFlags": [
+        "cat_cared"
+      ]
+    },
+    "text": [
+      "공양간 뒤 상자가 비어 있어요. 보살님 말로는 연등이가 지난겨울 어디론가 갔대요. 이름만 지어 주고 자주 들여다보지 못한 게 마음에 걸려요."
+    ],
+    "choices": [
+      {
+        "label": "경내를 돌며 연등이를 찾아본다",
+        "text": "범종각 아래까지 다 봤지만 없었어요. 해가 질 때까지 찾았어요.",
+        "effects": {
+          "stats": {
+            "health": 2,
+            "mental": -3
+          }
+        },
+        "flag": "cat_gone"
+      },
+      {
+        "label": "스님께 연등이 이야기를 한다",
+        "text": "스님이 \"이름을 지어 준 마음은 어디 가지 않는다\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "mental": 2
+          },
+          "rel": {
+            "monk": 4
+          }
+        },
+        "flag": "cat_gone"
+      }
+    ]
+  },
+  {
+    "id": "cb-kid-ocarina",
+    "title": "가르쳐 주세요",
+    "minGrade": 5,
+    "requires": {
+      "flags": [
+        "mentored_kid"
+      ]
+    },
+    "text": [
+      "3학년 때 짝꿍이 되어 줬던 동생이 오카리나를 들고 찾아왔어요. \"{senior}, 저 이거 가르쳐 주세요!\" 그때 울먹이던 아이가 이만큼 컸어요."
+    ],
+    "choices": [
+      {
+        "label": "법회 끝나고 남아서 가르쳐 준다",
+        "text": "한 곡을 끝까지 불자 동생이 폴짝 뛰었어요. 지솔 쌤이 멀리서 엄지를 들었어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "health": -2
+          },
+          "rel": {
+            "gansa": 5
+          }
+        },
+        "record": "helped_kid",
+        "flag": "mentor_ocarina",
+        "highlight": "짝꿍이던 동생에게 오카리나를 가르쳐 줬어요."
+      },
+      {
+        "label": "다음에 하자고 미룬다",
+        "text": "동생이 시무룩해져서 돌아갔어요. 그 다음 주엔 다른 언니한테 배우고 있었어요.",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "gansa": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cb-donated-toy",
+    "title": "낯익은 장난감",
+    "minGrade": 3,
+    "requires": {
+      "flags": [
+        "donated_toy"
+      ]
+    },
+    "text": [
+      "새로 온 동생이 낯익은 장난감을 들고 놀아요. 몇 년 전 바자회에 내놓았던 바로 그거예요! 귀퉁이 흠집까지 그대로예요."
+    ],
+    "choices": [
+      {
+        "label": "모른 척 웃으며 지켜본다",
+        "text": "동생이 그걸 품에 안고 법당에 들어갔어요. 이상하게 내가 더 뿌듯했어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "mental": 3
+          }
+        },
+        "highlight": "바자회에 내놓은 장난감이 동생 손에 있었어요."
+      },
+      {
+        "label": "\"그거 원래 내 거였어!\" 하고 말한다",
+        "text": "동생이 \"우와 진짜요?\" 하며 더 소중히 끌어안았어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "faith": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cb-seoyun-back",
+    "title": "{seoyun}가 돌아왔다",
+    "minGrade": 6,
+    "requires": {
+      "flags": [
+        "listened_seoyun"
+      ]
+    },
+    "text": [
+      "한동안 뜸하던 {seoyun}가 다시 법회에 왔어요. \"그때 네가 끝까지 들어 줘서, 엄마한테 말할 용기가 났어. 이제 매주 올 수 있대.\""
+    ],
+    "choices": [
+      {
+        "label": "반갑게 끌어안는다",
+        "text": "둘 다 눈이 빨개졌어요. {jiho}가 \"뭐야 뭐야\" 하며 끼어들었어요.",
+        "effects": {
+          "stats": {
+            "mental": 3
+          },
+          "rel": {
+            "seoyun": 10
+          }
+        },
+        "highlight": "고민하던 {seoyun}가 다시 법회에 돌아왔어요."
+      },
+      {
+        "label": "학생회도 같이 가자고 약속한다",
+        "text": "새끼손가락을 걸고 도장까지 찍었어요.",
+        "effects": {
+          "stats": {
+            "faith": 2
+          },
+          "rel": {
+            "seoyun": 8
+          }
+        },
+        "flag": "seoyun_promise"
+      }
+    ]
+  },
+  {
+    "id": "story-lost-election",
+    "title": "목탁 소리",
+    "minGrade": 6,
+    "requires": {
+      "flags": [
+        "president_lost"
+      ]
+    },
+    "text": [
+      "회장 선거에서 진 뒤로 일요일 예불이 조금 불편해요. {seoyun}가 치는 목탁 소리가 오늘따라 크게 들려요."
+    ],
+    "choices": [
+      {
+        "label": "예불이 끝나고 {seoyun}에게 \"잘 쳤어\" 한다",
+        "text": "{seoyun}가 \"사실 네가 했으면 더 잘했을 거야\" 하며 웃었어요. 마음이 풀렸어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "faith": 2
+          },
+          "rel": {
+            "seoyun": 6
+          }
+        },
+        "flag": "lost_gracefully",
+        "highlight": "선거에서 진 상대에게 먼저 '잘 쳤어'라고 말했어요."
+      },
+      {
+        "label": "괜히 법회를 일찍 나선다",
+        "text": "집에 오는 길이 유난히 길었어요.",
+        "effects": {
+          "stats": {
+            "mental": -3
+          },
+          "rel": {
+            "seoyun": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "story-friends-split",
+    "title": "{jiho}와 {seoyun}가 싸웠다",
+    "minGrade": 3,
+    "maxGrade": 4,
+    "requires": {
+      "rel": {
+        "jiho": 35,
+        "seoyun": 35
+      }
+    },
+    "text": [
+      "피구 규칙 때문에 {jiho}와 {seoyun}가 크게 싸웠어요. 둘 다 씩씩대며 나를 봐요. \"너는 누구 편이야?\""
+    ],
+    "choices": [
+      {
+        "label": "{jiho} 편을 든다",
+        "text": "{jiho}가 \"역시!\" 하며 어깨를 감쌌어요. {seoyun}는 아무 말 없이 법당으로 들어갔어요.",
+        "effects": {
+          "stats": {
+            "charm": 1
+          },
+          "rel": {
+            "jiho": 10,
+            "seoyun": -12
+          }
+        },
+        "flag": "sided_jiho"
+      },
+      {
+        "label": "{seoyun} 편을 든다",
+        "text": "{seoyun}가 고맙다며 눈물을 닦았어요. {jiho}는 공을 걷어차고 가 버렸어요.",
+        "effects": {
+          "stats": {
+            "charm": 1
+          },
+          "rel": {
+            "seoyun": 10,
+            "jiho": -12
+          }
+        },
+        "flag": "sided_seoyun"
+      },
+      {
+        "label": "둘을 화해시켜 본다",
+        "roll": {
+          "chance": 0.3,
+          "stat": "charm",
+          "friends": true,
+          "success": {
+            "text": "\"둘 다 이기고 싶었던 거잖아.\" 한참 뒤에 둘이 피식 웃었어요. 셋이 같이 아이스크림을 먹었어요.",
+            "effects": {
+              "stats": {
+                "charm": 5,
+                "mental": 2
+              },
+              "rel": {
+                "jiho": 5,
+                "seoyun": 5
+              }
+            },
+            "flag": "peacemaker",
+            "highlight": "싸운 {jiho}와 {seoyun}를 화해시켰어요."
+          },
+          "fail": {
+            "text": "\"넌 빠져!\" 둘 다 나한테 화를 냈어요. 그날 셋 다 혼자 집에 갔어요.",
+            "effects": {
+              "stats": {
+                "mental": -5
+              },
+              "rel": {
+                "jiho": -5,
+                "seoyun": -5
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cb-split-seoyun",
+    "title": "아직 서먹한 {seoyun}",
+    "minGrade": 5,
+    "requires": {
+      "flags": [
+        "sided_jiho"
+      ]
+    },
+    "text": [
+      "그 일 이후로 {seoyun}와는 인사만 하는 사이가 됐어요. 오늘 법회에서 {seoyun}가 내 옆자리에 앉았어요. 둘 다 앞만 봐요."
+    ],
+    "choices": [
+      {
+        "label": "\"그때 미안했어\" 하고 먼저 말한다",
+        "text": "{seoyun}가 한참 있다가 \"나도 그때 너무 화냈어\" 했어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "charm": 2
+          },
+          "rel": {
+            "seoyun": 10
+          }
+        },
+        "flag": "mended_split"
+      },
+      {
+        "label": "그냥 앞만 본다",
+        "text": "예불이 끝날 때까지 한 마디도 안 했어요.",
+        "effects": {
+          "stats": {
+            "mental": -2
+          },
+          "rel": {
+            "seoyun": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cb-split-jiho",
+    "title": "아직 서먹한 {jiho}",
+    "minGrade": 5,
+    "requires": {
+      "flags": [
+        "sided_seoyun"
+      ]
+    },
+    "text": [
+      "그 일 이후로 {jiho}는 피구할 때 나를 자기 편에 안 넣어요. 오늘도 편을 가르는데 {jiho}가 나를 못 본 척해요."
+    ],
+    "choices": [
+      {
+        "label": "\"나 너희 편 할래\" 하고 먼저 다가간다",
+        "text": "{jiho}가 잠깐 망설이다 \"…빨리 와\" 했어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "mental": 1
+          },
+          "rel": {
+            "jiho": 10
+          }
+        },
+        "flag": "mended_split"
+      },
+      {
+        "label": "다른 편에 선다",
+        "text": "{jiho}네 편이 이겼어요. {jiho}는 끝까지 나를 보지 않았어요.",
+        "effects": {
+          "stats": {
+            "mental": -2
+          },
+          "rel": {
+            "jiho": -3
+          }
+        }
+      }
+    ]
+  }
+]

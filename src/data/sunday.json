@@ -1,0 +1,410 @@
+{
+  "_note": "attend: 일요일 아침 장면. 매주 학년·달에 맞는 것 중 최근에 안 본 것이 나와요. 첫 선택지가 '간다'예요.",
+  "attend": [
+    {
+      "id": "am-basic",
+      "title": "일요일 아침",
+      "text": [
+        "{season} {month}월의 일요일, 오늘은 어린이법회가 있는 날이에요.",
+        "{season} 엄마가 \"오늘 법회 가지?\" 하고 물어요."
+      ],
+      "choices": [
+        {
+          "label": "법회에 간다",
+          "attend": true,
+          "next": "program"
+        },
+        {
+          "label": "놀이터에서 친구들이랑 논다",
+          "attend": false,
+          "text": "동네 친구들과 해가 질 때까지 놀았어요.",
+          "effects": {
+            "stats": {
+              "charm": 5,
+              "health": 2,
+              "faith": -4
+            }
+          }
+        },
+        {
+          "label": "늦잠 자고 집에서 쉰다",
+          "attend": false,
+          "text": "이불 속에서 뒹굴뒹굴, 푹 쉬었어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "mental": 3,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-rain",
+      "title": "비 오는 일요일",
+      "months": [
+        4,
+        6,
+        9
+      ],
+      "text": [
+        "창밖에 비가 주룩주룩 내려요. 우산을 쓰고 법회에 갈까요?",
+        "아침부터 장대비가 와요. 버스 정류장까지 가는 것도 일이에요."
+      ],
+      "choices": [
+        {
+          "label": "장화 신고 우산 쓰고 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 1,
+              "health": -1
+            }
+          }
+        },
+        {
+          "label": "빗소리 들으며 집에서 그림을 그린다",
+          "attend": false,
+          "text": "창가에 앉아 비 오는 절 마당을 상상하며 그렸어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-birthday-party",
+      "title": "친구 생일파티",
+      "text": [
+        "학교 친구 생일파티가 하필 일요일 점심이래요. 법회랑 시간이 겹쳐요."
+      ],
+      "choices": [
+        {
+          "label": "법회에 갔다가 파티에 늦게 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "charm": -1
+            }
+          }
+        },
+        {
+          "label": "생일파티에 간다",
+          "attend": false,
+          "text": "케이크도 먹고 보물찾기도 했어요. 학교 친구들과 더 친해졌어요.",
+          "effects": {
+            "stats": {
+              "charm": 6,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-family-trip",
+      "title": "가족 나들이",
+      "months": [
+        4,
+        5,
+        9,
+        10
+      ],
+      "text": [
+        "아빠가 \"오늘 날씨 좋은데 놀러 갈까?\" 하세요. {season}"
+      ],
+      "choices": [
+        {
+          "label": "법회 끝나고 가자고 조른다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 1
+            }
+          }
+        },
+        {
+          "label": "가족과 놀이공원에 간다",
+          "attend": false,
+          "text": "롤러코스터를 세 번이나 탔어요. 오랜만에 가족끼리 많이 웃었어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "health": 2,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-cartoon",
+      "title": "만화 하는 시간",
+      "minGrade": 2,
+      "text": [
+        "일요일 아침마다 하는 만화가 오늘 마지막 회래요. 법회 시간이랑 딱 겹쳐요."
+      ],
+      "choices": [
+        {
+          "label": "아쉽지만 법회에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 1,
+              "mental": -1
+            }
+          }
+        },
+        {
+          "label": "텔레비전 앞에 앉는다",
+          "attend": false,
+          "text": "주인공이 결국 이겼어요! 그런데 조금 허전했어요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-first-snow",
+      "title": "첫눈 오는 날",
+      "months": [
+        11
+      ],
+      "text": [
+        "창밖이 하얘요. 첫눈이에요! 동네 아이들이 벌써 눈사람을 만들고 있어요."
+      ],
+      "choices": [
+        {
+          "label": "눈 쌓인 절 마당을 보러 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "mental": 1
+            }
+          },
+          "highlight": "첫눈 오는 날 눈 덮인 절 마당을 봤어요."
+        },
+        {
+          "label": "동네에서 눈싸움을 한다",
+          "attend": false,
+          "text": "손이 빨개지도록 눈싸움을 했어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "charm": 3,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-academy",
+      "title": "학원 보충 수업",
+      "minGrade": 4,
+      "text": [
+        "학원에서 일요일 보충 수업을 한대요. 엄마는 \"네가 정해\" 하세요."
+      ],
+      "choices": [
+        {
+          "label": "법회에 간다",
+          "attend": true,
+          "next": "program"
+        },
+        {
+          "label": "보충 수업에 간다",
+          "attend": false,
+          "text": "어려운 문제를 세 개나 풀었어요. 머리가 좀 아파요.",
+          "effects": {
+            "stats": {
+              "intellect": 6,
+              "mental": -1,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-grandma",
+      "title": "할머니가 오신 날",
+      "text": [
+        "시골에서 할머니가 올라오셨어요. \"우리 손주 다니는 절 구경 좀 하자.\""
+      ],
+      "choices": [
+        {
+          "label": "할머니 손을 잡고 같이 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "mental": 1
+            }
+          },
+          "highlight": "할머니와 함께 화계사에 갔어요."
+        },
+        {
+          "label": "집에서 할머니랑 논다",
+          "attend": false,
+          "text": "할머니가 옛날이야기를 해 주셨어요. 할머니도 젊을 때 절에 다니셨대요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-soccer",
+      "title": "동네 축구 시합",
+      "minGrade": 3,
+      "months": [
+        4,
+        6,
+        9,
+        10
+      ],
+      "text": [
+        "동네 형들이 일요일 아침에 축구 시합을 한대요. \"너도 끼워 줄게!\""
+      ],
+      "choices": [
+        {
+          "label": "다음에 하자고 하고 법회에 간다",
+          "attend": true,
+          "next": "program"
+        },
+        {
+          "label": "축구하러 간다",
+          "attend": false,
+          "text": "골은 못 넣었지만 끝까지 뛰었어요.",
+          "effects": {
+            "stats": {
+              "health": 6,
+              "charm": 2,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-oversleep",
+      "title": "늦잠",
+      "text": [
+        "눈을 떠 보니 법회 시작 20분 전이에요! 머리도 안 감았어요."
+      ],
+      "choices": [
+        {
+          "label": "허둥지둥 뛰어간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "health": 1,
+              "mental": -1
+            }
+          }
+        },
+        {
+          "label": "에라 모르겠다, 다시 잔다",
+          "attend": false,
+          "text": "점심때가 돼서야 일어났어요. 개운하긴 해요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "mental": 2,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "am-chuseok",
+      "title": "추석 연휴",
+      "months": [
+        9
+      ],
+      "text": [
+        "추석 연휴예요. 큰집에 가야 하는데, 마침 일요일이에요."
+      ],
+      "choices": [
+        {
+          "label": "법회 들렀다가 큰집에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "health": -1
+            }
+          }
+        },
+        {
+          "label": "큰집에서 사촌들과 논다",
+          "attend": false,
+          "text": "송편을 빚고 사촌들과 윷놀이를 했어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "mental": 3,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "return": {
+    "id": "sunday-return",
+    "title": "오랜만에 왔네?",
+    "text": [
+      "법당 문을 여니 {jiho}가 눈을 동그랗게 떠요. \"어? 오랜만에 왔네?\"",
+      "지솔 쌤이 \"어? 누구더라~?\" 하고 놀리더니 활짝 웃어요. \"보고 싶었어! 그동안 바빴어?\""
+    ],
+    "choices": [
+      {
+        "label": "멋쩍게 웃으며 자리에 앉는다",
+        "text": "어색했지만, 금방 예전처럼 웃고 떠들었어요.",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "mental": 1
+          },
+          "rel": {
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "\"이제 자주 올게!\" 하고 약속한다",
+        "text": "지솔 쌤이 새끼손가락을 내밀었어요.",
+        "effects": {
+          "stats": {
+            "faith": 3
+          },
+          "rel": {
+            "gansa": 4,
+            "jiho": 2
+          }
+        },
+        "highlight": "한동안 빠졌다가 다시 법회에 돌아왔어요."
+      }
+    ]
+  }
+}
