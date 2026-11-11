@@ -1,0 +1,519 @@
+{
+  "attend": [
+    {
+      "id": "un-am-basic",
+      "title": "일요일 아침",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "{season} 자취방 알람이 울려요. 대학생회는 아무도 깨워 주지 않아요. {buddy}한테서 \"오늘 와?\" 하나만 와 있어요.",
+        "{season} 대학생회 단톡방에 {jisol}가 \"오늘 명상하고 밥 먹자~\"를 올렸어요. 읽은 사람 수는 많은데 답은 {buddy}뿐이에요."
+      ],
+      "choices": [
+        {
+          "label": "세수만 하고 절로 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2
+            }
+          }
+        },
+        {
+          "label": "\"오늘은 패스\" 하고 다시 잔다",
+          "attend": false,
+          "text": "푹 잤어요. 단톡방에 {buddy}랑 {jisol} 둘이 찍은 셀카가 올라왔어요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-mt",
+      "title": "과 MT 다음 날",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "어젯밤 과 MT에서 새벽 네 시까지 놀았어요. 목이 다 쉬었어요."
+      ],
+      "choices": [
+        {
+          "label": "쉰 목으로 명상이라도 하러 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "health": -3
+            }
+          }
+        },
+        {
+          "label": "해장국 먹고 하루 종일 잔다",
+          "attend": false,
+          "text": "오후 다섯 시에 일어났어요. 하루가 증발했어요.",
+          "effects": {
+            "stats": {
+              "health": 4,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-parttime",
+      "title": "주말 알바",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "카페 알바 사장님이 \"이번 주 일요일 오전만 대타 좀\" 하세요.",
+        "편의점 주말 알바가 일요일 오전으로 바뀌었어요. 이번 달 월세가 빠듯해요."
+      ],
+      "choices": [
+        {
+          "label": "사장님께 오후로 바꿔 달라고 하고 법회에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": -1
+            }
+          }
+        },
+        {
+          "label": "알바를 간다",
+          "attend": false,
+          "text": "월세는 벌었어요. 대학생회 단톡방은 못 본 척했어요.",
+          "effects": {
+            "stats": {
+              "intellect": 1,
+              "mental": 2,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-assignment",
+      "title": "팀플 마감",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "팀플 발표가 내일이에요. 조원 하나가 잠수를 탔어요. 피피티가 반밖에 없어요."
+      ],
+      "choices": [
+        {
+          "label": "노트북 들고 법회에 간다. 끝나고 카페에서 한다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "mental": -2
+            }
+          }
+        },
+        {
+          "label": "하루 종일 팀플한다",
+          "attend": false,
+          "text": "피피티를 혼자 다 만들었어요. 발표는 잠수 탄 조원이 했어요.",
+          "effects": {
+            "stats": {
+              "intellect": 5,
+              "mental": -3,
+              "faith": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-exam",
+      "title": "시험 기간",
+      "months": [
+        4,
+        6,
+        10,
+        11
+      ],
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "중간고사 기간이에요. 도서관 자리 맡으려면 아침 일곱 시엔 가야 해요.",
+        "기말고사가 다음 주예요. 전공 책이 벽돌처럼 두꺼워요."
+      ],
+      "choices": [
+        {
+          "label": "명상만 하고 도서관으로 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "health": -2,
+              "intellect": 1
+            }
+          }
+        },
+        {
+          "label": "도서관에 박혀 있는다",
+          "attend": false,
+          "text": "한 과목을 다 끝냈어요. 대신 하루 종일 아무하고도 말을 안 했어요.",
+          "effects": {
+            "stats": {
+              "intellect": 7,
+              "faith": -4,
+              "mental": -2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-date",
+      "title": "소개팅",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "과 동기가 일요일 점심에 소개팅을 잡아 줬어요. 법회 끝나는 시간이랑 딱 겹쳐요."
+      ],
+      "choices": [
+        {
+          "label": "법회 끝나고 뛰어간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "health": -2,
+              "charm": 1
+            }
+          }
+        },
+        {
+          "label": "소개팅에 집중한다",
+          "attend": false,
+          "text": "대화는 잘 통했어요. 그런데 \"주말엔 보통 뭐 해요?\"에 절 얘기를 한참 했어요.",
+          "effects": {
+            "stats": {
+              "charm": 5,
+              "faith": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-hangover",
+      "title": "어젯밤 뒤풀이",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "어젯밤 대학생회 사람들이랑 늦게까지 마셨어요. {youngmin}가 마지막에 \"다들 내일 법회… 오는 거지…?\" 했던 게 기억나요."
+      ],
+      "choices": [
+        {
+          "label": "약속은 약속. 꾸역꾸역 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "health": -3
+            },
+            "rel": {
+              "teacher": 2
+            }
+          }
+        },
+        {
+          "label": "못 일어나겠다",
+          "attend": false,
+          "text": "{youngmin}한테서 \"괜찮아? 꿀물 사 갈까…?\"가 왔어요. 본인도 못 일어났대요.",
+          "effects": {
+            "stats": {
+              "health": 2,
+              "faith": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-job",
+      "title": "취업 준비",
+      "minGrade": 16,
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "자소서 마감이 사흘 남았어요. \"본인이 주도적으로 무언가를 이끈 경험을 쓰시오.\"",
+        "인적성 시험이 다음 주예요. 스터디 단톡방이 일요일 아침부터 시끄러워요."
+      ],
+      "choices": [
+        {
+          "label": "법회에 가서 머리를 비우고 온다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 4,
+              "mental": 3,
+              "intellect": -1
+            }
+          }
+        },
+        {
+          "label": "스터디 카페에 간다",
+          "attend": false,
+          "text": "자소서 하나를 끝냈어요. 쓰고 나니 쓸 경험이 절 얘기밖에 없었어요.",
+          "effects": {
+            "stats": {
+              "intellect": 6,
+              "faith": -3,
+              "mental": -2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-rain",
+      "title": "비 오는 일요일",
+      "months": [
+        4,
+        6,
+        9
+      ],
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "비가 와요. 화계사 올라가는 언덕길이 미끄러워요."
+      ],
+      "choices": [
+        {
+          "label": "우산 쓰고 올라간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "health": -1
+            }
+          }
+        },
+        {
+          "label": "빗소리 들으며 자취방에서 뒹군다",
+          "attend": false,
+          "text": "라면 끓여 먹고 영화 두 편을 봤어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-kg",
+      "title": "어린이회 법회 날",
+      "requires": {
+        "flags": [
+          "uni:kid_gansa"
+        ]
+      },
+      "text": [
+        "{season} 어린이회는 아침 열 시. 간사는 아홉 시까지 가서 방석을 깔아야 해요. 1학년 때는 몰랐어요. 쌤들이 이렇게 일찍 와 있었던 걸.",
+        "{season} 알람 세 개를 껐어요. 오늘 어린이회 간식은 내가 사 가기로 했어요. 아이들이 \"쌤 오늘 뭐 사 와요?\" 하고 단톡방 대신 부모님 휴대폰으로 물어봤어요."
+      ],
+      "choices": [
+        {
+          "label": "간식 봉지를 들고 뛰어간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "health": -1
+            },
+            "rel": {
+              "gansa": 1
+            }
+          }
+        },
+        {
+          "label": "{jisol}한테 \"오늘만 부탁해요…\" 보낸다",
+          "attend": false,
+          "text": "{jisol}가 \"ㅋㅋ 간사 3주 만에 땡땡이?\" 하고 대신 갔어요. 아이들이 \"새 쌤 어디 갔어요?\" 했대요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "faith": -3,
+              "leadership": -2
+            },
+            "rel": {
+              "gansa": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-kg2",
+      "title": "아이들 단톡 대신 부모님 문자",
+      "requires": {
+        "flags": [
+          "uni:kid_gansa"
+        ]
+      },
+      "text": [
+        "토요일 밤, 어린이회 학부모님 문자가 와요. \"쌤~ 내일 우리 애 감기라 못 가요ㅠ\" \"내일 몇 시에 끝나요?\" \"혹시 우리 애 사진 있어요?\" 지솔 쌤이 왜 늘 피곤했는지 알 것 같아요."
+      ],
+      "choices": [
+        {
+          "label": "답장 다 하고 일찍 자서 아침에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "leadership": 2,
+              "faith": 1
+            }
+          }
+        },
+        {
+          "label": "사진까지 골라 보내 드리고 새벽에 잔다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "health": -3
+            },
+            "rel": {
+              "gansa": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-am-sg",
+      "title": "학생회 법회 날",
+      "requires": {
+        "flags": [
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "{season} 학생회 단톡방에 공지를 올려야 해요. \"내일 법회 와요~\" 썼다가 너무 가벼운가 싶어 지웠어요. 6년 전 영민 쌤이 이랬어요.",
+        "{season} 학생회 후배가 토요일 밤 열두 시에 \"쌤 내일 꼭 가야 돼요? 시험인데…\"를 보냈어요."
+      ],
+      "choices": [
+        {
+          "label": "공지 올리고 일찍 가서 악기를 꺼내 둔다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "leadership": 1
+            },
+            "rel": {
+              "teacher": 1
+            }
+          }
+        },
+        {
+          "label": "\"이번 주는 쉬자\" 공지하고 나도 쉰다",
+          "attend": false,
+          "text": "후배들이 \"쌤 최고\"를 보냈어요. {youngmin}는 \"…그래도 돼…?\"를 보냈다가 지웠어요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "faith": -3,
+              "leadership": -2
+            },
+            "rel": {
+              "teacher": -2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "return": {
+    "id": "un-return",
+    "title": "오랜만에 왔네?",
+    "text": [
+      "법회실 문을 여니 {buddy}가 \"어, 살아 있었네?\" 하며 웃어요.",
+      "오랜만에 왔더니 {jisol}가 휴대폰부터 들어요. \"가만있어 봐, 복귀 기념 사진.\""
+    ],
+    "choices": [
+      {
+        "label": "멋쩍게 웃으며 앉는다",
+        "text": "아무도 뭐라 하지 않았어요. 명상 시간 내내 마음이 편했어요.",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "mental": 2
+          }
+        },
+        "highlight": "한동안 빠졌다가 다시 대학생회에 돌아왔어요."
+      },
+      {
+        "label": "\"요즘 좀 힘들었어\" 하고 털어놓는다",
+        "text": "끝나고 카페에서 {buddy}가 두 시간을 들어 줬어요.",
+        "effects": {
+          "stats": {
+            "mental": 5
+          }
+        }
+      }
+    ]
+  }
+}

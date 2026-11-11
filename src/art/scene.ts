@@ -1,6 +1,7 @@
 import scenes from './scenes.json';
 import sprites from './sprites.json';
 import { FRIEND_KEYS, type GameState, type RelKey } from '../game/types';
+import { catIndex, uniBuddy } from '../game/names';
 
 /** 스프라이트 시트의 동작 순서 (ART_GUIDE.md와 같다) */
 export const POSE_FRAME = { idle: 0, idle2: 1, run: 2, hapjang: 3, happy: 4, surprised: 5 } as const;
@@ -26,12 +27,14 @@ type SceneDef = {
   /** 고양이(지장이·보살이·미륵이)가 나오는 장면. kittens는 새끼 수 */
   cat?: boolean;
   kittens?: number;
+  /** 대학생 간사 장면에 세우는 동생들: 어린이회(kid) 아이들이나 학생회(student) 후배들 */
+  juniors?: { stage: 'kid' | 'student'; n: number; pose?: Pose };
 };
 const DEFAULTS = scenes.defaults as Record<string, SceneDef>;
 const SCENES = scenes.scenes as Record<string, SceneDef>;
 export const SPRITES = sprites as Record<string, { frames: number; w: number; h: number }>;
 
-/** 어린이회 → 학생회 → 대학생회. 지금은 어린이회(1~6학년)만 있다. */
+/** 어린이회(초1~6) → 학생회(중1~고3) → 대학생회(대1~4) */
 export function stageOf(grade: number): 'kid' | 'student' | 'university' {
   return grade <= 6 ? 'kid' : grade <= 12 ? 'student' : 'university';
 }
@@ -59,26 +62,25 @@ export interface Staging {
   cat?: { n: number; kittens: number };
 }
 
-/** 고양이 그림 수 (public/art/props/cat-N.webp) */
-const CAT_KINDS = 3;
-
-/** 고양이 그림은 판마다 한 마리로 정해진다 (그 판 친구 이름으로 고르니 한 판 안에서는 늘 같다) */
-export function catOf(game: Pick<GameState, 'friends' | 'name'>): number {
-  let h = 7;
-  for (const c of game.name + Object.values(game.friends).join('')) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return (h % CAT_KINDS) + 1;
-}
 
 /** 글에 이름이 나오는 사람을 등장시킨다. 아무도 안 나오면 친구 한둘을 곁에 세운다. */
 function autoCast(text: string, game: GameState, seed: string): RelKey[] {
   // 어른이 먼저: 자리가 모자라면 친구가 빠진다 (선생님·스님이 너무 안 나와서)
   const found: RelKey[] = [];
   if (text.includes('스님')) found.push('monk');
-  // '지솔 쌤'은 쌤, 그냥 '선생님'은 지도 선생님(정 선생님)
-  if (text.includes('선생님')) found.push('teacher');
-  if (text.includes('지솔')) found.push('gansa');
+  if (stageOf(game.grade) === 'university') {
+    // 대학생회엔 간사·선생님이 없다. 두 자리는 지솔 쌤(gansa)과 영민 쌤(teacher)
+    if (text.includes('지솔')) found.push('gansa');
+    if (text.includes('영민')) found.push('teacher');
+  } else {
+    // '지솔 쌤'은 쌤, 그냥 '선생님'은 지도 선생님(정 선생님)
+    if (text.includes('선생님')) found.push('teacher');
+    if (text.includes('지솔') || text.includes('영민')) found.push('gansa');
+  }
   for (const k of FRIEND_KEYS) if (text.includes(game.friends[k])) found.push(k);
   if (found.length) return [...new Set(found)].slice(0, 3);
+  // 대학생회 일요일엔 꼬박꼬박 오는 친구 하나만 곁에 있다
+  if (stageOf(game.grade) === 'university') return [uniBuddy(game)];
   // 이름이 없으면 장면마다 정해진 친구 한둘 (같은 장면은 늘 같은 친구)
   let h = 0;
   for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0;
@@ -110,7 +112,8 @@ export function staging(opts: {
   const base = (slotKind === 'sunday' && isProgram ? DEFAULTS.program : DEFAULTS[slotKind]) ?? DEFAULTS.program;
   const stage = stageOf(game.grade);
   let bg = def.bg ?? base.bg ?? 'kids-room';
-  if (stage !== 'kid' && bg === 'kids-room') bg = 'students-room';
+  // 학생회부터는 법회실이 바뀐다 (장면에 어린이회 법회실을 콕 집었으면 그대로: 대학생 간사가 어린이회에 갈 때)
+  if (stage !== 'kid' && bg === 'kids-room' && def.bg !== 'kids-room') bg = 'students-room';
 
   const pose: Pose = def.pose ?? KEYWORD_POSE.find(([re]) => re.test(text))?.[1] ?? 'idle';
   const heroPose: Pose = opts.mood ?? pose;
@@ -119,11 +122,14 @@ export function staging(opts: {
     const key = `${stage}/${name}`;
     return SPRITES[key] ? key : `kid/${name}`;
   };
+  // 대학생회에서 지솔 쌤은 어린이회 때 그림, 영민 쌤은 학생회 때 그림 그대로
+  const roleSprite = (k: RelKey) =>
+    stage === 'university' && k === 'gansa' ? 'kid/gansa' : stage === 'university' && k === 'teacher' ? 'student/gansa' : sp(ROLE_SPRITE[k]);
 
   return {
     bg,
     night: def.night ?? base.night ?? false,
-    cat: def.cat ? { n: catOf(game), kittens: def.kittens ?? 0 } : undefined,
+    cat: def.cat ? { n: catIndex(game), kittens: def.kittens ?? 0 } : undefined,
     actors: [
       { key: 'hero', sprite: sp(game.gender === 'male' ? 'hero-m' : 'hero-f'), pose: heroPose },
       // 다른 사람들은 기뻐하기·놀라기·울기를 따라 하지 않는다.
@@ -132,8 +138,14 @@ export function staging(opts: {
         const adult = k === 'gansa' || k === 'teacher';
         const p: Pose =
           heroPose === 'cry' && adult ? 'angry' : pose === 'happy' || pose === 'surprised' || pose === 'cry' ? 'idle' : pose;
-        return { key: k, sprite: sp(ROLE_SPRITE[k]), pose: def.castPose?.[k] ?? p } as Actor;
+        return { key: k, sprite: roleSprite(k), pose: def.castPose?.[k] ?? p } as Actor;
       }),
+      // 동생들: 친구 그림 세 장을 돌려 가며 (어린이회 아이들은 대학생보다 작게 나온다)
+      ...Array.from({ length: def.juniors?.n ?? 0 }, (_, i) => ({
+        key: `junior-${i}`,
+        sprite: `${def.juniors!.stage}/${['friend-a', 'friend-b', 'friend-c'][i % 3]}`,
+        pose: def.juniors!.pose ?? (pose === 'hapjang' || pose === 'run' ? pose : 'idle'),
+      })),
     ],
   };
 }

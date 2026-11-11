@@ -1,0 +1,197 @@
+[
+  {
+    "id": "un-low-health",
+    "lowStat": "health",
+    "title": "편의점 도시락 3주째",
+    "text": [
+      "삼각김밥이랑 컵라면으로 버틴 지 3주째예요. 계단만 올라도 숨이 차요."
+    ],
+    "choices": [
+      {
+        "label": "절 공양간 밥 먹으러라도 간다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "health": 5,
+            "faith": 3
+          }
+        }
+      },
+      {
+        "label": "하루 종일 잔다",
+        "attend": false,
+        "text": "열네 시간을 잤어요. 그래도 몸이 무거워요.",
+        "effects": {
+          "stats": {
+            "health": 6,
+            "faith": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-low-mental",
+    "lowStat": "mental",
+    "title": "번아웃",
+    "text": [
+      "과제, 알바, 사람. 다 하다 보니 아무것도 하기 싫어졌어요."
+    ],
+    "choices": [
+      {
+        "label": "법회 가서 명상만 하고 온다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "mental": 7,
+            "faith": 3
+          }
+        }
+      },
+      {
+        "label": "휴대폰도 끄고 누워 있는다",
+        "attend": false,
+        "text": "천장만 봤어요. 그래도 조금 나아졌어요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "charm": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-low-intellect",
+    "lowStat": "intellect",
+    "title": "학사 경고 위기",
+    "text": [
+      "성적 알림이 떴어요. 전공 하나가 D예요."
+    ],
+    "choices": [
+      {
+        "label": "법회 갔다가 바로 도서관",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "intellect": 3,
+            "health": -2
+          }
+        }
+      },
+      {
+        "label": "재수강 계획부터 짠다",
+        "attend": false,
+        "text": "계획표를 새로 짰어요.",
+        "effects": {
+          "stats": {
+            "intellect": 7,
+            "faith": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-low-charm",
+    "lowStat": "charm",
+    "title": "아싸가 된 기분",
+    "text": [
+      "과 단톡방에서 나만 모르는 얘기가 오가요."
+    ],
+    "choices": [
+      {
+        "label": "법회 끝나고 밥 먹자고 먼저 말한다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "charm": 5,
+            "mental": -1
+          }
+        }
+      },
+      {
+        "label": "혼자 있는다",
+        "attend": false,
+        "text": "혼자가 편했어요. 조금 외로웠어요.",
+        "effects": {
+          "stats": {
+            "mental": -2,
+            "charm": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-low-faith",
+    "lowStat": "faith",
+    "title": "나는 왜 아직 절에 다닐까",
+    "text": [
+      "동기가 묻어요. \"너 아직도 절 다녀? 어릴 때부터?\" 대답이 바로 안 나와요."
+    ],
+    "choices": [
+      {
+        "label": "그 질문을 들고 스님을 찾아간다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 7,
+            "intellect": 1
+          },
+          "rel": {
+            "monk": 3
+          }
+        }
+      },
+      {
+        "label": "이번 주는 쉰다",
+        "attend": false,
+        "text": "그 질문이 계속 맴돌았어요.",
+        "effects": {
+          "stats": {
+            "mental": 1,
+            "faith": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-low-leadership",
+    "lowStat": "leadership",
+    "title": "아무도 안 하는 일",
+    "text": [
+      "다음 주 법회 공지를 아무도 안 올렸어요. 다들 누가 하겠지 하는 눈치예요."
+    ],
+    "choices": [
+      {
+        "label": "내가 올린다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "leadership": 6,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "그냥 법회만 나간다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 2
+          }
+        }
+      }
+    ]
+  }
+]

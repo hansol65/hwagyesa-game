@@ -1,0 +1,382 @@
+[
+  {
+    "id": "un-story-friends-fade",
+    "title": "줄어든 일요일",
+    "text": [
+      "어린이회부터 같이 온 친구 셋. 대학생이 되니 일요일에 오는 건 이제 {buddy}랑 나뿐이에요. 단톡방은 그대로인데 법당 방석은 두 개만 깔려요."
+    ],
+    "choices": [
+      {
+        "label": "\"행사 때라도 와\" 하고 단톡방에 쓴다",
+        "text": "\"부처님오신날엔 갈게!\" 답장이 왔어요. 진짜로 행사 때는 다 왔어요.",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "jiho": 2,
+            "seoyun": 2,
+            "haram": 2
+          }
+        }
+      },
+      {
+        "label": "{buddy}한테 \"우리라도 잘 나오자\" 한다",
+        "text": "{buddy}가 새끼손가락을 내밀었어요. 유치했는데 좋았어요.",
+        "effects": {
+          "stats": {
+            "mental": 3
+          }
+        },
+        "highlight": "대학생이 되어서도 {buddy}와 일요일마다 절에 갔어요."
+      }
+    ]
+  },
+  {
+    "id": "un-story-jisol-forever",
+    "title": "{jisol}는 아직도",
+    "text": [
+      "{jisol}가 학사 일정표를 보며 한숨을 쉬어요. \"이번 학기엔 진짜 졸업한다.\" 1학년 때도 들은 말 같아요."
+    ],
+    "choices": [
+      {
+        "label": "\"이번엔 진짜죠?\" 하고 묻는다",
+        "text": "\"…아마?\" 둘 다 웃음이 터졌어요. 그리고 {jisol}가 나를 한 장 찍었어요. \"이건 내가 졸업 못 한 증거로 쓸 거야.\"",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "mental": 2
+          },
+          "rel": {
+            "gansa": 5
+          }
+        }
+      },
+      {
+        "label": "졸업 요건을 같이 확인해 준다",
+        "roll": {
+          "chance": 0.4,
+          "stat": "intellect",
+          "success": {
+            "text": "학점 계산을 해 보니 교양 2학점이 모자랐어요. {jisol}가 \"너 없었으면 또 못 할 뻔했다\"며 끌어안았어요.",
+            "effects": {
+              "stats": {
+                "intellect": 3
+              },
+              "rel": {
+                "gansa": 7
+              }
+            }
+          },
+          "fail": {
+            "text": "계산할수록 모자란 게 늘어났어요. 둘이 조용히 휴대폰을 덮었어요.",
+            "effects": {
+              "stats": {
+                "mental": -1
+              },
+              "rel": {
+                "gansa": 3
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-story-youngmin-shy",
+    "title": "{youngmin}의 고백",
+    "text": [
+      "{youngmin}가 법회 끝나고 쭈뼛쭈뼛 다가와요. \"저, 저기… 너 학생회 때… 나 진짜 많이 의지했어. 그 말 하고 싶었는데… 6년 걸렸네…\""
+    ],
+    "choices": [
+      {
+        "label": "\"저도요\" 하고 웃는다",
+        "text": "{youngmin}가 눈이 빨개져서 고개를 돌렸어요. 단톡방에 \"고마워\"를 썼다가, 이번엔 안 지웠어요.",
+        "effects": {
+          "stats": {
+            "mental": 4
+          },
+          "rel": {
+            "teacher": 7
+          }
+        }
+      },
+      {
+        "label": "\"{hyung} 지금 울어요?\" 하고 놀린다",
+        "text": "\"아, 아니야!!\" 하는데 이미 울고 있었어요. 다 같이 웃었어요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          },
+          "rel": {
+            "teacher": 4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-story-jiho-army",
+    "title": "{jiho}의 입대",
+    "text": [
+      "요즘 법회엔 안 나오던 {jiho}가 단톡방에 \"나 다음 주 군대 간다\"를 올렸어요."
+    ],
+    "choices": [
+      {
+        "label": "입대 전날 다 같이 밥을 먹는다",
+        "text": "오랜만에 넷이 모였어요. {jiho}가 \"나 없는 동안 피구왕 하지 마라\" 했어요. 다들 웃다가 조금 울었어요.",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "jiho": 7,
+            "seoyun": 2,
+            "haram": 2
+          }
+        },
+        "flag": "jiho_sendoff"
+      },
+      {
+        "label": "훈련소에 편지를 보낸다",
+        "text": "\"어린이회 때 네가 피구공으로 나 맞힌 거 아직 안 잊었다.\" 답장이 꼭 올 것 같아요.",
+        "effects": {
+          "stats": {
+            "charm": 1
+          },
+          "rel": {
+            "jiho": 5
+          }
+        },
+        "flag": "jiho_sendoff"
+      }
+    ]
+  },
+  {
+    "id": "un-cb-jiho-back",
+    "title": "{jiho}가 돌아왔다",
+    "minGrade": 15,
+    "requires": {
+      "flags": [
+        "jiho_sendoff"
+      ]
+    },
+    "text": [
+      "머리를 짧게 깎은 {jiho}가 법당 문을 열었어요. \"나 왔다. 피구 하자.\""
+    ],
+    "choices": [
+      {
+        "label": "마당으로 공을 들고 나간다",
+        "text": "둘이 공을 주고받기만 했는데 해가 졌어요. 그날 이후로 {jiho}도 가끔 나와요.",
+        "effects": {
+          "stats": {
+            "health": 3,
+            "mental": 5
+          },
+          "rel": {
+            "jiho": 6
+          }
+        },
+        "highlight": "{jiho}가 군대에서 돌아왔어요."
+      }
+    ]
+  },
+  {
+    "id": "un-story-seoyun-abroad",
+    "title": "{seoyun}의 교환학생",
+    "text": [
+      "{seoyun}가 한 학기 교환학생을 간대요. \"거기도 절이 있을까?\""
+    ],
+    "choices": [
+      {
+        "label": "단주를 선물한다",
+        "text": "{seoyun}가 손목에 차고 \"이거 보면 화계사 생각날 것 같아\" 했어요.",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "seoyun": 6
+          }
+        },
+        "flag": "seoyun_beads"
+      },
+      {
+        "label": "\"꼭 사진 보내\" 한다",
+        "text": "한 달 뒤, 낯선 나라 작은 절 앞에서 찍은 사진이 왔어요.",
+        "effects": {
+          "stats": {
+            "faith": 2
+          },
+          "rel": {
+            "seoyun": 4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-story-haram-show",
+    "title": "{haram}의 졸업 전시",
+    "minGrade": 15,
+    "text": [
+      "{haram}가 졸업 전시를 한대요. 초대장 그림이 화계사 대웅전이에요."
+    ],
+    "choices": [
+      {
+        "label": "{buddy}랑 같이 보러 간다",
+        "text": "전시장 한쪽에 어린이회 때 우리를 그린 그림이 있었어요. 피구공, 연등, 고양이까지.",
+        "effects": {
+          "stats": {
+            "mental": 5
+          },
+          "rel": {
+            "haram": 7
+          }
+        },
+        "highlight": "{haram}의 졸업 전시에 어린이회 우리가 걸려 있었어요."
+      },
+      {
+        "label": "꽃만 보낸다",
+        "text": "{haram}가 꽃 사진에 하트를 열 개 달았어요.",
+        "effects": {
+          "stats": {},
+          "rel": {
+            "haram": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-story-cry-burnout",
+    "title": "다 내려놓고 싶은 날",
+    "text": [
+      "과제, 알바, 사람까지 겹친 주. 명상 시간에 눈을 감았는데 갑자기 눈물이 터졌어요. 소리를 참으려니 어깨가 떨려요."
+    ],
+    "choices": [
+      {
+        "label": "그냥 운다",
+        "text": "명상이 끝날 때까지 아무도 말을 안 걸었어요. 끝나자 {buddy}가 휴지를 내밀고, {jisol}가 \"밥 먹으러 가자\" 했어요. 그게 다였는데 다 괜찮아졌어요.",
+        "effects": {
+          "stats": {
+            "mental": 6
+          },
+          "rel": {
+            "gansa": 3
+          }
+        },
+        "highlight": "대학생회 명상 시간에 처음으로 울었어요."
+      },
+      {
+        "label": "눈물을 닦고 버틴다",
+        "text": "끝나고 혼자 마당 계단에 앉았어요. 스님이 지나가다 \"그만큼 했으면 됐다\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "mental": -2
+          },
+          "rel": {
+            "monk": 4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-story-cat",
+    "title": "공양간 뒤 고양이",
+    "requires": {
+      "flags": [
+        "kittens"
+      ],
+      "notFlags": [
+        "uni:kid_gansa"
+      ]
+    },
+    "text": [
+      "공양간 뒤에 {cat}를 꼭 닮은 고양이 가족이 살아요. 몇 대째인지 모르겠어요."
+    ],
+    "choices": [
+      {
+        "label": "옆에 쪼그려 앉는다",
+        "text": "고양이가 나를 한참 보더니 발목에 몸을 비볐어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "faith": 2
+          }
+        },
+        "highlight": "{cat}의 손주들을 만났어요."
+      }
+    ]
+  },
+  {
+    "id": "un-story-jung",
+    "title": "정 선생님을 만났다",
+    "text": [
+      "부처님오신날 준비하다 정 선생님을 만났어요. 머리가 하얘지셨어요. \"아이고, 이게 누구야! 다 컸네, 다 컸어!\""
+    ],
+    "choices": [
+      {
+        "label": "\"선생님 아재 개그 아직 하세요?\" 묻는다",
+        "text": "\"절에서 제일 빠른 사람? 부처님. 왜? 불이 나니까!\" 하나도 안 변하셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "mental": 4
+          }
+        }
+      },
+      {
+        "label": "어린이회 때 혼났던 얘기를 꺼낸다",
+        "text": "\"내가? 그렇게 무서웠어?\" 선생님이 진심으로 놀라셨어요. 우리는 다 기억하는데.",
+        "effects": {
+          "stats": {
+            "mental": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "un-cb-dream",
+    "title": "그때 말한 꿈",
+    "minGrade": 15,
+    "requires": {
+      "flags": [
+        "said_dream"
+      ]
+    },
+    "text": [
+      "고등학생 때 카페에서 {haram}한테 말했던 꿈. 지금 나는 그 길 근처에 와 있을까요?"
+    ],
+    "choices": [
+      {
+        "label": "{haram}한테 그 얘기를 다시 꺼낸다",
+        "text": "\"너 그때 진짜 진지했어.\" {haram}가 그날 일을 나보다 더 잘 기억하고 있었어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "intellect": 2
+          },
+          "rel": {
+            "haram": 5
+          }
+        },
+        "highlight": "고등학생 때 말한 꿈을 다시 떠올렸어요."
+      },
+      {
+        "label": "혼자 조용히 생각해 본다",
+        "text": "조금 돌아왔지만, 아주 멀리 오지는 않았어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "faith": 2
+          }
+        }
+      }
+    ]
+  }
+]

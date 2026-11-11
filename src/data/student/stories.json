@@ -1,0 +1,443 @@
+[
+  {
+    "id": "st-story-exam-cry",
+    "title": "성적표를 받은 날",
+    "minGrade": 8,
+    "text": [
+      "성적표를 받고 법회에 왔는데 예불 내내 눈물이 나요. 윤 선생님이 끝나고 따로 부르셨어요."
+    ],
+    "choices": [
+      {
+        "label": "울면서 털어놓는다",
+        "text": "윤 선생님은 휴지를 건네고 끝까지 들으셨어요. 그리고 책상을 탁 치셨어요. \"울 만큼 열심히 했다는 거네. 좋아! 다음 주부터 계획 같이 짜자. 선생님이 끝까지 밀어준다.\"",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "intellect": 2
+          },
+          "rel": {
+            "teacher": 5
+          }
+        }
+      },
+      {
+        "label": "\"괜찮아요\" 하고 웃는다",
+        "text": "\"괜찮긴 뭐가 괜찮아! 앉아.\" 선생님이 그냥 보내 주지 않으셨어요.",
+        "effects": {
+          "stats": {
+            "mental": -2
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-phone",
+    "title": "법회 중 휴대폰",
+    "minGrade": 7,
+    "text": [
+      "명상 시간에 휴대폰 진동이 울렸어요. 내 거예요. 윤 선생님이 손을 내미세요."
+    ],
+    "choices": [
+      {
+        "label": "바로 낸다",
+        "text": "법회 끝나고 돌려받았어요. \"명상할 땐 명상만! 그게 멋있는 거야.\" 시원하게 혼났어요.",
+        "effects": {
+          "stats": {
+            "faith": 1
+          },
+          "rel": {
+            "teacher": 1
+          }
+        }
+      },
+      {
+        "label": "\"엄마 전화라서요…\" 하고 버틴다",
+        "text": "\"핑계 대지 마! 내.\" 선생님 목소리가 법당을 울렸어요. 한 시간이 길었어요.",
+        "effects": {
+          "stats": {
+            "mental": -3
+          },
+          "rel": {
+            "teacher": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-seoyun-quit",
+    "title": "{seoyun}가 학원 때문에",
+    "minGrade": 9,
+    "text": [
+      "{seoyun}가 \"나 이제 학원 때문에 학생회 못 나올 것 같아\" 해요. 어린이회 때부터 같이 왔는데."
+    ],
+    "choices": [
+      {
+        "label": "\"한 달에 한 번이라도 와\" 하고 붙잡는다",
+        "text": "{seoyun}가 한참 생각하더니 고개를 끄덕였어요.",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "seoyun": 6
+          }
+        },
+        "flag": "kept_seoyun"
+      },
+      {
+        "label": "\"네 결정 응원할게\" 한다",
+        "text": "{seoyun}가 고맙다며 웃었어요. 그날 단톡방 프로필이 바뀌어 있었어요.",
+        "effects": {
+          "stats": {
+            "mental": -2
+          },
+          "rel": {
+            "seoyun": 3
+          }
+        },
+        "flag": "let_seoyun"
+      }
+    ]
+  },
+  {
+    "id": "st-cb-seoyun-back",
+    "title": "{seoyun}의 수능 응원",
+    "minGrade": 12,
+    "requires": {
+      "flags": [
+        "kept_seoyun"
+      ]
+    },
+    "text": [
+      "고3 여름, 한 달에 한 번씩 꼭 오던 {seoyun}가 찹쌀떡을 들고 왔어요. \"그때 붙잡아 줘서 고마워. 우리 같이 수능 잘 보자.\""
+    ],
+    "choices": [
+      {
+        "label": "찹쌀떡을 나눠 먹는다",
+        "text": "둘이 법당 계단에 앉아 떡을 먹었어요. 끈적했지만 든든했어요.",
+        "effects": {
+          "stats": {
+            "mental": 5
+          },
+          "rel": {
+            "seoyun": 6
+          }
+        },
+        "highlight": "{seoyun}와 끝까지 학생회를 함께했어요."
+      }
+    ]
+  },
+  {
+    "id": "st-story-jiho-trouble",
+    "title": "{jiho}가 사고를 쳤다",
+    "minGrade": 8,
+    "text": [
+      "{jiho}가 학교에서 싸워서 징계를 받았대요. 법회에 와서도 말이 없어요."
+    ],
+    "choices": [
+      {
+        "label": "법회 끝나고 같이 걷는다",
+        "text": "한참 걷다가 {jiho}가 \"나 진짜 억울했어\" 하고 털어놨어요.",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "jiho": 7
+          }
+        }
+      },
+      {
+        "label": "영민 쌤한테 말한다",
+        "text": "영민 쌤이 말은 잘 못 했지만 {jiho} 옆에 한 시간을 앉아 있었어요. 다음 주엔 {jiho}가 조금 웃었어요.",
+        "effects": {
+          "stats": {
+            "leadership": 2
+          },
+          "rel": {
+            "gansa": 3,
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "모른 척한다",
+        "text": "{jiho}가 한동안 법회에 안 왔어요.",
+        "effects": {
+          "stats": {},
+          "rel": {
+            "jiho": -5
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-reels-viral",
+    "title": "릴스 댓글",
+    "requires": {
+      "records": {
+        "reels_hit": 1
+      }
+    },
+    "text": [
+      "학생회 릴스에 댓글이 달렸어요. \"여기 어디예요? 저도 가 보고 싶어요.\" 다른 동네 학생이래요."
+    ],
+    "choices": [
+      {
+        "label": "절 위치랑 법회 시간을 답장한다",
+        "text": "그 학생이 진짜로 법회에 왔어요! 영민 쌤이 감동해서 그 학생한테 자기소개를 하다 말을 더듬었어요.",
+        "effects": {
+          "stats": {
+            "charm": 4,
+            "leadership": 3
+          },
+          "rel": {
+            "gansa": 4
+          }
+        },
+        "record": "reels_hit",
+        "highlight": "릴스를 보고 새 친구가 학생회에 왔어요."
+      },
+      {
+        "label": "부끄러워서 그냥 둔다",
+        "text": "하트만 눌렀어요.",
+        "effects": {
+          "stats": {
+            "charm": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-cat-again",
+    "title": "고양이 가족 근황",
+    "requires": {
+      "flags": [
+        "kittens"
+      ]
+    },
+    "text": [
+      "공양간 뒤에 가 보니 {cat}가 늙은 고양이가 돼서 햇볕을 쬐고 있어요. 그 옆에 {cat}를 꼭 닮은 고양이가 있어요."
+    ],
+    "choices": [
+      {
+        "label": "옆에 쪼그려 앉는다",
+        "text": "{cat}가 나를 알아보는 것 같았어요. 꼬리로 발목을 툭 쳤어요.",
+        "effects": {
+          "stats": {
+            "mental": 6,
+            "faith": 2
+          }
+        },
+        "highlight": "어린이회 때 돌보던 {cat}를 다시 만났어요."
+      }
+    ]
+  },
+  {
+    "id": "st-story-kid-visit",
+    "title": "어린이회 동생이 찾아왔다",
+    "minGrade": 9,
+    "text": [
+      "어린이회 6학년 동생이 학생회 법회실 문을 빼꼼 열어요. \"{senior}, 저 내년에 학생회 오는데 무서워요?\""
+    ],
+    "choices": [
+      {
+        "label": "\"하나도 안 무서워\" 하고 데리고 들어온다",
+        "text": "동생이 학생회 구경을 하고 눈이 반짝반짝했어요.",
+        "effects": {
+          "stats": {
+            "leadership": 4
+          }
+        },
+        "record": "volunteer"
+      },
+      {
+        "label": "\"윤 선생님 명상 시간만 조심해\" 한다",
+        "text": "동생이 진지하게 메모했어요. 뒤에서 윤 선생님이 \"명상 시간이 제일 재밌거든?\" 하고 끼어드셨어요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          },
+          "rel": {
+            "teacher": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-youngmin-busy",
+    "title": "영민 쌤이 지쳤다",
+    "minGrade": 9,
+    "text": [
+      "영민 쌤이 법회 시작 전에 책상에 엎드려 자고 있어요. 과제랑 알바에 시험까지 겹쳐서 며칠 밤을 샜대요. 쌤도 아직 대학교 2학년이에요."
+    ],
+    "choices": [
+      {
+        "label": "몰래 커피를 사다 둔다",
+        "text": "쌤이 일어나서 커피를 보고 한참 웃었어요. \"누구야? 감동이네.\"",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "gansa": 6
+          }
+        }
+      },
+      {
+        "label": "오늘 진행을 대신 맡겠다고 한다",
+        "roll": {
+          "chance": 0.4,
+          "stat": "leadership",
+          "success": {
+            "text": "순서지 보며 끝까지 진행했어요! 쌤이 깨서 \"미, 미안해… 고마워…\" 하고 몇 번이고 고개를 숙였어요.",
+            "effects": {
+              "stats": {
+                "leadership": 6
+              },
+              "rel": {
+                "gansa": 5
+              }
+            },
+            "highlight": "지친 영민 쌤 대신 법회 진행을 맡았어요."
+          },
+          "fail": {
+            "text": "순서를 두 번 틀렸어요. 결국 쌤이 일어났어요.",
+            "effects": {
+              "stats": {
+                "leadership": 1,
+                "mental": -2
+              },
+              "rel": {
+                "gansa": 2
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "사진을 찍어 단톡방에 올린다",
+        "text": "쌤의 침 흘린 사진이 학생회 레전드가 됐어요. 쌤도 결국 웃었어요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          },
+          "rel": {
+            "gansa": -1,
+            "jiho": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-career",
+    "title": "진로 이야기",
+    "minGrade": 10,
+    "text": [
+      "카페에서 {haram}가 물어요. \"너는 뭐 하고 싶어? 나는 아직도 모르겠어.\""
+    ],
+    "choices": [
+      {
+        "label": "솔직하게 모르겠다고 한다",
+        "text": "둘 다 모른다는 게 이상하게 위로가 됐어요.",
+        "effects": {
+          "stats": {
+            "mental": 4
+          },
+          "rel": {
+            "haram": 5
+          }
+        }
+      },
+      {
+        "label": "꿈을 말해 본다",
+        "text": "말하고 나니 진짜 하고 싶어졌어요.",
+        "effects": {
+          "stats": {
+            "intellect": 2,
+            "mental": 3
+          },
+          "rel": {
+            "haram": 3
+          }
+        },
+        "flag": "said_dream"
+      }
+    ]
+  },
+  {
+    "id": "st-story-jisol-news",
+    "title": "지솔 쌤 소식",
+    "minGrade": 9,
+    "text": [
+      "어린이회 지솔 쌤이 드디어 졸업했대요! 단톡방에 학사모 사진이 올라왔어요. \"드디어… 졸업… 했다…\""
+    ],
+    "choices": [
+      {
+        "label": "축하 메시지를 보낸다",
+        "text": "\"너 아직도 학생회 다니지? 장하다!\" 답장이 왔어요. 사진도 같이요. 1학년 때 나예요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "faith": 1
+          }
+        },
+        "highlight": "지솔 쌤의 졸업을 축하했어요."
+      },
+      {
+        "label": "\"쌤 7년 만에 졸업이네요\" 하고 놀린다",
+        "text": "\"야!!!\" 바로 답장이 왔어요. 여전해요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-story-friend-cry",
+    "title": "{haram}의 눈물",
+    "minGrade": 10,
+    "text": [
+      "수련회 준비 회의 중에 {haram}가 갑자기 울음을 터뜨렸어요. 요즘 집이 많이 힘들대요. 윤 선생님은 당황하지 않고 시원하게 말씀하세요. \"{haram}, 나가서 실컷 울고 와! 다 울면 우리 그 얘기도 같이 하자.\""
+    ],
+    "choices": [
+      {
+        "label": "따라 나간다",
+        "text": "아무 말 없이 옆에 있었어요. 들어오니 다들 아무렇지 않게 웃어 줬어요.",
+        "effects": {
+          "stats": {
+            "mental": 2
+          },
+          "rel": {
+            "haram": 7,
+            "teacher": 1
+          }
+        }
+      },
+      {
+        "label": "자리를 지키고 회의를 이어 간다",
+        "text": "{haram} 몫까지 정리해서 나중에 보여 줬어요.",
+        "effects": {
+          "stats": {
+            "leadership": 4
+          },
+          "rel": {
+            "haram": 3,
+            "teacher": 3
+          }
+        }
+      }
+    ]
+  }
+]

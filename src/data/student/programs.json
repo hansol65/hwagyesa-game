@@ -1,0 +1,945 @@
+[
+  {
+    "id": "st-reels",
+    "title": "법회 릴스 찍기",
+    "text": [
+      "영민 쌤이 밤새 찾아본 릴스 아이디어를 꺼내 놓았는데, 삼각대를 거꾸로 세워 놨어요. 다들 웃는데 쌤 귀만 빨개요."
+    ],
+    "choices": [
+      {
+        "label": "주인공으로 나선다",
+        "roll": {
+          "chance": 0.35,
+          "stat": "charm",
+          "success": {
+            "text": "연등 앞 슬로모션 컷이 대박 났어요! 조회수가 학생회 역대 최고래요.",
+            "effects": {
+              "stats": {
+                "charm": 5,
+                "leadership": 2
+              },
+              "rel": {
+                "gansa": 3
+              }
+            },
+            "record": "reels_hit",
+            "highlight": "학생회 릴스가 대박 났어요."
+          },
+          "fail": {
+            "text": "열 번 넘게 찍었는데 매번 웃음이 터졌어요. 결국 NG 모음집이 올라갔어요.",
+            "effects": {
+              "stats": {
+                "charm": 1,
+                "mental": -2
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "편집을 맡는다",
+        "text": "밤새 자막을 달았어요. 영민 쌤이 쭈뼛쭈뼛 다가와 \"편집… 진짜 잘했다…\" 하고 바나나우유를 놓고 갔어요.",
+        "effects": {
+          "stats": {
+            "intellect": 3,
+            "health": -2
+          },
+          "rel": {
+            "gansa": 3
+          }
+        }
+      },
+      {
+        "label": "찍히기 싫어서 뒤에서 구경한다",
+        "text": "나만 안 나온 릴스가 올라갔어요.",
+        "effects": {
+          "stats": {
+            "mental": 1,
+            "charm": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-craft-lotus",
+    "title": "연꽃등 만들기",
+    "text": [
+      "부처님오신날에 걸 연꽃등을 만들어요. 한지 꽃잎을 하나하나 비벼 붙여요."
+    ],
+    "choices": [
+      {
+        "label": "제일 예쁘게 만들어 본다",
+        "roll": {
+          "chance": 0.45,
+          "stat": "intellect",
+          "success": {
+            "text": "꽃잎 결이 살아 있는 연꽃등이 됐어요. 대웅전 앞에 걸렸어요!",
+            "effects": {
+              "stats": {
+                "faith": 3,
+                "mental": 3
+              }
+            },
+            "record": "lantern_craft"
+          },
+          "fail": {
+            "text": "풀이 덜 말라 꽃잎이 자꾸 떨어졌어요.",
+            "effects": {
+              "stats": {
+                "mental": -2
+              }
+            }
+          },
+          "talent": "craft"
+        }
+      },
+      {
+        "label": "후배들 것을 도와준다",
+        "text": "후배들 연꽃등이 나보다 예쁘게 나왔어요. 그래도 뿌듯해요.",
+        "effects": {
+          "stats": {
+            "leadership": 4
+          },
+          "rel": {
+            "teacher": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-craft-candle",
+    "title": "캔들 만들기",
+    "text": [
+      "윤 선생님이 \"오늘은 망쳐도 되니까 마음대로 만들어 봐!\" 하며 소이 왁스를 한 통 내려놓으셨어요. 연꽃 모양 틀에 왁스를 부어요."
+    ],
+    "choices": [
+      {
+        "label": "향을 골라 정성껏 만든다",
+        "text": "라벤더 향 캔들을 만들었어요. 책상 위에 두니 마음이 차분해져요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "faith": 1
+          }
+        }
+      },
+      {
+        "label": "부모님 선물로 만든다",
+        "text": "엄마가 \"이걸 네가 만들었어?\" 하며 한참 냄새를 맡으셨어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "charm": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-meditation",
+    "title": "좌선 명상",
+    "text": [
+      "윤 선생님이 죽비를 탁 쳐요. \"오늘은 20분! 끝까지 버티는 사람, 선생님이 기억한다. 휴대폰 다 내!\""
+    ],
+    "choices": [
+      {
+        "label": "끝까지 버틴다",
+        "roll": {
+          "chance": 0.45,
+          "stat": "mental",
+          "success": {
+            "text": "처음으로 20분이 짧게 느껴졌어요. 머릿속이 맑아졌어요.",
+            "effects": {
+              "stats": {
+                "mental": 6,
+                "faith": 3
+              }
+            },
+            "record": "meditation"
+          },
+          "fail": {
+            "text": "다리가 저려서 몸을 비틀다 죽비 소리를 들었어요.",
+            "effects": {
+              "stats": {
+                "mental": -1,
+                "health": -1
+              }
+            }
+          },
+          "temper": "calm"
+        }
+      },
+      {
+        "label": "몰래 졸았다",
+        "text": "윤 선생님 눈은 피할 수 없었어요. \"졸 거면 일어나서 졸아! 열정 어디 갔어!\" 다들 웃었는데 나는 정신이 번쩍 들었어요.",
+        "effects": {
+          "stats": {
+            "health": 2
+          },
+          "rel": {
+            "teacher": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-meditation-walk",
+    "title": "걷기 명상",
+    "text": [
+      "오늘은 경내를 천천히 걸으며 발바닥에 집중하는 걷기 명상이에요. 삼각산 바람이 시원해요."
+    ],
+    "choices": [
+      {
+        "label": "한 걸음 한 걸음 집중한다",
+        "text": "발밑 돌계단 감촉까지 느껴졌어요. 걷는 게 이렇게 재밌는 줄 몰랐어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "faith": 2
+          }
+        },
+        "record": "meditation"
+      },
+      {
+        "label": "{jiho}랑 몰래 수다를 떤다",
+        "text": "\"거기 둘! 수다 떨 힘 있으면 한 바퀴 더!\" 둘 다 한 바퀴를 더 돌았어요.",
+        "effects": {
+          "stats": {
+            "charm": 2
+          },
+          "rel": {
+            "jiho": 3,
+            "teacher": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-tea",
+    "title": "스님과 차담",
+    "text": [
+      "스님이 학생회를 차실로 부르셨어요. 작은 찻잔에 녹차가 담겨요. \"요즘 다들 뭐가 제일 힘드니?\""
+    ],
+    "choices": [
+      {
+        "label": "진로 고민을 털어놓는다",
+        "text": "\"남의 길 말고 네 발밑을 봐라.\" 스님 말씀이 오래 남았어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "mental": 3
+          },
+          "rel": {
+            "monk": 5
+          }
+        },
+        "highlight": "스님과 차를 마시며 진로 고민을 털어놓았어요."
+      },
+      {
+        "label": "\"스님은 고민 없으세요?\" 하고 묻는다",
+        "text": "스님이 껄껄 웃으셨어요. \"나는 차가 식는 게 제일 고민이다.\"",
+        "effects": {
+          "stats": {
+            "charm": 2,
+            "faith": 2
+          },
+          "rel": {
+            "monk": 4
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-dharma",
+    "title": "법문 시간",
+    "text": [
+      "스님 법문이 있는 날이에요. 오늘 주제는 \"화가 날 때 어떻게 할까\"예요."
+    ],
+    "choices": [
+      {
+        "label": "받아 적으며 듣는다",
+        "text": "노트 한 페이지가 꽉 찼어요. 다음 날 학교에서 써먹었어요.",
+        "effects": {
+          "stats": {
+            "faith": 4,
+            "intellect": 2
+          },
+          "rel": {
+            "monk": 2
+          }
+        }
+      },
+      {
+        "label": "질문을 한다",
+        "roll": {
+          "chance": 0.45,
+          "stat": "charm",
+          "success": {
+            "text": "스님이 \"좋은 질문이다\" 하시며 한참 이야기해 주셨어요.",
+            "effects": {
+              "stats": {
+                "faith": 3,
+                "charm": 3
+              },
+              "rel": {
+                "monk": 4
+              }
+            }
+          },
+          "fail": {
+            "text": "질문하다 말이 꼬였어요. 다들 웃었어요.",
+            "effects": {
+              "stats": {
+                "charm": -1,
+                "mental": -1
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-guest-monk",
+    "title": "외부 스님 프로그램",
+    "text": [
+      "다른 절에서 오신 스님이 학생회 프로그램을 진행하세요. 오늘은 \"나에게 쓰는 편지\"예요."
+    ],
+    "choices": [
+      {
+        "label": "솔직하게 쓴다",
+        "text": "쓰다 보니 생각보다 많이 썼어요. 1년 뒤에 받는대요.",
+        "effects": {
+          "stats": {
+            "mental": 4,
+            "faith": 2
+          }
+        }
+      },
+      {
+        "label": "대충 쓰고 낙서한다",
+        "text": "편지지 귀퉁이에 스님 얼굴을 그렸어요. 꽤 닮았어요.",
+        "effects": {
+          "stats": {
+            "charm": 1,
+            "faith": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-108",
+    "title": "108배",
+    "text": [
+      "오늘은 다 같이 108배를 해요. 윤 선생님이 맨 앞에서 같이 절하며 외치세요. \"숫자 세지 마! 끝까지 가는 거야!\""
+    ],
+    "choices": [
+      {
+        "label": "끝까지 한다",
+        "roll": {
+          "chance": 0.4,
+          "stat": "health",
+          "success": {
+            "text": "마지막 절을 하고 일어나니 땀이 비 오듯 했어요. 이상하게 개운해요.",
+            "effects": {
+              "stats": {
+                "faith": 6,
+                "health": 2
+              }
+            },
+            "highlight": "108배를 끝까지 해냈어요."
+          },
+          "fail": {
+            "text": "70번쯤에서 다리가 풀렸어요. 그래도 앉아서 합장은 끝까지 했어요.",
+            "effects": {
+              "stats": {
+                "faith": 2,
+                "health": -3
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "반만 하고 쉰다",
+        "text": "쉬면서 다른 사람들 절하는 소리를 들었어요.",
+        "effects": {
+          "stats": {
+            "faith": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-karaoke",
+    "title": "법회 끝나고 노래방",
+    "text": [
+      "법회가 끝나고 {seoyun}가 \"노래방 ㄱ?\" 해요. 영민 쌤도 머뭇거리다 \"쌤도… 가도 돼?\" 하며 따라왔어요."
+    ],
+    "choices": [
+      {
+        "label": "마이크를 잡는다",
+        "roll": {
+          "chance": 0.4,
+          "stat": "charm",
+          "success": {
+            "text": "고음까지 시원하게 뚫었어요! 노래는 안 부르던 영민 쌤이 탬버린만 열심히 쳤어요. 박자는 다 틀렸어요.",
+            "effects": {
+              "stats": {
+                "charm": 4,
+                "mental": 4
+              },
+              "rel": {
+                "seoyun": 3,
+                "gansa": 3
+              }
+            },
+            "record": "karaoke"
+          },
+          "fail": {
+            "text": "고음에서 삑사리가 났어요. 다들 바닥을 굴렀어요. 영상이 남았어요.",
+            "effects": {
+              "stats": {
+                "charm": -2,
+                "mental": 2
+              },
+              "rel": {
+                "seoyun": 2
+              }
+            }
+          },
+          "talent": "music"
+        }
+      },
+      {
+        "label": "찬불가를 예약한다",
+        "text": "노래방에서 찬불가가 나오자 다들 빵 터졌어요. 그리고 다 같이 불렀어요.",
+        "effects": {
+          "stats": {
+            "charm": 3,
+            "faith": 2
+          },
+          "rel": {
+            "jiho": 2,
+            "seoyun": 2,
+            "haram": 2
+          }
+        }
+      },
+      {
+        "label": "돈 없어서 먼저 간다",
+        "text": "집 가는 버스에서 단톡방 노래방 영상을 봤어요.",
+        "effects": {
+          "stats": {
+            "mental": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-running",
+    "title": "같이 러닝",
+    "text": [
+      "영민 쌤이 \"러닝… 같이 뛸 사람…?\" 하고 작게 물었는데 다들 따라나섰어요. 쌤이 제일 신났어요."
+    ],
+    "choices": [
+      {
+        "label": "끝까지 뛴다",
+        "roll": {
+          "chance": 0.4,
+          "stat": "health",
+          "success": {
+            "text": "쌤보다 먼저 들어왔어요! 쌤은 중간에 신발 끈이 풀려 넘어졌는데, 그래도 끝까지 뛰어 들어왔어요.",
+            "effects": {
+              "stats": {
+                "health": 6,
+                "mental": 2
+              },
+              "rel": {
+                "gansa": 3
+              }
+            },
+            "record": "run"
+          },
+          "fail": {
+            "text": "2km에서 옆구리가 결렸어요. 걸어서 들어왔어요.",
+            "effects": {
+              "stats": {
+                "health": 1,
+                "mental": -2
+              }
+            }
+          },
+          "talent": "sports"
+        }
+      },
+      {
+        "label": "{haram}랑 천천히 걷는다",
+        "text": "둘이 걸으면서 학교 얘기를 한참 했어요.",
+        "effects": {
+          "stats": {
+            "mental": 3
+          },
+          "rel": {
+            "haram": 5
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-study",
+    "title": "법회 끝나고 같이 공부",
+    "text": [
+      "시험이 다가와서, 법회 끝나고 다 같이 법당 옆방에서 공부하기로 했어요."
+    ],
+    "choices": [
+      {
+        "label": "진짜 집중해서 공부한다",
+        "text": "세 시간 동안 수학 한 단원을 끝냈어요. 다 같이 하니 덜 지루했어요.",
+        "effects": {
+          "stats": {
+            "intellect": 6,
+            "health": -1
+          }
+        },
+        "record": "study"
+      },
+      {
+        "label": "{haram}한테 모르는 걸 가르쳐 준다",
+        "text": "가르치다 보니 나도 확실히 알게 됐어요.",
+        "effects": {
+          "stats": {
+            "intellect": 4,
+            "leadership": 2
+          },
+          "rel": {
+            "haram": 4
+          }
+        }
+      },
+      {
+        "label": "공부 반, 수다 반",
+        "text": "수다가 더 길었어요. 그래도 재밌었어요.",
+        "effects": {
+          "stats": {
+            "intellect": 1,
+            "charm": 3
+          },
+          "rel": {
+            "jiho": 2,
+            "seoyun": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-cafe",
+    "title": "카페 가기",
+    "text": [
+      "법회가 끝나고 절 아래 카페에 갔어요. 다들 음료 하나씩 시켜 놓고 수다를 떨어요."
+    ],
+    "choices": [
+      {
+        "label": "고민 상담을 한다",
+        "text": "{seoyun}가 진지하게 들어 줬어요. 음료가 다 녹을 때까지 얘기했어요.",
+        "effects": {
+          "stats": {
+            "mental": 5
+          },
+          "rel": {
+            "seoyun": 5
+          }
+        }
+      },
+      {
+        "label": "영민 쌤 연애 얘기를 캔다",
+        "text": "영민 쌤 얼굴이 새빨개져서 음료를 쏟았어요. 다들 놀리는데 쌤은 휴지만 찾았어요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          },
+          "rel": {
+            "gansa": 2,
+            "jiho": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-meal",
+    "title": "법회 끝나고 밥",
+    "text": [
+      "법회가 끝나고 다 같이 떡볶이집에 갔어요. 영민 쌤이 지갑을 열어 보더니 \"오늘은 쌤이… 쏠게… 반만…\" 했어요."
+    ],
+    "choices": [
+      {
+        "label": "제일 매운 맛에 도전한다",
+        "roll": {
+          "chance": 0.45,
+          "stat": "health",
+          "success": {
+            "text": "끝까지 다 먹었어요! 다들 박수를 쳤어요.",
+            "effects": {
+              "stats": {
+                "charm": 3,
+                "health": 1
+              },
+              "rel": {
+                "jiho": 3
+              }
+            }
+          },
+          "fail": {
+            "text": "세 입 먹고 물을 세 병 마셨어요.",
+            "effects": {
+              "stats": {
+                "health": -2,
+                "charm": 1
+              }
+            }
+          }
+        }
+      },
+      {
+        "label": "후배들 자리를 챙긴다",
+        "text": "후배들이 \"선배 최고\" 하며 튀김을 하나씩 나눠 줬어요.",
+        "effects": {
+          "stats": {
+            "leadership": 4
+          },
+          "rel": {
+            "gansa": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-pungmul-practice",
+    "title": "풍물 연습",
+    "text": [
+      "연등회를 앞두고 풍물 연습이에요. 마당에 북소리, 꽹과리 소리가 쩌렁쩌렁 울려요."
+    ],
+    "choices": [
+      {
+        "label": "합주에 맞춰 연습한다",
+        "minigame": "pungmul",
+        "roll": {
+          "chance": 0.45,
+          "stat": "health",
+          "success": {
+            "text": "장단이 딱딱 맞아떨어졌어요. 상쇠 선배가 엄지를 들었어요.",
+            "effects": {
+              "stats": {
+                "health": 2,
+                "charm": 3,
+                "mental": 2
+              }
+            },
+            "record": "pungmul_success"
+          },
+          "fail": {
+            "text": "자꾸 박자가 밀려서 다른 사람까지 틀렸어요. 얼굴이 화끈거렸어요.",
+            "effects": {
+              "stats": {
+                "mental": -2,
+                "charm": -1
+              }
+            }
+          },
+          "talent": "music"
+        }
+      },
+      {
+        "label": "구석에서 혼자 박자를 익힌다",
+        "text": "혼자 장단을 백 번 쳤어요. 손바닥에 물집이 잡혔어요.",
+        "effects": {
+          "stats": {
+            "health": -1,
+            "intellect": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-mentor",
+    "title": "어린이회 동생들 돕기",
+    "text": [
+      "오늘은 어린이회에 손이 모자라서 학생회가 도우러 갔어요. 동생들이 \"학생회다!\" 하며 매달려요."
+    ],
+    "choices": [
+      {
+        "label": "피구 심판을 본다",
+        "text": "공정하게 봤는데도 양쪽 다 억울하대요. 지솔 쌤 마음을 조금 알 것 같아요.",
+        "effects": {
+          "stats": {
+            "leadership": 4,
+            "health": 1
+          }
+        },
+        "record": "volunteer"
+      },
+      {
+        "label": "우는 동생을 달랜다",
+        "text": "달래 주다가 문득 1학년 때 내가 생각났어요.",
+        "effects": {
+          "stats": {
+            "leadership": 3,
+            "mental": 2
+          }
+        },
+        "record": "volunteer"
+      }
+    ]
+  },
+  {
+    "id": "st-discussion",
+    "title": "고민 나누기 시간",
+    "text": [
+      "윤 선생님이 쪽지를 나눠 주셨어요. \"고민 하나씩! 이름 없이! 진짜 고민일수록 좋다!\""
+    ],
+    "choices": [
+      {
+        "label": "진짜 고민을 쓴다",
+        "text": "내 쪽지가 뽑혔어요. 다들 비슷한 고민이라는 걸 알았어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "faith": 2
+          },
+          "rel": {
+            "teacher": 3
+          }
+        }
+      },
+      {
+        "label": "장난으로 쓴다",
+        "text": "\"영민 쌤 여자친구 있나요?\" 영민 쌤이 쪽지를 보고 그대로 굳었어요.",
+        "effects": {
+          "stats": {
+            "charm": 3
+          },
+          "rel": {
+            "gansa": -1,
+            "jiho": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-cleanup",
+    "title": "경내 대청소",
+    "text": [
+      "연말을 앞두고 학생회가 법당 대청소를 맡았어요. 걸레가 한 바구니예요."
+    ],
+    "choices": [
+      {
+        "label": "불상 주변을 맡는다",
+        "text": "조심조심 닦았어요. 스님이 \"손이 곱구나\" 하셨어요.",
+        "effects": {
+          "stats": {
+            "faith": 4
+          },
+          "rel": {
+            "monk": 3
+          }
+        }
+      },
+      {
+        "label": "후배들을 나눠 구역을 정한다",
+        "roll": {
+          "chance": 0.45,
+          "stat": "leadership",
+          "success": {
+            "text": "한 시간 만에 끝났어요! 윤 선생님이 \"그거지! 이런 애가 좋아!\" 하며 등을 팡 쳐 주셨어요.",
+            "effects": {
+              "stats": {
+                "leadership": 5
+              },
+              "rel": {
+                "teacher": 3
+              }
+            }
+          },
+          "fail": {
+            "text": "구역이 겹쳐서 같은 데를 세 번 닦았어요.",
+            "effects": {
+              "stats": {
+                "leadership": 1,
+                "mental": -2
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-moktak-practice",
+    "title": "목탁 배우기",
+    "text": [
+      "학생회에서는 예불 때 목탁도 직접 쳐요. 오늘은 스님이 목탁 치는 법을 가르쳐 주세요. \"처음엔 내가 같이 친다. 그다음은 너 혼자 박자를 지켜야 해.\""
+    ],
+    "choices": [
+      {
+        "label": "스님 앞에서 쳐 본다",
+        "minigame": "moktak",
+        "roll": {
+          "chance": 0.4,
+          "stat": "faith",
+          "success": {
+            "text": "똑, 똑, 똑. 박자가 흔들리지 않았어요. 스님이 \"마음이 고르구나\" 하셨어요.",
+            "effects": {
+              "stats": {
+                "faith": 5,
+                "mental": 3
+              },
+              "rel": {
+                "monk": 4
+              }
+            },
+            "record": "moktak_good",
+            "highlight": "스님께 목탁 박자가 고르다는 칭찬을 들었어요."
+          },
+          "fail": {
+            "text": "점점 빨라지다 결국 박자가 엉켰어요. 스님이 \"목탁은 마음 따라 간다\" 하고 웃으셨어요.",
+            "effects": {
+              "stats": {
+                "mental": -2,
+                "faith": 1
+              },
+              "rel": {
+                "monk": 1
+              }
+            }
+          },
+          "temper": "calm"
+        }
+      },
+      {
+        "label": "뒤에서 조용히 따라 친다",
+        "text": "손으로 무릎을 두드리며 박자를 익혔어요.",
+        "effects": {
+          "stats": {
+            "faith": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-role-president",
+    "title": "학생회장의 일요일",
+    "requires": {
+      "flags": [
+        "st_president"
+      ]
+    },
+    "text": [
+      "학생회장이라 법회 시작 전에 순서지를 챙기고, 예불 때는 앞에서 목탁을 쳐요. 후배 하나가 계속 안 와요."
+    ],
+    "choices": [
+      {
+        "label": "후배한테 따로 연락한다",
+        "text": "\"선배가 연락해 줘서 왔어요.\" 그 후배가 다음 주에 왔어요.",
+        "effects": {
+          "stats": {
+            "leadership": 5,
+            "faith": 2
+          }
+        }
+      },
+      {
+        "label": "예불 목탁을 친다",
+        "minigame": "moktak",
+        "roll": {
+          "chance": 0.45,
+          "stat": "faith",
+          "success": {
+            "text": "법당 가득 목탁 소리가 고르게 울렸어요. 스님이 고개를 끄덕이셨어요.",
+            "effects": {
+              "stats": {
+                "faith": 4,
+                "leadership": 2
+              },
+              "rel": {
+                "monk": 3
+              }
+            },
+            "record": "moktak_good"
+          },
+          "fail": {
+            "text": "박자가 빨라져서 다들 염불을 따라오느라 숨이 찼어요.",
+            "effects": {
+              "stats": {
+                "leadership": -1,
+                "mental": -2
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-role-president-conflict",
+    "title": "회의가 길어져요",
+    "requires": {
+      "flags": [
+        "st_president"
+      ]
+    },
+    "text": [
+      "부처님오신날 부스 메뉴 회의가 두 시간째예요. 아이스크림파와 떡볶이파가 팽팽해요."
+    ],
+    "choices": [
+      {
+        "label": "투표로 정하자고 한다",
+        "text": "깔끔하게 정해졌어요. 진 쪽도 금방 웃었어요.",
+        "effects": {
+          "stats": {
+            "leadership": 4
+          }
+        }
+      },
+      {
+        "label": "둘 다 하자고 밀어붙인다",
+        "roll": {
+          "chance": 0.4,
+          "stat": "leadership",
+          "success": {
+            "text": "역할을 잘 나눠서 둘 다 해냈어요!",
+            "effects": {
+              "stats": {
+                "leadership": 6,
+                "charm": 2
+              }
+            }
+          },
+          "fail": {
+            "text": "일이 두 배가 돼서 다들 지쳤어요.",
+            "effects": {
+              "stats": {
+                "leadership": -2,
+                "mental": -3
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+]

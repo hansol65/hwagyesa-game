@@ -1,0 +1,1158 @@
+{
+  "welcome": [
+    {
+      "id": "un-welcome",
+      "title": "대학생회 첫날",
+      "text": [
+        "대학생회 첫 법회. 법당 문을 여니 낯익은 얼굴이 둘 있어요. 지솔 쌤이랑 영민 쌤이에요. 둘 다 아직도 대학생이래요. \"이제 쌤 아니야. 대학생회에선 선배야. 이제부터 {nuna}, {hyung} 해.\" 간사도 지도 선생님도 없이, 명상하고 밥 먹고, 그날그날 누가 목탁 치고 누가 공지 올리는 곳이래요."
+      ],
+      "choices": [
+        {
+          "label": "\"…{jisol}!\" 하고 불러 본다",
+          "text": "{jisol}가 \"으아 소름!\" 하며 웃었어요. 그리고 바로 사진을 찍었어요. 대학생회 첫날 기념이래요.",
+          "effects": {
+            "stats": {
+              "charm": 2
+            },
+            "rel": {
+              "gansa": 3
+            }
+          }
+        },
+        {
+          "label": "입에 붙은 대로 \"쌤!\" 해 버린다",
+          "text": "{youngmin}가 \"쌤… 아니야… {hyung}…\" 하며 귀가 빨개졌어요. 결국 한 달 동안 쌤이라고 불렀어요.",
+          "effects": {
+            "stats": {
+              "mental": 1
+            },
+            "rel": {
+              "teacher": 3
+            }
+          }
+        },
+        {
+          "label": "{buddy}랑 맨 뒤에 앉는다",
+          "text": "\"우리 이제 대학생회다.\" {buddy}가 작게 하이파이브를 했어요.",
+          "effects": {
+            "stats": {
+              "mental": 2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "offer": [
+    {
+      "id": "un-offer-both",
+      "title": "두 선배의 부탁",
+      "requires": {
+        "rel": {
+          "gansa": 40,
+          "teacher": 40
+        }
+      },
+      "text": [
+        "3월, 법회 끝나고 {jisol}가 불러요. \"나 이번 학기엔 진짜 졸업해야 돼. 진짜야. 어린이회 간사 네가 맡아 줄래? 너 말고는 맡길 사람이 없어.\" 그 말이 끝나자마자 {youngmin}가 쭈뼛쭈뼛 다가와요. \"저, 저기… 나도… 학생회 간사… 혹시… 아니면 괜찮아…! (진짜 괜찮아)\""
+      ],
+      "choices": [
+        {
+          "label": "어린이회 간사를 맡는다",
+          "text": "{jisol}가 \"됐다!!!\" 하더니 호루라기를 목에 걸어 줬어요. 1학년 때 처음 본 그 호루라기예요. \"다음 주부터 아홉 시까지 와. 방석 깔아야 돼.\"",
+          "effects": {
+            "stats": {
+              "leadership": 4,
+              "charm": 2
+            },
+            "rel": {
+              "gansa": 8
+            }
+          },
+          "flag": "uni:kid_gansa",
+          "record": "gansa_years",
+          "highlight": "어린이회 간사가 되었어요. 다시 어린이회로 돌아가요."
+        },
+        {
+          "label": "학생회 간사를 맡는다",
+          "text": "{youngmin}가 \"지, 진짜…? 고마워…!\" 하더니 학생회 단톡방 방장을 넘겨줬어요. 넘기다 실수로 방을 나갔다 다시 들어왔어요.",
+          "effects": {
+            "stats": {
+              "leadership": 4,
+              "faith": 2
+            },
+            "rel": {
+              "teacher": 8
+            }
+          },
+          "flag": "uni:st_gansa",
+          "record": "gansa_years",
+          "highlight": "학생회 간사가 되었어요. 다시 학생회로 돌아가요."
+        },
+        {
+          "label": "둘 다 정중히 거절한다",
+          "text": "\"제 공부도 벅차서요.\" 두 선배 다 \"그래, 네가 제일 중요해\" 했어요. 그래도 조금 아쉬워 보였어요.",
+          "effects": {
+            "stats": {
+              "mental": 2
+            },
+            "rel": {
+              "gansa": -2,
+              "teacher": -2
+            }
+          },
+          "flag": "uni:declined"
+        }
+      ]
+    },
+    {
+      "id": "un-offer-jisol",
+      "title": "{jisol}의 부탁",
+      "requires": {
+        "rel": {
+          "gansa": 40
+        },
+        "relBelow": {
+          "teacher": 40
+        }
+      },
+      "text": [
+        "3월, 법회 끝나고 {jisol}가 계단에 앉으라고 해요. \"나 이번 학기엔 진짜 졸업해야 돼. 어린이회 간사 네가 맡아 줄래? 너 1학년 때부터 내가 다 찍어 놨잖아. 너 말고는 맡길 사람이 없어.\""
+      ],
+      "choices": [
+        {
+          "label": "어린이회 간사를 맡는다",
+          "text": "{jisol}가 \"됐다!!!\" 하더니 호루라기를 목에 걸어 줬어요. 1학년 때 처음 본 그 호루라기예요. \"다음 주부터 아홉 시까지 와. 방석 깔아야 돼.\"",
+          "effects": {
+            "stats": {
+              "leadership": 4,
+              "charm": 2
+            },
+            "rel": {
+              "gansa": 8
+            }
+          },
+          "flag": "uni:kid_gansa",
+          "record": "gansa_years",
+          "highlight": "어린이회 간사가 되었어요. 다시 어린이회로 돌아가요."
+        },
+        {
+          "label": "\"생각해 볼게요\" 하고 결국 거절한다",
+          "text": "{jisol}가 \"그래, 그럼 나 졸업 한 학기 더 미룬다\" 했어요. 농담인지 진담인지 모르겠어요.",
+          "effects": {
+            "stats": {
+              "mental": 1
+            },
+            "rel": {
+              "gansa": -2
+            }
+          },
+          "flag": "uni:declined"
+        }
+      ]
+    },
+    {
+      "id": "un-offer-youngmin",
+      "title": "{youngmin}의 부탁",
+      "requires": {
+        "rel": {
+          "teacher": 40
+        },
+        "relBelow": {
+          "gansa": 40
+        }
+      },
+      "text": [
+        "3월, {youngmin}한테서 카톡이 왔어요. \"혹시 학생회 간사 해 줄 수 있어?\"가 올라왔다가 지워지고, 다시 올라왔다가 지워지고, 결국 전화가 왔어요. \"저, 저기… 너라면… 아, 아니면 진짜 괜찮아!\""
+      ],
+      "choices": [
+        {
+          "label": "학생회 간사를 맡는다",
+          "text": "{youngmin}가 \"지, 진짜…? 고마워…!\" 하더니 학생회 단톡방 방장을 넘겨줬어요. 넘기다 실수로 방을 나갔다 다시 들어왔어요.",
+          "effects": {
+            "stats": {
+              "leadership": 4,
+              "faith": 2
+            },
+            "rel": {
+              "teacher": 8
+            }
+          },
+          "flag": "uni:st_gansa",
+          "record": "gansa_years",
+          "highlight": "학생회 간사가 되었어요. 다시 학생회로 돌아가요."
+        },
+        {
+          "label": "미안하다고 거절한다",
+          "text": "\"아, 아냐! 괜찮아! 진짜로!\" {youngmin}가 세 번 말했어요. 진짜 괜찮은 것 같진 않았어요.",
+          "effects": {
+            "stats": {
+              "mental": 1
+            },
+            "rel": {
+              "teacher": -2
+            }
+          },
+          "flag": "uni:declined"
+        }
+      ]
+    },
+    {
+      "id": "un-offer-none",
+      "title": "새 간사",
+      "requires": {
+        "relBelow": {
+          "gansa": 40,
+          "teacher": 40
+        }
+      },
+      "text": [
+        "3월, {jisol}가 단톡방에 \"어린이회 새 간사 구했다! 이제 나 진짜 졸업한다!\"를 올렸어요. 내 이름은 아니었어요. 조금 아쉬웠어요. 근데 {jisol}는 다음 학기에도 졸업을 못 했어요."
+      ],
+      "choices": [
+        {
+          "label": "새 간사한테 축하 메시지를 보낸다",
+          "text": "\"어린이회 잘 부탁해요.\" 진심이었어요.",
+          "effects": {
+            "stats": {
+              "mental": 2,
+              "charm": 1
+            }
+          }
+        },
+        {
+          "label": "{jisol}한테 \"{nuna} 졸업 축하… 아직이죠?\" 보낸다",
+          "text": "\"닥쳐ㅋㅋ\" 답장이 0.5초 만에 왔어요.",
+          "effects": {
+            "stats": {
+              "charm": 2
+            },
+            "rel": {
+              "gansa": 2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "lantern": [
+    {
+      "id": "un-lantern",
+      "title": "대학생 연합 연등행렬",
+      "maxGrade": 14,
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "연등회 날. 평소엔 안 나오던 {jiho}, {seoyun}, {haram}까지 다 왔어요. 대학생 연합 행렬에서 율동을 춰요. 어린이회 때 그 율동의 어른 버전이에요."
+      ],
+      "choices": [
+        {
+          "label": "율동을 춘다",
+          "minigame": "dance",
+          "roll": {
+            "chance": 0.4,
+            "stat": "charm",
+            "success": {
+              "text": "몸이 기억하고 있었어요. 종로 한복판에서 넷이 동작이 딱 맞았어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "health": 2
+                },
+                "rel": {
+                  "jiho": 2,
+                  "seoyun": 2,
+                  "haram": 2
+                }
+              },
+              "record": "lantern_dance",
+              "highlight": "대학생 연합 연등행렬에서 친구들과 율동을 췄어요."
+            },
+            "fail": {
+              "text": "동작이 어린이회 버전이랑 섞여서 혼자 다른 춤을 췄어요. 넷이 웃느라 행렬이 밀렸어요.",
+              "effects": {
+                "stats": {
+                  "charm": -1,
+                  "mental": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "연등을 들고 묵묵히 걷는다",
+          "text": "종로의 불빛 사이를 걸었어요. 1학년 때 이 길이 엄청 길었는데.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-lantern-2",
+      "title": "연등회 뒤풀이",
+      "minGrade": 15,
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "연등행렬이 끝나고 종로 골목. 오랜만에 친구 넷이 다 모였어요. 연등을 든 채로 포장마차에 들어갔어요."
+      ],
+      "choices": [
+        {
+          "label": "옛날 얘기로 밤을 새운다",
+          "text": "\"우리 처음 만난 거 기억나?\" 누구는 피구, 누구는 연등, 누구는 고양이를 기억했어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "charm": 2,
+              "health": -2
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          },
+          "highlight": "연등회 날 친구 넷이 다 모였어요."
+        },
+        {
+          "label": "연등 사진을 찍어 단톡방에 올린다",
+          "text": "\"내년에도 넷이 걷자.\" 다들 하트를 눌렀어요.",
+          "effects": {
+            "stats": {
+              "charm": 2
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-lantern-kg",
+      "title": "어린이회 연등행렬 인솔",
+      "requires": {
+        "flags": [
+          "uni:kid_gansa"
+        ]
+      },
+      "text": [
+        "연등회 날, 이번엔 어린이회 맨 앞에서 아이들을 이끌어요. 코끼리 연등을 든 1학년이 자꾸 대열을 벗어나요."
+      ],
+      "choices": [
+        {
+          "label": "아이들 율동을 앞에서 이끈다",
+          "minigame": "dance",
+          "roll": {
+            "chance": 0.45,
+            "stat": "charm",
+            "success": {
+              "text": "내 동작을 보고 아이들이 한 몸처럼 따라왔어요. 구경하던 사람들이 박수를 쳤어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "leadership": 3
+                }
+              },
+              "record": "kg_teach",
+              "highlight": "어린이회 연등행렬을 앞에서 이끌었어요."
+            },
+            "fail": {
+              "text": "앞을 보느라 뒤를 못 봤어요. 아이 둘이 솜사탕 앞에 서 있었어요.",
+              "effects": {
+                "stats": {
+                  "leadership": -1,
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "맨 뒤에서 처지는 아이를 지킨다",
+          "text": "연등이 무거워 우는 아이 연등을 같이 들었어요. 지솔 쌤이 그때 내 연등을 들어 줬었어요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "faith": 2
+            }
+          },
+          "record": "kg_comfort"
+        }
+      ]
+    },
+    {
+      "id": "un-lantern-sg",
+      "title": "학생회 풍물 인솔",
+      "requires": {
+        "flags": [
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "연등회 날, 학생회 풍물패를 따라 걸어요. 이번엔 내가 맨 앞에서 신호를 줘요. 중1 후배들이 내 손만 봐요."
+      ],
+      "choices": [
+        {
+          "label": "같이 장단을 친다",
+          "minigame": "pungmul",
+          "roll": {
+            "chance": 0.45,
+            "stat": "health",
+            "success": {
+              "text": "종로 한복판에서 장단이 하나로 맞았어요. 후배들이 끝나고 \"쌤 미쳤어요\" 했어요.",
+              "effects": {
+                "stats": {
+                  "charm": 3,
+                  "leadership": 3
+                },
+                "rel": {
+                  "teacher": 3
+                }
+              },
+              "record": "sg_teach",
+              "highlight": "학생회 풍물패를 이끌고 연등회를 걸었어요."
+            },
+            "fail": {
+              "text": "신호를 늦게 줘서 후배들이 우왕좌왕했어요. {youngmin}가 옆에서 손으로 박자를 세 줬어요.",
+              "effects": {
+                "stats": {
+                  "leadership": -1,
+                  "mental": -2
+                },
+                "rel": {
+                  "teacher": 2
+                }
+              }
+            },
+            "talent": "music"
+          }
+        },
+        {
+          "label": "후배들 물을 챙긴다",
+          "text": "생수 스무 병을 들고 따라 걸었어요. 팔이 빠질 것 같았어요.",
+          "effects": {
+            "stats": {
+              "health": -1,
+              "leadership": 2
+            }
+          },
+          "record": "sg_care"
+        }
+      ]
+    }
+  ],
+  "buddha": [
+    {
+      "id": "un-buddha",
+      "title": "부처님오신날 봉사",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "부처님오신날. 평소엔 안 오던 친구들도 이날은 다 왔어요. 마당은 사람으로 꽉 찼고, 어린이회 오카리나 소리가 들려요."
+      ],
+      "choices": [
+        {
+          "label": "안내 봉사를 한다",
+          "text": "길을 물어보시는 할머니를 대웅전까지 모셔다 드렸어요. 열 번쯤요.",
+          "effects": {
+            "stats": {
+              "faith": 4,
+              "health": -1
+            }
+          }
+        },
+        {
+          "label": "학생회 부스를 도와준다",
+          "text": "떡볶이를 저었어요. 고등학생 때 내가 서 있던 자리예요. 후배가 \"선배 간 맞춰 주세요\" 했어요.",
+          "effects": {
+            "stats": {
+              "charm": 2,
+              "intellect": 1
+            }
+          }
+        },
+        {
+          "label": "친구들이랑 연등 아래서 사진을 찍는다",
+          "text": "넷이 연등 아래 섰어요. {jisol}가 어디선가 나타나 \"1학년 때랑 같은 자리다!\" 하고 찍어 줬어요.",
+          "effects": {
+            "stats": {
+              "mental": 4
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2,
+              "gansa": 2
+            }
+          },
+          "highlight": "부처님오신날, 친구 넷이 연등 아래서 사진을 찍었어요."
+        }
+      ]
+    },
+    {
+      "id": "un-buddha-kg",
+      "title": "어린이회 율동 무대 뒤",
+      "requires": {
+        "flags": [
+          "uni:kid_gansa"
+        ]
+      },
+      "text": [
+        "부처님오신날 무대 뒤. 어린이회 아이들이 한복 입고 줄 서 있어요. 한 명이 \"쌤, 저 무대 무서워요\" 하며 울먹여요."
+      ],
+      "choices": [
+        {
+          "label": "\"쌤도 1학년 때 무서웠어\" 하고 손을 잡아 준다",
+          "text": "아이가 무대에 올라가 끝까지 춤췄어요. 내려와서 나한테 제일 먼저 뛰어왔어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "mental": 3
+            }
+          },
+          "record": "kg_comfort",
+          "highlight": "부처님오신날, 무서워하던 아이를 무대에 올려 보냈어요."
+        },
+        {
+          "label": "\"자, 무대에선 웃는 거야!\" 하고 단호하게 올려 보낸다",
+          "text": "아이가 울음을 꾹 참고 올라갔어요. 생각보다 잘했어요. {jisol}가 옆에서 \"너 나랑 똑같다\" 했어요.",
+          "effects": {
+            "stats": {
+              "leadership": 4
+            },
+            "rel": {
+              "gansa": 3
+            }
+          },
+          "record": "kg_scold"
+        }
+      ]
+    },
+    {
+      "id": "un-buddha-sg",
+      "title": "학생회 부스 감독",
+      "requires": {
+        "flags": [
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "부처님오신날, 학생회 떡볶이 부스. 이번엔 내가 감독이에요. 후배들이 고추장을 통째로 넣으려고 해요."
+      ],
+      "choices": [
+        {
+          "label": "간을 직접 맞춘다",
+          "roll": {
+            "chance": 0.45,
+            "stat": "intellect",
+            "success": {
+              "text": "두 시간 만에 완판! 후배들이 헹가래를 치려다 포기했어요.",
+              "effects": {
+                "stats": {
+                  "intellect": 3,
+                  "leadership": 3
+                }
+              },
+              "record": "booth_sold"
+            },
+            "fail": {
+              "text": "너무 매워서 어르신들이 물만 찾으셨어요. 후배들이 \"쌤 탓\"이래요.",
+              "effects": {
+                "stats": {
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "후배들한테 맡기고 지켜본다",
+          "text": "엉망진창이었지만 다 팔았어요. 후배들이 뿌듯해했어요.",
+          "effects": {
+            "stats": {
+              "leadership": 3
+            }
+          },
+          "record": "sg_care"
+        }
+      ]
+    }
+  ],
+  "vacation": [
+    {
+      "id": "un-vac-temple-tour",
+      "title": "외부 절 탐방",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "방학, 대학생회가 지방의 오래된 절로 탐방을 갔어요. {jisol}가 운전하고 {youngmin}가 길을 잘못 알려 줬어요."
+      ],
+      "choices": [
+        {
+          "label": "새벽 예불에 나간다",
+          "roll": {
+            "chance": 0.45,
+            "stat": "health",
+            "success": {
+              "text": "별이 쏟아지는 산사 마당에서 예불을 드렸어요. 화계사랑은 또 다른 소리였어요.",
+              "effects": {
+                "stats": {
+                  "faith": 6,
+                  "mental": 3
+                }
+              },
+              "record": "temple_tour",
+              "highlight": "외부 절 탐방에서 새벽 예불을 드렸어요."
+            },
+            "fail": {
+              "text": "못 일어났어요. {jisol}가 자는 사진을 찍어 놨어요.",
+              "effects": {
+                "stats": {
+                  "faith": 1,
+                  "health": 2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "스님께 절의 역사를 여쭌다",
+          "text": "천 년 된 탑 이야기를 들었어요. 수첩 두 쪽을 채웠어요.",
+          "effects": {
+            "stats": {
+              "intellect": 4,
+              "faith": 2
+            }
+          },
+          "record": "temple_tour"
+        },
+        {
+          "label": "산사 앞 카페에서 쉰다",
+          "text": "창밖이 온통 산이었어요. {buddy}랑 아무 말 없이 한 시간을 앉아 있었어요.",
+          "effects": {
+            "stats": {
+              "mental": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-vac-union",
+      "title": "연합 수련회",
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "여름방학, 전국 대학생 불자 연합 수련회에 갔어요. 수백 명이 한 법당에서 명상해요."
+      ],
+      "choices": [
+        {
+          "label": "조별 활동에 적극적으로 나선다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "leadership",
+            "success": {
+              "text": "조장이 됐어요. 처음 본 사람들이 마지막 날 울면서 번호를 교환했어요.",
+              "effects": {
+                "stats": {
+                  "leadership": 5,
+                  "charm": 3
+                }
+              },
+              "record": "uni_union"
+            },
+            "fail": {
+              "text": "낯을 가려서 조원 이름도 다 못 외웠어요.",
+              "effects": {
+                "stats": {
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "명상 시간에 집중한다",
+          "text": "수백 명이 숨 쉬는 소리만 들렸어요. 이상하게 혼자가 아닌 것 같았어요.",
+          "effects": {
+            "stats": {
+              "faith": 5,
+              "mental": 3
+            }
+          },
+          "record": "meditation"
+        }
+      ]
+    },
+    {
+      "id": "un-vac-temple-tour2",
+      "title": "겨울 사찰 순례",
+      "minGrade": 15,
+      "requires": {
+        "notFlags": [
+          "uni:kid_gansa",
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "겨울방학, 눈 덮인 산사 세 곳을 도는 순례를 갔어요. 이번엔 행사라 친구들도 다 왔어요."
+      ],
+      "choices": [
+        {
+          "label": "눈길을 끝까지 걷는다",
+          "text": "마지막 절에 도착했을 때 다들 말이 없었어요. 좋아서요.",
+          "effects": {
+            "stats": {
+              "health": 3,
+              "faith": 4
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          },
+          "record": "temple_tour"
+        },
+        {
+          "label": "숙소에서 넷이 수다 떤다",
+          "text": "\"우리 이러다 할머니 할아버지 돼서도 같이 오겠다.\" 다들 웃었는데 진심이었어요.",
+          "effects": {
+            "stats": {
+              "mental": 5
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "un-vac-kidcamp",
+      "title": "물놀이캠프, 이번엔 간사",
+      "requires": {
+        "flags": [
+          "uni:kid_gansa"
+        ]
+      },
+      "text": [
+        "어린이회 물놀이캠프. 마당에 큰 물놀이 기구가 들어왔어요. 이번엔 내가 호루라기를 물었어요. 학생회 후배들이 봉사하러 왔어요."
+      ],
+      "choices": [
+        {
+          "label": "호루라기를 불며 안전을 지킨다",
+          "text": "\"미끄럼틀은 한 명씩!\" 아이들이 투덜대도 아무도 안 다쳤어요. 지솔 쌤이 왜 그렇게 호루라기를 불었는지 알겠어요.",
+          "effects": {
+            "stats": {
+              "leadership": 5
+            },
+            "rel": {
+              "gansa": 4
+            }
+          },
+          "record": "kg_camp",
+          "highlight": "간사로 어린이회 물놀이캠프를 꾸렸어요."
+        },
+        {
+          "label": "물총 과녁이 되어 준다",
+          "text": "온몸이 젖었어요. 아이들이 \"쌤 항복해!\" 했어요. 항복했어요.",
+          "effects": {
+            "stats": {
+              "charm": 4,
+              "health": 2
+            }
+          },
+          "record": "kg_play"
+        },
+        {
+          "label": "밤에 무서운 이야기를 해 준다",
+          "text": "1학년 때 지솔 쌤한테 들었던 그 이야기예요. 아이들이 비명을 지르다 내 옆에 붙어 잤어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "health": -1
+            }
+          },
+          "record": "kg_play"
+        }
+      ]
+    },
+    {
+      "id": "un-vac-stcamp",
+      "title": "학생회 템플스테이 인솔",
+      "requires": {
+        "flags": [
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "학생회 템플스테이에 간사로 따라왔어요. 새벽 3시 반, 후배들을 깨워야 해요. 다들 이불 속에서 꿈틀거려요."
+      ],
+      "choices": [
+        {
+          "label": "\"기상!\" 하고 이불을 걷는다",
+          "text": "후배들이 \"쌤 윤 선생님 같아요\"래요. 칭찬인지 모르겠어요.",
+          "effects": {
+            "stats": {
+              "leadership": 4,
+              "faith": 2
+            }
+          },
+          "record": "sg_care"
+        },
+        {
+          "label": "한 명씩 조용히 깨운다",
+          "text": "\"일어나…? 아니면 5분만 더…?\" 후배들이 웃으며 일어났어요. 영민 쌤 말투가 나왔어요.",
+          "effects": {
+            "stats": {
+              "charm": 3
+            },
+            "rel": {
+              "teacher": 4
+            }
+          },
+          "record": "sg_care",
+          "highlight": "간사로 학생회 템플스테이를 인솔했어요."
+        }
+      ]
+    },
+    {
+      "id": "un-vac-stski",
+      "title": "학생회 스키캠프 인솔",
+      "requires": {
+        "flags": [
+          "uni:st_gansa"
+        ]
+      },
+      "text": [
+        "겨울, 학생회 스키캠프에 간사로 따라왔어요. 중1 후배가 리프트 앞에서 얼어 있어요."
+      ],
+      "choices": [
+        {
+          "label": "같이 리프트를 탄다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "health",
+            "success": {
+              "text": "초보 코스를 손잡고 내려왔어요. 후배가 처음 혼자 내려오자 같이 소리 질렀어요.",
+              "effects": {
+                "stats": {
+                  "health": 3,
+                  "leadership": 3
+                }
+              },
+              "record": "sg_teach"
+            },
+            "fail": {
+              "text": "같이 넘어졌어요. 리프트 앞에서. 둘 다.",
+              "effects": {
+                "stats": {
+                  "health": -2,
+                  "charm": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "숙소에서 컵라면을 끓여 준다",
+          "text": "후배들이 \"쌤 엄마 같아요\"래요.",
+          "effects": {
+            "stats": {
+              "charm": 2
+            }
+          },
+          "record": "sg_care"
+        }
+      ]
+    }
+  ],
+  "newyear": [
+    {
+      "id": "un-newyear",
+      "title": "제야의 종",
+      "maxGrade": 15,
+      "text": [
+        "12월 31일 밤. 대학생회는 범종각 타종 행사를 도와요. 평소엔 안 오던 친구들도 이날은 다 왔어요."
+      ],
+      "choices": [
+        {
+          "label": "줄 안내를 한다",
+          "text": "목이 쉬도록 안내했어요. 자정 종소리가 울리자 넷이 서로 껴안았어요.",
+          "effects": {
+            "stats": {
+              "leadership": 2,
+              "faith": 3
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          },
+          "record": "st_bell"
+        },
+        {
+          "label": "따뜻한 차를 나눠 드린다",
+          "text": "종이컵 300개를 다 썼어요. 손은 시려도 마음은 따뜻했어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2
+            }
+          },
+          "record": "st_bell"
+        }
+      ]
+    },
+    {
+      "id": "un-newyear-kids",
+      "title": "어린이회 아이들과 제야",
+      "minGrade": 14,
+      "maxGrade": 15,
+      "text": [
+        "12월 31일 밤. 어린이회 아이들이 부모님 손을 잡고 타종을 보러 왔어요. \"{senior}! 저도 종 쳐 봐도 돼요?\""
+      ],
+      "choices": [
+        {
+          "label": "아이를 안아 올려 종 줄을 잡게 해 준다",
+          "text": "\"댕—\" 아이가 자기가 친 종소리에 깜짝 놀라 울다가 웃었어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "faith": 2
+            }
+          },
+          "record": "st_bell"
+        },
+        {
+          "label": "아이들 손난로를 챙겨 준다",
+          "text": "주머니에 손난로 열 개를 넣어 왔는데 5분 만에 다 나갔어요.",
+          "effects": {
+            "stats": {
+              "leadership": 2,
+              "mental": 2
+            }
+          },
+          "record": "st_bell"
+        }
+      ]
+    },
+    {
+      "id": "un-newyear-last",
+      "title": "마지막 제야",
+      "minGrade": 16,
+      "text": [
+        "대학생회로 맞는 마지막 제야. 종소리를 들으며 친구 넷이 범종각 계단에 앉았어요. 초등학생 때도 여기 앉아 있었어요."
+      ],
+      "choices": [
+        {
+          "label": "소원지에 \"다들 오래 보자\" 쓴다",
+          "text": "친구들이 그 밑에 다 이름을 적었어요. 어린이회 때랑 똑같이.",
+          "effects": {
+            "stats": {
+              "mental": 4
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          },
+          "record": "st_bell"
+        },
+        {
+          "label": "종소리에 맞춰 합장한다",
+          "text": "108번째 종소리가 오래 남았어요.",
+          "effects": {
+            "stats": {
+              "faith": 5
+            }
+          },
+          "record": "st_bell"
+        }
+      ]
+    }
+  ],
+  "president": [
+    {
+      "id": "un-election",
+      "title": "대학생회 회장",
+      "text": [
+        "대3, 대학생회 회장을 정하는 날. 회장이라 해 봐야 단톡방 공지 올리고 연합 모임 나가는 사람이에요. {jisol}가 \"나는 졸업해야 돼서 안 돼(진짜야)\" 하며 다들 쳐다봐요."
+      ],
+      "choices": [
+        {
+          "label": "\"제가 할게요\" 한다",
+          "roll": {
+            "chance": -0.55,
+            "stat": "leadership",
+            "statWeight": 0.008,
+            "stat2": "charm",
+            "friends": true,
+            "friendsWeight": 0.4,
+            "success": {
+              "text": "박수로 정해졌어요. 스님이 \"이제 잔소리는 네가 해라\" 하셨어요.",
+              "effects": {
+                "stats": {
+                  "leadership": 6,
+                  "charm": 2
+                },
+                "rel": {
+                  "monk": 3
+                }
+              },
+              "flag": "uni_president",
+              "highlight": "대학생회 회장이 되었어요."
+            },
+            "fail": {
+              "text": "{buddy}가 동시에 손을 들었어요. 가위바위보에서 졌어요.",
+              "effects": {
+                "stats": {
+                  "mental": -2
+                }
+              },
+              "flag": "uni_president_lost"
+            }
+          }
+        },
+        {
+          "label": "{buddy}를 민다",
+          "text": "{buddy}가 회장이 됐어요. \"너 부회장 해.\" 그런 자리는 원래 없는데 생겼어요.",
+          "effects": {
+            "stats": {
+              "leadership": 2
+            }
+          },
+          "record": "uni_member"
+        },
+        {
+          "label": "조용히 눈을 피한다",
+          "text": "{youngmin}가 떠밀려 또 회장이 됐어요. 졸업은 또 미뤄졌어요.",
+          "effects": {
+            "stats": {
+              "mental": 1
+            },
+            "rel": {
+              "teacher": 1
+            }
+          },
+          "record": "uni_member"
+        }
+      ]
+    }
+  ],
+  "graduation": [
+    {
+      "id": "un-graduation",
+      "title": "대학교 졸업, 대학생회 졸업",
+      "text": [
+        "대학교 졸업식 다음 일요일. 대학생회 마지막 법회예요. 초등학교 1학년 때 처음 온 화계사를 16년 만에 졸업해요. 그런데 {jisol}랑 {youngmin}는 아직도 졸업을 못 했어요. 내가 먼저 졸업해요."
+      ],
+      "choices": [
+        {
+          "label": "스님께 큰절을 올린다",
+          "text": "스님이 \"졸업은 무슨. 일요일에 또 와라\" 하셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 5
+            },
+            "rel": {
+              "monk": 5
+            }
+          }
+        },
+        {
+          "label": "오늘은 내가 목탁을 친다",
+          "text": "마지막 예불 목탁. 똑, 똑, 똑. 16년이 이 소리 안에 다 있었어요.",
+          "effects": {
+            "stats": {
+              "faith": 4,
+              "mental": 3
+            }
+          }
+        },
+        {
+          "label": "두 선배한테 \"먼저 갑니다\" 인사한다",
+          "text": "{jisol}가 \"배신자!!!\" 하면서 울었어요. {youngmin}는 말을 더듬다 그냥 꽉 안아 줬어요.",
+          "effects": {
+            "stats": {
+              "mental": 4
+            },
+            "rel": {
+              "gansa": 6,
+              "teacher": 6
+            }
+          }
+        }
+      ],
+      "addenda": [
+        {
+          "flags": [
+            "uni:kid_gansa"
+          ],
+          "text": "어린이회 아이들이 \"쌤 졸업하지 마요!\" 하며 다리에 매달렸어요.",
+          "group": "role"
+        },
+        {
+          "flags": [
+            "uni:st_gansa"
+          ],
+          "text": "학생회 후배들이 풍물로 졸업 축하 장단을 쳐 줬어요.",
+          "group": "role"
+        },
+        {
+          "flags": [
+            "uni_president"
+          ],
+          "text": "회장 때 쓰던 단톡방 방장을 후배에게 넘겼어요.",
+          "group": "role2"
+        },
+        {
+          "flags": [
+            "jiho_sendoff"
+          ],
+          "text": "{jiho}가 \"피구왕은 내가 가져간다\" 하며 웃었어요.",
+          "group": "jiho"
+        },
+        {
+          "flags": [
+            "kittens"
+          ],
+          "text": "공양간 쪽에서 {cat}의 손주들이 울었어요.",
+          "group": "cat"
+        }
+      ]
+    }
+  ]
+}

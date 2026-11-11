@@ -1,51 +1,94 @@
-import type { Slot } from './types';
-
-export const KIDS_LAST_GRADE = 6;
-
-/** 연등을 거는 큰 행사 날 */
-export const FESTIVE_KINDS = ['may', 'lantern', 'buddha', 'camp', 'newyear', 'graduation'];
-
-/** 평범한 일요일이 오는 달. 학년마다 번갈아서 첫눈·추석·김장 같은 계절 장면도 돌아온다. */
-const SUNDAY_MONTHS: Record<'odd' | 'even', [number, number, number]> = {
-  odd: [4, 6, 10],
-  even: [3, 9, 11],
-};
+import type { Slot, Stage } from './types';
 
 /**
- * 5월 행사는 어린이회 6년 동안 세 번만: 1학년 첫 연등회, 4학년(연등회나 부처님오신날 중 하나),
- * 6학년 마지막 부처님오신날. 매년 나오면 지루해서 줄였다.
+ * 한 판은 다섯 장, 5분 안팎. 해마다 도는 일정 대신 시기마다 큰 장면만 남겼다.
+ * 장면마다 학년(grade)이 붙어 있어서, 그 학년에 맞는 이야기가 나온다.
+ * 'sunday'는 고른 프로그램이 바로 나오고, 'morning'은 "법회 갈까 말까" 갈림길이다.
+ * event가 있으면 그 장면이 꼭 나온다.
  */
-const MAY_EVENTS: Record<number, Slot> = {
-  1: { kind: 'lantern', month: 5, label: '5월 연등회' },
-  4: { kind: 'may', month: 5, label: '5월 부처님오신날 주간' },
-  6: { kind: 'buddha', month: 5, label: '부처님오신날' },
-};
-
-/** 학년 대표 투표는 매년 하면 지루해서 1·3학년에만. 6학년은 회장 선거. */
-const VOTE_GRADES = [1, 3];
-
-/** 1년 = (투표) + 일요일 3번 + (5월 행사) + 여름 캠프 + 제야. 6학년은 졸업식이 붙는다. */
-export function slotsForGrade(grade: number): Slot[] {
-  const [a, b, c] = SUNDAY_MONTHS[grade % 2 === 1 ? 'odd' : 'even'];
-  const sunday = (m: number): Slot => ({ kind: 'sunday', month: m, label: `${m}월 일요일` });
-  const slots: Slot[] = [
-    ...(grade === KIDS_LAST_GRADE
-      ? [{ kind: 'president', month: 3, label: '3월 회장 선거' } as Slot]
-      : VOTE_GRADES.includes(grade)
-        ? [{ kind: 'rep', month: 3, label: '3월 학년 대표 투표' } as Slot]
-        : []),
-    sunday(a),
-    ...(MAY_EVENTS[grade] ? [MAY_EVENTS[grade]] : []),
-    sunday(b),
-    { kind: 'camp', month: 8, label: '8월 물놀이캠프' },
-    sunday(c),
-    { kind: 'newyear', month: 12, label: '12월 31일' },
-  ];
-  // 3월 일요일은 투표 다음, 9·10·11월 일요일은 캠프 다음으로 달 순서를 맞춘다
-  slots.sort((x, y) => x.month - y.month || (x.kind === 'sunday' ? 1 : -1));
-  if (grade === KIDS_LAST_GRADE) slots.push({ kind: 'graduation', month: 2, label: '졸업식' });
-  return slots;
+export interface Chapter {
+  title: string;
+  stage: Stage;
+  /** 마지막 장면 뒤: 졸업 화면(다음 회로) 또는 장 마무리 */
+  end: 'graduated' | 'chapterEnd';
+  slots: Slot[];
 }
+
+const S = (grade: number, month: number, label: string, event?: string): Slot => ({ kind: 'sunday', grade, month, label, ...(event ? { event } : {}) });
+
+export const CHAPTERS: Chapter[] = [
+  {
+    title: '초등 저학년',
+    stage: 'kid',
+    end: 'chapterEnd',
+    slots: [
+      S(1, 3, '처음 간 어린이법회'),
+      { kind: 'lantern', grade: 1, month: 5, label: '5월 연등회' },
+      S(2, 6, '2학년 일요일', 'dodgeball'),
+      { kind: 'camp', grade: 2, month: 8, label: '8월 물놀이캠프' },
+      S(3, 10, '3학년 일요일', 'story-cat'),
+    ],
+  },
+  {
+    title: '초등 고학년',
+    stage: 'kid',
+    end: 'graduated',
+    slots: [
+      S(4, 4, '4학년 일요일'),
+      { kind: 'may', grade: 4, month: 5, label: '부처님오신날 주간' },
+      S(5, 9, '5학년 일요일'),
+      { kind: 'newyear', grade: 5, month: 12, label: '12월 31일' },
+      { kind: 'president', grade: 6, month: 3, label: '6학년 회장 선거' },
+      { kind: 'graduation', grade: 6, month: 2, label: '어린이회 졸업식' },
+    ],
+  },
+  {
+    title: '중학생',
+    stage: 'student',
+    end: 'chapterEnd',
+    slots: [
+      { kind: 'instrument', grade: 7, month: 3, label: '학생회 첫 일요일' },
+      S(7, 4, '중1 일요일'),
+      { kind: 'lantern', grade: 8, month: 5, label: '연등회 풍물' },
+      { kind: 'vacation', grade: 8, month: 8, label: '방학 행사' },
+      { kind: 'morning', grade: 9, month: 10, label: '중3 일요일 아침' },
+    ],
+  },
+  {
+    title: '고등학생',
+    stage: 'student',
+    end: 'graduated',
+    slots: [
+      S(10, 4, '고1 일요일'),
+      { kind: 'buddha', grade: 10, month: 5, label: '부처님오신날' },
+      { kind: 'president', grade: 11, month: 3, label: '학생회장 선거' },
+      S(11, 9, '고2 일요일'),
+      { kind: 'morning', grade: 12, month: 6, label: '고3 일요일 아침' },
+      { kind: 'graduation', grade: 12, month: 2, label: '학생회 졸업식' },
+    ],
+  },
+  {
+    title: '대학생',
+    stage: 'university',
+    end: 'graduated',
+    slots: [
+      { kind: 'welcome', grade: 13, month: 3, label: '대학생회 첫 일요일' },
+      S(13, 4, '대1 일요일'),
+      { kind: 'offer', grade: 14, month: 3, label: '대2, 선배의 부탁' },
+      S(14, 9, '대2 일요일'),
+      { kind: 'lantern', grade: 15, month: 5, label: '연등회' },
+      S(15, 10, '대3 일요일'),
+      { kind: 'graduation', grade: 16, month: 2, label: '대학교 졸업' },
+    ],
+  },
+];
+
+/** 회별 첫 장 번호: 어린이회 0, 학생회 2, 대학생회 4 */
+export const STAGE_FIRST_CHAPTER: Record<Stage, number> = { kid: 0, student: 2, university: 4 };
+export const LAST_CHAPTER = CHAPTERS.length - 1;
+
+/** 연등을 거는 큰 행사 날 */
+export const FESTIVE_KINDS = ['may', 'lantern', 'buddha', 'camp', 'vacation', 'newyear', 'graduation'];
 
 /** {season} 자리에 들어가는 계절 한 줄. 같은 장면도 달마다 다르게 느껴지게 한다. */
 export const SEASON_LINES: Record<number, string[]> = {
@@ -62,5 +105,16 @@ export const SEASON_LINES: Record<number, string[]> = {
 };
 
 export function gradeLabel(grade: number): string {
-  return `초등학교 ${grade}학년`;
+  if (grade <= 6) return `초등학교 ${grade}학년`;
+  if (grade <= 9) return `중학교 ${grade - 6}학년`;
+  if (grade <= 12) return `고등학교 ${grade - 9}학년`;
+  return `대학교 ${grade - 12}학년`;
+}
+
+/** 짧은 학년: 초1, 중2, 고3, 대1 */
+export function shortGrade(grade: number): string {
+  if (grade <= 6) return `초${grade}`;
+  if (grade <= 9) return `중${grade - 6}`;
+  if (grade <= 12) return `고${grade - 9}`;
+  return `대${grade - 12}`;
 }

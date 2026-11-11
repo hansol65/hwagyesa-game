@@ -1,0 +1,433 @@
+{
+  "attend": [
+    {
+      "id": "st-am-basic",
+      "title": "일요일 아침",
+      "text": [
+        "{season} 오늘은 학생회 법회 날이에요. 알람을 세 번째 끄고 나서야 눈이 떠졌어요.",
+        "{season} 단톡방에 영민 쌤이 \"오늘… 다들 오는 거 맞죠…? (아니면 괜찮아요)\" 하고 올렸다가 바로 지웠어요. 다 봤어요."
+      ],
+      "choices": [
+        {
+          "label": "씻고 법회에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2
+            }
+          }
+        },
+        {
+          "label": "이불 속에서 휴대폰을 본다",
+          "attend": false,
+          "text": "쇼츠를 넘기다 보니 점심이었어요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-exam",
+      "title": "시험 기간",
+      "months": [
+        4,
+        6,
+        10,
+        11
+      ],
+      "text": [
+        "다음 주가 중간고사예요. 범위도 아직 다 못 봤어요.",
+        "기말고사가 코앞이에요. 엄마가 \"이번 주는 쉬고 공부하지?\" 하세요."
+      ],
+      "choices": [
+        {
+          "label": "법회 갔다가 독서실로 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "health": -3,
+              "intellect": 1
+            }
+          }
+        },
+        {
+          "label": "학생회 친구들이랑 같이 공부하자고 한다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "intellect": 2,
+              "faith": 1
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          }
+        },
+        {
+          "label": "하루 종일 독서실에 있는다",
+          "attend": false,
+          "text": "문제집 한 권을 끝냈어요. 뿌듯한데 조금 허전해요.",
+          "effects": {
+            "stats": {
+              "intellect": 7,
+              "faith": -4,
+              "mental": -2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-academy",
+      "title": "학원 보충",
+      "text": [
+        "학원에서 일요일 오전에 보충 수업을 한대요. 빠지면 진도를 못 따라가요."
+      ],
+      "choices": [
+        {
+          "label": "학원은 저녁 반으로 옮기고 법회에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "mental": -1
+            }
+          }
+        },
+        {
+          "label": "보충 수업에 간다",
+          "attend": false,
+          "text": "진도는 따라잡았어요. 단톡방 법회 사진을 보니 조금 아쉬웠어요.",
+          "effects": {
+            "stats": {
+              "intellect": 6,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-friends",
+      "title": "학교 친구들의 약속",
+      "text": [
+        "학교 친구들이 일요일에 놀러 가재요. \"너 맨날 일요일만 안 되더라?\"",
+        "반 단톡방에서 일요일에 PC방 가자는 얘기가 나왔어요. 나만 빠지면 좀 그래요."
+      ],
+      "choices": [
+        {
+          "label": "\"일요일은 절 가는 날이야\" 하고 법회에 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "charm": -2
+            }
+          }
+        },
+        {
+          "label": "법회 끝나고 합류한다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 1,
+              "health": -2,
+              "charm": 2
+            }
+          }
+        },
+        {
+          "label": "학교 친구들과 논다",
+          "attend": false,
+          "text": "정말 재밌었어요. 그런데 학생회 단톡방이 조용했어요.",
+          "effects": {
+            "stats": {
+              "charm": 6,
+              "faith": -4
+            },
+            "rel": {
+              "jiho": -2,
+              "seoyun": -2,
+              "haram": -2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-oversleep",
+      "title": "늦잠",
+      "text": [
+        "눈을 떠 보니 법회 시작 10분 전이에요. 머리는 까치집이에요."
+      ],
+      "choices": [
+        {
+          "label": "모자 쓰고 뛰어간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "health": 2,
+              "faith": 1
+            }
+          }
+        },
+        {
+          "label": "그냥 다시 잔다",
+          "attend": false,
+          "text": "푹 잤어요. 영민 쌤한테서 \"혹시… 아픈 건 아니지…?\" 문자가 와 있었어요. 걱정 이모티콘이 세 개 붙어 있었어요.",
+          "effects": {
+            "stats": {
+              "health": 4,
+              "faith": -3
+            },
+            "rel": {
+              "gansa": -2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-club",
+      "title": "동아리 대회",
+      "text": [
+        "학교 동아리 대회가 일요일 오후래요. 오전 법회 갔다 가면 빠듯해요."
+      ],
+      "choices": [
+        {
+          "label": "법회 갔다가 대회장으로 달려간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "health": -3,
+              "leadership": 1
+            }
+          }
+        },
+        {
+          "label": "대회 준비에 집중한다",
+          "attend": false,
+          "text": "대회에서 상을 받았어요! 학생회 단톡방에 자랑했더니 축하 이모티콘이 쏟아졌어요.",
+          "effects": {
+            "stats": {
+              "intellect": 3,
+              "charm": 4,
+              "faith": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-rain",
+      "title": "비 오는 일요일",
+      "months": [
+        4,
+        6,
+        9
+      ],
+      "text": [
+        "밖에 비가 쏟아져요. 우산을 써도 신발이 다 젖을 것 같아요."
+      ],
+      "choices": [
+        {
+          "label": "슬리퍼 신고 그냥 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "health": -1
+            }
+          }
+        },
+        {
+          "label": "비 오는 날엔 집이 최고다",
+          "attend": false,
+          "text": "빗소리 들으며 노래를 들었어요. 마음이 좀 가라앉았어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "faith": -4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-performance",
+      "title": "수행평가 마감",
+      "text": [
+        "내일까지 내야 하는 수행평가가 반밖에 안 됐어요."
+      ],
+      "choices": [
+        {
+          "label": "법회 가서 쉬는 시간에 한다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "mental": -2
+            }
+          }
+        },
+        {
+          "label": "법회 가서 영민 쌤한테 물어본다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "intellect": 2,
+              "faith": 1
+            },
+            "rel": {
+              "gansa": 3
+            }
+          }
+        },
+        {
+          "label": "집에서 끝낸다",
+          "attend": false,
+          "text": "깔끔하게 끝냈어요. 대신 하루가 다 갔어요.",
+          "effects": {
+            "stats": {
+              "intellect": 5,
+              "faith": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-csat",
+      "title": "수능이 다가와요",
+      "minGrade": 12,
+      "text": [
+        "고3이에요. 모의고사 점수가 생각보다 안 나왔어요. 일요일 하루가 너무 아까워요.",
+        "수능까지 백 며칠. 담임 선생님이 \"주말도 다 공부야\"라고 하셨어요."
+      ],
+      "choices": [
+        {
+          "label": "법회에서 마음을 다잡고 온다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 4,
+              "mental": 3,
+              "intellect": -1
+            }
+          }
+        },
+        {
+          "label": "예불만 드리고 바로 독서실로 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "intellect": 2
+            }
+          }
+        },
+        {
+          "label": "독서실에 간다",
+          "attend": false,
+          "text": "하루 종일 문제를 풀었어요. 점수는 조금 올랐는데 마음은 더 바빠졌어요.",
+          "effects": {
+            "stats": {
+              "intellect": 7,
+              "faith": -3,
+              "mental": -3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-am-family",
+      "title": "가족 외식",
+      "text": [
+        "오랜만에 가족끼리 점심 외식을 하재요. 법회 시간이랑 겹쳐요."
+      ],
+      "choices": [
+        {
+          "label": "법회 끝나고 바로 식당으로 간다",
+          "attend": true,
+          "next": "program",
+          "effects": {
+            "stats": {
+              "faith": 2,
+              "health": -1
+            }
+          }
+        },
+        {
+          "label": "가족이랑 외식한다",
+          "attend": false,
+          "text": "오랜만에 아빠랑 이야기를 많이 했어요.",
+          "effects": {
+            "stats": {
+              "mental": 5,
+              "faith": -3
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "return": {
+    "id": "st-return",
+    "title": "오랜만에 왔네?",
+    "text": [
+      "법당 문을 여니 {jiho}가 \"와, 진짜 오랜만\" 하며 손을 흔들어요.",
+      "영민 쌤이 반가운 얼굴로 다가오다 말을 못 붙이고 손만 꼼지락거려요. 한참 만에 \"어, 어… 왔구나! 잘 왔어…!\""
+    ],
+    "choices": [
+      {
+        "label": "멋쩍게 웃으며 앉는다",
+        "text": "어색한 것도 잠깐, 쉬는 시간엔 다시 예전처럼 떠들었어요.",
+        "effects": {
+          "stats": {
+            "faith": 2,
+            "mental": 2
+          },
+          "rel": {
+            "jiho": 2
+          }
+        }
+      },
+      {
+        "label": "\"요즘 좀 힘들었어요\" 하고 털어놓는다",
+        "text": "영민 쌤이 어쩔 줄 몰라 하다가, 끝까지 들어 주고는 조그맣게 \"그럼… 여기 오는 날은 쉬는 날로 하자\" 했어요.",
+        "effects": {
+          "stats": {
+            "mental": 5,
+            "faith": 2
+          },
+          "rel": {
+            "gansa": 5
+          }
+        },
+        "highlight": "한동안 빠졌다가 다시 학생회에 돌아왔어요."
+      }
+    ]
+  }
+}

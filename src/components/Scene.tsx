@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { currentSlot, TURNING_POINTS, YEAR_MODE_LABEL, type YearMode } from '../game/engine';
-import { FESTIVE_KINDS, gradeLabel, slotsForGrade } from '../game/calendar';
+import { currentSlot } from '../game/engine';
+import { CHAPTERS, FESTIVE_KINDS, gradeLabel } from '../game/calendar';
 import type { GameState } from '../game/types';
 import { useGame } from '../store';
 import { Deltas } from './Deltas';
@@ -10,9 +10,9 @@ import { staging } from '../art/scene';
 import { Arrow, BrushLine, InkCircle, LanternRow, TrackMark } from './Ink';
 
 function YearTrack({ game }: { game: GameState }) {
-  const slots = slotsForGrade(game.grade);
+  const slots = CHAPTERS[game.chapter].slots;
   return (
-    <ol className="track" aria-label={`올해 일정 ${slots.length}개 중 ${game.slotIndex + 1}번째`}>
+    <ol className="track" aria-label={`이번 장 ${slots.length}장면 중 ${game.slotIndex + 1}번째`}>
       {slots.map((s, i) => (
         <li key={i} className={i < game.slotIndex ? 'past' : i === game.slotIndex ? 'now' : ''} title={s.label}>
           <TrackMark event={FESTIVE_KINDS.includes(s.kind)} filled={i <= game.slotIndex} />
@@ -23,8 +23,7 @@ function YearTrack({ game }: { game: GameState }) {
 }
 
 export function Scene({ game }: { game: GameState }) {
-  const { choose, next, fastForward } = useGame();
-  const [ffOpen, setFfOpen] = useState(false);
+  const { choose, next } = useGame();
   /** 미니게임이 붙은 선택지를 고르면 그 자리에서 게임을 한다 */
   const [playing, setPlaying] = useState<number | null>(null);
   const pick = (i: number) => {
@@ -34,7 +33,6 @@ export function Scene({ game }: { game: GameState }) {
   const slot = currentSlot(game);
   const festive = FESTIVE_KINDS.includes(slot.kind);
   const isResult = game.phase === 'result' && !!game.result;
-  const canFastForward = game.phase === 'play' && !TURNING_POINTS.includes(slot.kind);
   const choices = game.event?.choices ?? [];
   const bodyRef = useRef<HTMLDivElement>(null);
   const eventId = game.event?.id;
@@ -46,13 +44,13 @@ export function Scene({ game }: { game: GameState }) {
     staging({
       id: game.event.id,
       slotKind: slot.kind,
-      isProgram: !!game.prelude,
+      isProgram: !!game.prelude || slot.kind === 'sunday',
       // 선택지에 나오는 사람(선생님께 말씀드린다, 스님께 여쭌다…)도 장면에 세운다
       text: `${game.event.title} ${game.eventText}`,
       castText: choices.map((c) => c.label).join(' '),
       game,
       mood,
-      alone: slot.kind === 'sunday' && !game.prelude,
+      alone: slot.kind === 'morning' && !game.prelude,
     });
   // 간다를 고른 뒤: 위에 남는 아침 장면은 집, 주인공 혼자
   const preludeScene =
@@ -94,7 +92,7 @@ export function Scene({ game }: { game: GameState }) {
       {festive && <LanternRow />}
       <div className="dateline">
         <p className="when">
-          {gradeLabel(game.grade)}, {slot.label}
+          {CHAPTERS[game.chapter].title} · {gradeLabel(game.grade)}, {slot.label}
         </p>
         <YearTrack game={game} />
       </div>
@@ -168,7 +166,7 @@ export function Scene({ game }: { game: GameState }) {
                       <span className="label">{c.label}</span>
                       {c.minigame && (
                         <span className="meta">
-                          <span className="mg-tag">🎮 미니게임 · {c.minigame === 'dodgeball' ? '피구 (건강)' : '율동 (매력)'}</span>
+                          <span className="mg-tag">🎮 미니게임 · {({ dodgeball: '피구 (건강)', dance: '율동 (매력)', pungmul: '풍물 (건강)', moktak: '목탁 (신앙)' } as const)[c.minigame]}</span>
                         </span>
                       )}
                     </button>
@@ -197,34 +195,6 @@ export function Scene({ game }: { game: GameState }) {
         </div>
       )}
 
-      {canFastForward && (
-        <div className="ff">
-          {!ffOpen ? (
-            <button className="textlink" onClick={() => setFfOpen(true)}>
-              올해는 빠르게 넘기기
-            </button>
-          ) : (
-            <>
-              <span className="lead">올해는</span>
-              {(Object.keys(YEAR_MODE_LABEL) as YearMode[]).map((m) => (
-                <button
-                  key={m}
-                  className="textlink"
-                  onClick={() => {
-                    setFfOpen(false);
-                    fastForward(m);
-                  }}
-                >
-                  {YEAR_MODE_LABEL[m]}
-                </button>
-              ))}
-              <button className="textlink" onClick={() => setFfOpen(false)}>
-                그만두기
-              </button>
-            </>
-          )}
-        </div>
-      )}
     </section>
   );
 }

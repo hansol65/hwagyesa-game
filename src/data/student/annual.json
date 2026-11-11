@@ -1,0 +1,897 @@
+{
+  "instrument": [
+    {
+      "id": "st-instrument",
+      "title": "학생회 첫날, 풍물 악기 고르기",
+      "text": [
+        "처음 와 본 학생회 법회실. 영민 쌤이 악기를 하나씩 정성껏 닦아 늘어놓았어요. 소개하다가 꽹과리를 떨어뜨려 \"쨍!\" 소리에 혼자 깜짝 놀랐어요. 북, 장구, 꽹과리, 징. 6년 동안 함께할 악기를 고르래요."
+      ],
+      "choices": [
+        {
+          "label": "북: 둥둥, 묵직하게 박자를 받친다",
+          "text": "북채를 잡으니 손에 착 감겨요. 둥— 가슴까지 울려요.",
+          "effects": {
+            "stats": {
+              "charm": 1
+            }
+          },
+          "flag": "inst:buk"
+        },
+        {
+          "label": "장구: 덩 기덕, 장단의 중심",
+          "text": "장구를 무릎에 얹으니 어깨가 펴졌어요. 영민 쌤이 \"장단이… 제일 바쁜 자리야. 근데 너라면 잘할 거야\" 하고 수줍게 웃었어요.",
+          "effects": {
+            "stats": {
+              "charm": 1
+            }
+          },
+          "flag": "inst:janggu"
+        },
+        {
+          "label": "꽹과리: 갠지갠지, 맨 앞에서 이끈다",
+          "text": "꽹과리는 상쇠, 풍물패 대장이 잡는 악기래요. 소리가 귀를 찔러요. 제일 어렵대요.",
+          "effects": {
+            "stats": {
+              "charm": 1
+            }
+          },
+          "flag": "inst:kkwaenggwari"
+        },
+        {
+          "label": "징: 지잉— 큰 숨으로 마무리",
+          "text": "징을 한 번 쳤더니 소리가 마당 끝까지 퍼졌어요. \"징은 쉬워 보여도 타이밍이 생명이야.\"",
+          "effects": {
+            "stats": {
+              "charm": 1
+            }
+          },
+          "flag": "inst:jing"
+        }
+      ]
+    }
+  ],
+  "lantern": [
+    {
+      "id": "st-lantern-first",
+      "title": "처음 풍물로 나가는 연등회",
+      "maxGrade": 9,
+      "text": [
+        "이번 연등회에서 학생회는 풍물패로 행렬 맨 앞을 맡아요. 어린이회 때는 율동하며 따라가던 그 소리를 이제 내가 내요."
+      ],
+      "choices": [
+        {
+          "label": "풍물 행진에 나선다",
+          "minigame": "pungmul",
+          "roll": {
+            "chance": 0.4,
+            "stat": "health",
+            "success": {
+              "text": "종로 한복판에서 장단이 하나로 맞았어요! 구경하던 어린이회 동생들이 따라 뛰었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "health": 2,
+                  "faith": 3
+                }
+              },
+              "record": "pungmul_success",
+              "highlight": "연등회에서 풍물패로 행진했어요."
+            },
+            "fail": {
+              "text": "중간에 박자를 놓쳐 혼자 엇박을 쳤어요. 영민 쌤이 옆에서 땀을 뻘뻘 흘리며 손으로 박자를 세 줬어요.",
+              "effects": {
+                "stats": {
+                  "charm": -1,
+                  "mental": -2,
+                  "faith": 1
+                }
+              }
+            },
+            "talent": "music"
+          }
+        },
+        {
+          "label": "깃발을 든다",
+          "text": "바람에 깃발이 펄럭였어요. 팔은 떨어질 것 같았어요.",
+          "effects": {
+            "stats": {
+              "health": 2,
+              "faith": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-lantern-lead",
+      "title": "풍물패 선배로 나가는 연등회",
+      "minGrade": 10,
+      "text": [
+        "이제 고등학생, 풍물패 앞줄이에요. 중학생 후배들이 내 손만 보고 있어요."
+      ],
+      "choices": [
+        {
+          "label": "앞줄에서 장단을 이끈다",
+          "minigame": "pungmul",
+          "roll": {
+            "chance": 0.4,
+            "stat": "leadership",
+            "success": {
+              "text": "내 신호에 맞춰 풍물패가 한 몸처럼 움직였어요. 행렬이 끝나고 후배들이 \"선배 미쳤어요\"래요.",
+              "effects": {
+                "stats": {
+                  "leadership": 5,
+                  "charm": 3,
+                  "faith": 2
+                }
+              },
+              "record": "pungmul_success",
+              "highlight": "연등회 풍물패 앞줄에서 장단을 이끌었어요."
+            },
+            "fail": {
+              "text": "신호를 늦게 줘서 후배들이 우왕좌왕했어요.",
+              "effects": {
+                "stats": {
+                  "leadership": -2,
+                  "mental": -3
+                }
+              }
+            },
+            "talent": "music"
+          }
+        },
+        {
+          "label": "후배들 사이에서 박자를 잡아 준다",
+          "text": "후배들 박자가 흔들릴 때마다 눈을 맞춰 줬어요.",
+          "effects": {
+            "stats": {
+              "leadership": 4
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "buddha": [
+    {
+      "id": "st-buddha-booth",
+      "title": "부처님오신날 부스",
+      "text": [
+        "부처님오신날, 학생회는 부스를 열어요. 올해 메뉴는 아이스크림이랑 떡볶이예요. 신도님들이 줄을 서기 시작해요."
+      ],
+      "choices": [
+        {
+          "label": "떡볶이 담당을 한다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "intellect",
+            "success": {
+              "text": "간을 딱 맞췄어요! 두 시간 만에 떡볶이가 동났어요.",
+              "effects": {
+                "stats": {
+                  "intellect": 2,
+                  "charm": 3
+                },
+                "rel": {
+                  "gansa": 3
+                }
+              },
+              "record": "booth_sold",
+              "highlight": "부처님오신날 부스 떡볶이를 완판했어요."
+            },
+            "fail": {
+              "text": "너무 매워서 어르신들이 물만 찾으셨어요.",
+              "effects": {
+                "stats": {
+                  "mental": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "아이스크림 판매를 맡는다",
+          "roll": {
+            "chance": 0.45,
+            "stat": "charm",
+            "success": {
+              "text": "\"아이스크림 있어요~!\" 호객 실력에 줄이 끝이 안 보였어요. 매진!",
+              "effects": {
+                "stats": {
+                  "charm": 4
+                },
+                "rel": {
+                  "gansa": 2
+                }
+              },
+              "record": "booth_sold"
+            },
+            "fail": {
+              "text": "날이 흐려서 아이스크림이 반이나 남았어요. 학생회가 다 먹었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "health": -1
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "계산대를 맡는다",
+          "text": "거스름돈 계산을 한 번도 안 틀렸어요. 영민 쌤이 \"쌤보다… 잘한다…\" 했어요. 쌤은 아까 거스름돈을 두 번 틀렸어요.",
+          "effects": {
+            "stats": {
+              "intellect": 3,
+              "leadership": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-buddha-pungmul",
+      "title": "부처님오신날 풍물 공연",
+      "text": [
+        "부처님오신날 마당 공연. 어린이회 오카리나와 율동이 끝나면 학생회 풍물 차례예요. 수천 명이 마당을 메웠어요."
+      ],
+      "choices": [
+        {
+          "label": "풍물 공연에 나간다",
+          "minigame": "pungmul",
+          "roll": {
+            "chance": 0.4,
+            "stat": "health",
+            "success": {
+              "text": "마지막 징 소리가 울리자 마당 전체가 박수를 쳤어요. 어린이회 동생들이 \"학생회 멋있다!\" 소리쳤어요.",
+              "effects": {
+                "stats": {
+                  "charm": 4,
+                  "faith": 3,
+                  "mental": 2
+                }
+              },
+              "record": "pungmul_success"
+            },
+            "fail": {
+              "text": "긴장해서 첫 장단부터 꼬였어요. 끝나고 다리가 풀렸어요.",
+              "effects": {
+                "stats": {
+                  "charm": -2,
+                  "mental": -2
+                }
+              }
+            },
+            "talent": "music"
+          }
+        },
+        {
+          "label": "공연 대신 부스를 지킨다",
+          "text": "공연 소리를 들으며 떡볶이를 저었어요.",
+          "effects": {
+            "stats": {
+              "intellect": 1,
+              "faith": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-buddha-last",
+      "title": "학생회 마지막 부처님오신날",
+      "minGrade": 12,
+      "text": [
+        "고3이라 이번이 학생회 마지막 부처님오신날이에요. 공부해야 하는데, 마당에서 북소리가 들려요."
+      ],
+      "choices": [
+        {
+          "label": "마지막으로 풍물을 친다",
+          "minigame": "pungmul",
+          "roll": {
+            "chance": 0.45,
+            "stat": "health",
+            "success": {
+              "text": "6년 동안 친 장단이 손에서 저절로 나왔어요. 눈물이 날 뻔했어요.",
+              "effects": {
+                "stats": {
+                  "faith": 4,
+                  "mental": 4,
+                  "charm": 2
+                }
+              },
+              "record": "pungmul_success",
+              "highlight": "학생회 마지막 부처님오신날에 풍물을 쳤어요."
+            },
+            "fail": {
+              "text": "오랜만이라 손이 굳었어요. 그래도 끝까지 쳤어요.",
+              "effects": {
+                "stats": {
+                  "faith": 2,
+                  "mental": -1
+                }
+              }
+            },
+            "talent": "music"
+          }
+        },
+        {
+          "label": "후배들 부스를 잠깐 도와주고 독서실로 간다",
+          "text": "후배들이 \"선배 수능 대박!\" 하며 아이스크림을 쥐여 줬어요.",
+          "effects": {
+            "stats": {
+              "intellect": 2,
+              "mental": 2
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "vacation": [
+    {
+      "id": "st-vac-volunteer",
+      "title": "어린이회 물놀이캠프 봉사",
+      "text": [
+        "여름방학, 어린이회 물놀이캠프에 학생회가 봉사하러 갔어요. 몇 년 전 내가 놀던 그 미끄럼틀이 또 들어왔어요."
+      ],
+      "choices": [
+        {
+          "label": "물총 과녁이 되어 준다",
+          "text": "동생들 물총을 온몸으로 받았어요. 흠뻑 젖었는데 다들 깔깔 웃어서 좋았어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "health": 2
+            }
+          },
+          "record": "volunteer"
+        },
+        {
+          "label": "수영 못 하는 동생 옆을 지킨다",
+          "text": "튜브를 꼭 잡아 줬어요. 동생이 \"{senior} 최고\"래요.",
+          "effects": {
+            "stats": {
+              "leadership": 4
+            }
+          },
+          "record": "volunteer"
+        },
+        {
+          "label": "간식 담당을 한다",
+          "text": "수박을 백 조각 잘랐어요. 손목이 시큰거려요.",
+          "effects": {
+            "stats": {
+              "health": -1,
+              "leadership": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-vac-volunteer2",
+      "title": "봉사하다 혼난 날",
+      "text": [
+        "물놀이캠프 봉사 둘째 날. 동생들이랑 놀다가 나도 모르게 같이 신나 버렸어요. 지솔 쌤이 호루라기를 불어요."
+      ],
+      "choices": [
+        {
+          "label": "\"죄송합니다\" 하고 다시 지킨다",
+          "text": "지솔 쌤이 \"학생회는 노는 게 아니라 지키는 거야\" 했어요. 어린이회 때랑 똑같이 무서웠어요.",
+          "effects": {
+            "stats": {
+              "leadership": 3,
+              "mental": -1
+            }
+          },
+          "record": "volunteer"
+        },
+        {
+          "label": "동생들을 줄 세워 같이 논다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "leadership",
+            "success": {
+              "text": "줄을 딱 세우고 순서대로 놀게 했어요. 지솔 쌤이 \"오 많이 컸다\"래요.",
+              "effects": {
+                "stats": {
+                  "leadership": 5,
+                  "charm": 2
+                }
+              },
+              "record": "volunteer"
+            },
+            "fail": {
+              "text": "줄이 금방 엉망이 됐어요. 결국 지솔 쌤이 다시 정리했어요.",
+              "effects": {
+                "stats": {
+                  "leadership": -1,
+                  "mental": -2
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-vac-templestay",
+      "title": "템플스테이",
+      "text": [
+        "여름방학, 학생회가 지방의 큰 절로 2박 3일 템플스테이를 갔어요. 새벽 3시 반에 목탁 소리가 울려요."
+      ],
+      "choices": [
+        {
+          "label": "새벽 예불에 빠짐없이 나간다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "health",
+            "success": {
+              "text": "별이 쏟아지는 새벽 마당에서 예불을 드렸어요. 평생 기억날 것 같아요.",
+              "effects": {
+                "stats": {
+                  "faith": 6,
+                  "mental": 4
+                }
+              },
+              "record": "templestay",
+              "highlight": "템플스테이 새벽 예불을 빠짐없이 나갔어요."
+            },
+            "fail": {
+              "text": "둘째 날 새벽에 결국 못 일어났어요. 윤 선생님이 \"기상! 열정 기상!\" 하며 이불을 걷으셨어요.",
+              "effects": {
+                "stats": {
+                  "faith": 1,
+                  "health": -2
+                },
+                "rel": {
+                  "teacher": -2
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "발우공양에 도전한다",
+          "text": "밥알 하나 안 남기는 게 이렇게 어려운 줄 몰랐어요. 단무지로 그릇을 닦았어요.",
+          "effects": {
+            "stats": {
+              "faith": 4,
+              "mental": 2
+            }
+          },
+          "record": "templestay"
+        },
+        {
+          "label": "밤에 친구들이랑 몰래 이야기한다",
+          "text": "별 보며 밤새 이야기했어요. 다음 날 예불 때 다 같이 졸았어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "health": -2
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-vac-templestay2",
+      "title": "템플스테이, 침묵의 하루",
+      "text": [
+        "템플스테이 둘째 날은 하루 종일 말하지 않는 묵언 수행이래요. 시작하자마자 {jiho}가 웃음을 참느라 얼굴이 빨개요."
+      ],
+      "choices": [
+        {
+          "label": "끝까지 말 한마디 안 한다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "mental",
+            "success": {
+              "text": "해 질 녘까지 버텼어요. 말을 안 하니 소리가 더 많이 들렸어요.",
+              "effects": {
+                "stats": {
+                  "mental": 6,
+                  "faith": 4
+                }
+              },
+              "record": "templestay"
+            },
+            "fail": {
+              "text": "점심때 {jiho}가 웃겨서 \"푸핫\" 하고 터졌어요. 윤 선생님이 말없이 엄지를 아래로 내리셨어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "mental": -1
+                },
+                "rel": {
+                  "teacher": -2,
+                  "jiho": 2
+                }
+              }
+            },
+            "temper": "calm"
+          }
+        },
+        {
+          "label": "쪽지로 대화한다",
+          "text": "쪽지가 열 장이 넘었어요. 묵언 수행인데 제일 수다스러운 날이었어요.",
+          "effects": {
+            "stats": {
+              "charm": 2
+            },
+            "rel": {
+              "jiho": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-vac-ski",
+      "title": "겨울 스키캠프",
+      "text": [
+        "겨울방학, 학생회 스키캠프를 갔어요. 하얀 슬로프가 끝이 안 보여요. 영민 쌤은 리프트에서 내리다 넘어져 있어요. 그래도 \"괜찮아!\" 하며 제일 먼저 일어났어요."
+      ],
+      "choices": [
+        {
+          "label": "중급 코스에 도전한다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "health",
+            "success": {
+              "text": "한 번도 안 넘어지고 내려왔어요! 영민 쌤이 리프트에서 손을 흔들다 폴을 떨어뜨렸어요.",
+              "effects": {
+                "stats": {
+                  "health": 5,
+                  "charm": 3
+                },
+                "rel": {
+                  "gansa": 3
+                }
+              },
+              "record": "ski_good",
+              "highlight": "스키캠프에서 중급 코스를 정복했어요."
+            },
+            "fail": {
+              "text": "내려오다 크게 굴렀어요. 엉덩이가 한 주 내내 아팠어요.",
+              "effects": {
+                "stats": {
+                  "health": -4,
+                  "mental": -1
+                }
+              }
+            },
+            "talent": "sports"
+          }
+        },
+        {
+          "label": "초보 후배들을 가르친다",
+          "text": "\"A자! A자!\" 하루 종일 외쳤어요. 후배가 처음 혼자 내려오자 같이 소리 질렀어요.",
+          "effects": {
+            "stats": {
+              "leadership": 5
+            }
+          }
+        },
+        {
+          "label": "숙소에서 컵라면 먹으며 쉰다",
+          "text": "창밖 슬로프를 보며 먹는 컵라면이 최고였어요.",
+          "effects": {
+            "stats": {
+              "mental": 4,
+              "health": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "st-vac-ski2",
+      "title": "스키캠프의 밤",
+      "text": [
+        "스키캠프 마지막 밤, 숙소에서 장기자랑이 열렸어요. 영민 쌤이 쭈뼛쭈뼛 기타를 꺼냈어요. 다들 \"쌤!\" 하고 소리 지르자 얼굴이 빨개졌어요."
+      ],
+      "choices": [
+        {
+          "label": "무대에 나간다",
+          "roll": {
+            "chance": 0.4,
+            "stat": "charm",
+            "success": {
+              "text": "영민 쌤 기타에 맞춰 노래했는데 다들 휴대폰 플래시를 흔들었어요.",
+              "effects": {
+                "stats": {
+                  "charm": 5,
+                  "mental": 3
+                },
+                "rel": {
+                  "gansa": 3
+                }
+              }
+            },
+            "fail": {
+              "text": "가사를 까먹었어요. 다들 대신 불러 줬어요. 그래도 좋았어요.",
+              "effects": {
+                "stats": {
+                  "charm": 1,
+                  "mental": 1
+                }
+              }
+            },
+            "talent": "music"
+          }
+        },
+        {
+          "label": "구석에서 친구들이랑 보드게임",
+          "text": "{haram}가 보드게임 신이었어요. 세 판 다 졌어요.",
+          "effects": {
+            "stats": {
+              "intellect": 2
+            },
+            "rel": {
+              "haram": 4
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "newyear": [
+    {
+      "id": "st-newyear-bell",
+      "title": "학생회의 제야",
+      "maxGrade": 11,
+      "text": [
+        "12월 31일 밤, 학생회는 범종각 앞에서 타종 안내 봉사를 해요. 사람들이 끝도 없이 몰려와요."
+      ],
+      "choices": [
+        {
+          "label": "줄 안내를 맡는다",
+          "text": "목이 쉬도록 안내했어요. 자정 종소리가 울리자 다들 서로 껴안았어요.",
+          "effects": {
+            "stats": {
+              "leadership": 3,
+              "faith": 3
+            }
+          },
+          "record": "st_bell"
+        },
+        {
+          "label": "따뜻한 차를 나눠 드린다",
+          "text": "할머니 한 분이 손을 꼭 잡고 \"복 받아라\" 하셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 3,
+              "mental": 2
+            }
+          },
+          "record": "st_bell"
+        },
+        {
+          "label": "친구들이랑 종소리만 듣고 간다",
+          "text": "\"셋, 둘, 하나!\" 친구들이랑 사진을 찍었어요.",
+          "effects": {
+            "stats": {
+              "charm": 2
+            },
+            "rel": {
+              "jiho": 2,
+              "seoyun": 2,
+              "haram": 2
+            }
+          },
+          "record": "st_bell"
+        }
+      ]
+    },
+    {
+      "id": "st-newyear-wish",
+      "title": "수능을 앞둔 제야",
+      "minGrade": 11,
+      "text": [
+        "고3을 앞둔 12월 31일 밤. 소원지에 쓸 말이 하나밖에 생각이 안 나요."
+      ],
+      "choices": [
+        {
+          "label": "\"수능 대박\"이라고 크게 쓴다",
+          "text": "영민 쌤이 옆에 아주 작게 \"다들 건강하게\"라고 적었어요.",
+          "effects": {
+            "stats": {
+              "mental": 3,
+              "intellect": 1
+            }
+          },
+          "record": "st_bell"
+        },
+        {
+          "label": "\"우리 학생회 다 같이 잘되길\" 쓴다",
+          "text": "친구들이 보더니 다 같이 그 밑에 이름을 적었어요.",
+          "effects": {
+            "stats": {
+              "faith": 3
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          },
+          "record": "st_bell"
+        }
+      ]
+    }
+  ],
+  "president": [
+    {
+      "id": "st-president-election",
+      "title": "학생회장 선거",
+      "text": [
+        "고2, 학생회장과 부회장을 뽑는 날이에요. 학생회장은 1년 동안 법회를 이끌고 예불 때 목탁을 쳐요. {jiho}가 \"너 나가지?\" 하고 쿡 찔러요."
+      ],
+      "choices": [
+        {
+          "label": "학생회장에 나간다",
+          "roll": {
+            "chance": -0.35,
+            "stat": "leadership",
+            "statWeight": 0.008,
+            "stat2": "charm",
+            "friends": true,
+            "friendsWeight": 0.4,
+            "success": {
+              "text": "내 이름이 불렸어요! 학생회장이에요. 영민 쌤이 누구보다 크게 박수를 치다 손바닥이 빨개졌어요.",
+              "effects": {
+                "stats": {
+                  "leadership": 6,
+                  "charm": 3
+                }
+              },
+              "flag": "st_president",
+              "highlight": "학생회장이 되었어요."
+            },
+            "fail": {
+              "text": "몇 표 차이로 떨어졌어요. 영민 쌤이 한참 망설이다 어깨를 툭 쳤어요. \"쌤은… 너 찍었어.\"",
+              "effects": {
+                "stats": {
+                  "mental": -5,
+                  "charm": -2
+                }
+              },
+              "flag": "st_president_lost"
+            }
+          }
+        },
+        {
+          "label": "부회장에 나간다",
+          "roll": {
+            "chance": -0.2,
+            "stat": "leadership",
+            "statWeight": 0.008,
+            "stat2": "charm",
+            "friends": true,
+            "friendsWeight": 0.4,
+            "success": {
+              "text": "부회장이 됐어요! 회장 옆에서 살림을 맡아요.",
+              "effects": {
+                "stats": {
+                  "leadership": 4
+                }
+              },
+              "flag": "st_vice"
+            },
+            "fail": {
+              "text": "아깝게 떨어졌어요. 그래도 해 보길 잘했어요.",
+              "effects": {
+                "stats": {
+                  "mental": -3
+                }
+              }
+            }
+          }
+        },
+        {
+          "label": "{jiho}를 밀어준다",
+          "text": "{jiho}가 회장이 됐어요. 당선 소감에서 내 이름을 불렀어요.",
+          "effects": {
+            "stats": {
+              "leadership": 2
+            },
+            "rel": {
+              "jiho": 7
+            }
+          },
+          "flag": "backed_jiho"
+        },
+        {
+          "label": "입시 준비 때문에 안 나간다",
+          "text": "홀가분했어요. 조금 아쉬웠어요.",
+          "effects": {
+            "stats": {
+              "intellect": 3
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "graduation": [
+    {
+      "id": "st-graduation",
+      "title": "학생회 졸업식",
+      "text": [
+        "수능도 끝났어요. 12년을 다닌 화계사에서, 이제 학생회까지 졸업해요. 영민 쌤은 밤새 준비한 사회 원고를 들고 덜덜 떨다가, 결국 목이 메었어요. 윤 선생님이 꽃다발을 한 명씩 건네주세요."
+      ],
+      "choices": [
+        {
+          "label": "영민 쌤과 윤 선생님께 편지를 드린다",
+          "text": "윤 선생님이 편지를 읽더니 \"이 열정 그대로 대학 가서도 해라!\" 하며 꽉 안아 주셨어요. 영민 쌤은… 예상대로 울었어요.",
+          "effects": {
+            "stats": {
+              "mental": 4
+            },
+            "rel": {
+              "gansa": 6,
+              "teacher": 6
+            }
+          }
+        },
+        {
+          "label": "풍물패와 마지막 합주를 한다",
+          "text": "6년을 함께 친 장단. 마지막 징 소리가 오래 남았어요.",
+          "effects": {
+            "stats": {
+              "charm": 3,
+              "faith": 3
+            },
+            "rel": {
+              "jiho": 3,
+              "seoyun": 3,
+              "haram": 3
+            }
+          }
+        },
+        {
+          "label": "스님께 큰절을 올린다",
+          "text": "스님이 \"대학생회에서 보자. 이제 네가 쌤이다\" 하셨어요.",
+          "effects": {
+            "stats": {
+              "faith": 5
+            },
+            "rel": {
+              "monk": 5
+            }
+          }
+        }
+      ],
+      "addenda": [
+        {
+          "flags": [
+            "st_president"
+          ],
+          "text": "학생회장 때 쓰던 목탁을 후배에게 건넸어요.",
+          "group": "role"
+        },
+        {
+          "flags": [
+            "kept_seoyun"
+          ],
+          "text": "{seoyun}가 \"끝까지 같이 와 줘서 고마워\" 하며 손을 잡았어요.",
+          "group": "seoyun"
+        },
+        {
+          "flags": [
+            "kittens"
+          ],
+          "text": "졸업식 내내 공양간 쪽에서 고양이 울음소리가 들렸어요. {cat}의 손주쯤 됐을까요.",
+          "group": "cat"
+        }
+      ]
+    }
+  ]
+}

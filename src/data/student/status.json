@@ -1,0 +1,195 @@
+[
+  {
+    "id": "st-low-health",
+    "lowStat": "health",
+    "title": "몸이 천근만근",
+    "text": [
+      "밤늦게까지 공부했더니 몸이 무거워요. 머리도 지끈거려요."
+    ],
+    "choices": [
+      {
+        "label": "그래도 법회에 간다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 5,
+            "health": -5
+          }
+        }
+      },
+      {
+        "label": "하루 푹 잔다",
+        "attend": false,
+        "text": "열두 시간을 잤어요. 몸이 조금 살아났어요.",
+        "effects": {
+          "stats": {
+            "health": 8,
+            "faith": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-low-mental",
+    "lowStat": "mental",
+    "title": "다 귀찮아요",
+    "text": [
+      "요즘 뭘 해도 재미가 없어요. 휴대폰만 붙잡고 있어요."
+    ],
+    "choices": [
+      {
+        "label": "법회에 가서 명상만 하고 온다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "mental": 7,
+            "faith": 3
+          }
+        }
+      },
+      {
+        "label": "방에 틀어박혀 있는다",
+        "attend": false,
+        "text": "하루가 그냥 지나갔어요.",
+        "effects": {
+          "stats": {
+            "mental": 3,
+            "charm": -2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-low-intellect",
+    "lowStat": "intellect",
+    "title": "성적이 떨어졌어요",
+    "text": [
+      "이번 시험 점수가 많이 떨어졌어요. 엄마 표정이 안 좋아요."
+    ],
+    "choices": [
+      {
+        "label": "법회 갔다가 같이 공부하자고 한다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 3,
+            "intellect": 3,
+            "health": -2
+          }
+        }
+      },
+      {
+        "label": "독서실에 간다",
+        "attend": false,
+        "text": "오답 노트를 만들었어요.",
+        "effects": {
+          "stats": {
+            "intellect": 7,
+            "faith": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-low-charm",
+    "lowStat": "charm",
+    "title": "단톡방이 어색해요",
+    "text": [
+      "학생회 단톡방에서 다들 웃는데 나만 낄 타이밍을 모르겠어요."
+    ],
+    "choices": [
+      {
+        "label": "법회 가서 먼저 말을 건다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "charm": 5,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "조용히 읽기만 한다",
+        "attend": false,
+        "text": "숫자 1이 줄어드는 것만 봤어요.",
+        "effects": {
+          "stats": {
+            "mental": -2,
+            "charm": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-low-faith",
+    "lowStat": "faith",
+    "title": "법회가 무슨 의미일까",
+    "text": [
+      "\"절에 왜 가?\" 친구가 물었는데 대답을 못 했어요. 나도 잘 모르겠어요."
+    ],
+    "choices": [
+      {
+        "label": "그 질문을 들고 법회에 간다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 6,
+            "intellect": 1
+          }
+        }
+      },
+      {
+        "label": "이번 주는 쉰다",
+        "attend": false,
+        "text": "쉬면서도 그 질문이 계속 맴돌았어요.",
+        "effects": {
+          "stats": {
+            "mental": 2,
+            "faith": -3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "st-low-leadership",
+    "lowStat": "leadership",
+    "title": "후배들 앞이 어색해요",
+    "minGrade": 9,
+    "text": [
+      "이제 학생회에서 선배가 됐는데, 후배들 앞에 서면 말이 꼬여요."
+    ],
+    "choices": [
+      {
+        "label": "이번 주엔 후배들 조 모임을 맡아 본다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "leadership": 6,
+            "mental": -2
+          }
+        }
+      },
+      {
+        "label": "그냥 조용히 법회만 나간다",
+        "attend": true,
+        "next": "program",
+        "effects": {
+          "stats": {
+            "faith": 2
+          }
+        }
+      }
+    ]
+  }
+]

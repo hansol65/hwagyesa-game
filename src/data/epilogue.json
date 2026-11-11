@@ -38,8 +38,8 @@
       "id": "gansa",
       "priority": 7,
       "when": {
-        "rel": {
-          "gansa": 75
+        "records": {
+          "bond_jisol": 75
         }
       },
       "text": "지솔 쌤 같은 대학생이 되고 싶다고 처음 생각했다."
@@ -60,7 +60,10 @@
       "when": {
         "relBelow": {
           "teacher": 15
-        }
+        },
+        "notFlags": [
+          "stage:student"
+        ]
       },
       "text": "정 선생님께 혼난 기억이 많지만, 졸업식 날 꽉 안아 주셨다."
     },
@@ -363,6 +366,255 @@
         ]
       },
       "text": "{jiho}와는 끝내 예전처럼 돌아가지 못했다. 그 편 가르기가 가끔 생각난다."
+    },
+    {
+      "id": "st-c-president",
+      "priority": 9,
+      "when": {
+        "flags": [
+          "stage:student",
+          "st_president"
+        ]
+      },
+      "text": "학생회장 때 치던 목탁 소리를, 일요일 아침이면 아직도 손이 기억한다."
+    },
+    {
+      "id": "st-c-seoyun",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "stage:student",
+          "kept_seoyun"
+        ]
+      },
+      "text": "{seoyun}와는 대학이 달라졌지만, 해마다 연등회 날엔 꼭 같이 걷는다."
+    },
+    {
+      "id": "st-c-pungmul",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "pungmul_success": 2
+        }
+      },
+      "text": "풍물 장단은 몸이 기억한다. 대학 축제 무대에서 다시 채를 잡았다."
+    },
+    {
+      "id": "st-c-templestay",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "templestay": 1
+        }
+      },
+      "text": "힘들 때마다 템플스테이 새벽 마당에 쏟아지던 별을 떠올린다."
+    },
+    {
+      "id": "st-c-reels",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "reels_hit": 1
+        }
+      },
+      "text": "학생회 릴스 계정은 후배들이 이어받아 아직도 올라온다. 첫 영상은 내가 찍었다."
+    },
+    {
+      "id": "st-c-volunteer",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "volunteer": 2
+        }
+      },
+      "text": "물놀이캠프에서 튜브를 잡아 주던 동생이 학생회에 올라와 내 이름을 불렀다."
+    },
+    {
+      "id": "st-c-youngmin",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "bond_youngmin": 70
+        }
+      },
+      "text": "영민 쌤 대학 졸업식에 학생회 동기들이 꽃다발을 들고 쳐들어갔다. 쌤은 학사모를 쓴 채 말을 더듬다 울었다."
+    },
+    {
+      "id": "st-c-yoon",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "bond_yoon": 70
+        }
+      },
+      "text": "윤 선생님의 \"끝까지 가는 거야!\"는 아직도 휴대폰 잠금화면 문구다."
+    },
+    {
+      "id": "st-c-ski",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "records": {
+          "ski_good": 1
+        }
+      },
+      "text": "겨울마다 스키장에 간다. 리프트에 앉으면 폴을 떨어뜨리던 영민 쌤이 생각난다."
+    },
+    {
+      "id": "st-c-csat",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "stats": {
+          "intellect": 65
+        }
+      },
+      "text": "수능 전날 밤, 학생회 단톡방에 쏟아지던 응원 이모티콘을 아직 캡처해 두었다."
+    },
+    {
+      "id": "st-c-default",
+      "priority": 5,
+      "when": {
+        "flags": [
+          "stage:student"
+        ]
+      },
+      "text": "학생회를 졸업하던 날, 6년 치 단톡방을 처음부터 다시 읽었다."
+    },
+    {
+      "id": "un-c-kid-gansa",
+      "priority": 9,
+      "when": {
+        "flags": [
+          "stage:university",
+          "uni:kid_gansa"
+        ]
+      },
+      "text": "어린이회 간사로 몇 해를 보냈다. 휴대폰 사진첩은 남의 집 아이들 사진으로 가득 찼고, 어느 날 거울 속 내가 지솔 쌤처럼 웃고 있었다."
+    },
+    {
+      "id": "un-c-st-gansa",
+      "priority": 9,
+      "when": {
+        "flags": [
+          "stage:university",
+          "uni:st_gansa"
+        ]
+      },
+      "text": "학생회 간사로 몇 해를 보냈다. 단톡방에 쓴 공지를 몇 번이고 지웠고, 영민 쌤은 그걸 볼 때마다 \"ㅋㅋㅋ 너도구나\"를 보냈다."
+    },
+    {
+      "id": "un-c-declined",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "stage:university",
+          "uni:declined"
+        ]
+      },
+      "text": "간사 제의를 거절한 걸 가끔 생각한다. 그래도 그해 일요일마다 대학생회 방석은 빠짐없이 깔았다."
+    },
+    {
+      "id": "un-c-president",
+      "priority": 8,
+      "when": {
+        "flags": [
+          "stage:university",
+          "uni_president"
+        ]
+      },
+      "text": "대학생회 회장이라고 해 봐야 공지 올리는 사람이었다. 그래도 그 공지 덕에 명상 시간이 한 번도 비지 않았다."
+    },
+    {
+      "id": "un-c-buddy",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "stage:university"
+        ],
+        "attendRate": 0.7
+      },
+      "text": "{buddy}와는 대학생이 되어서도 일요일마다 절에서 만났다. 나머지 둘은 행사 때만 왔지만, 행사 때는 꼭 왔다."
+    },
+    {
+      "id": "un-c-jisol",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "stage:university"
+        ],
+        "rel": {
+          "gansa": 90
+        }
+      },
+      "text": "지솔 {nuna}는 결국 내가 졸업하고 한 학기 뒤에 졸업했다. 졸업식 사진은 내가 찍어 줬다. 16년 만에 처음으로."
+    },
+    {
+      "id": "un-c-youngmin",
+      "priority": 7,
+      "when": {
+        "flags": [
+          "stage:university"
+        ],
+        "rel": {
+          "teacher": 90
+        }
+      },
+      "text": "{youngmin}는 아직도 대학생회 단톡방에 \"다들 잘 지내…?\"를 쓴다. 이제는 안 지운다."
+    },
+    {
+      "id": "un-c-jiho",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "stage:university",
+          "jiho_sendoff"
+        ]
+      },
+      "text": "{jiho}는 제대하고 대학생회 피구 모임을 만들었다. 세 명으로 시작해서 아직 세 명이다."
+    },
+    {
+      "id": "un-c-seoyun",
+      "priority": 6,
+      "when": {
+        "flags": [
+          "stage:university",
+          "seoyun_beads"
+        ]
+      },
+      "text": "{seoyun}는 아직도 그 단주를 찬다. 낯선 나라 출장지에서도 절을 찾아 사진을 보낸다."
+    },
+    {
+      "id": "un-c-default",
+      "priority": 3,
+      "when": {
+        "flags": [
+          "stage:university"
+        ]
+      },
+      "text": "초등학교 1학년 때 처음 간 화계사를, 대학교를 졸업하며 함께 졸업했다. 일요일 아침이 되면 아직도 몸이 먼저 수유역으로 향한다."
     }
   ],
   "fallback": "평범하지만 따뜻한 어린이회 6년이었다.",
@@ -517,6 +769,251 @@
         "flags": [
           "peacemaker"
         ]
+      }
+    },
+    {
+      "id": "cat-1",
+      "name": "지장이의 집사",
+      "when": {
+        "flags": [
+          "kittens",
+          "cat:1"
+        ]
+      }
+    },
+    {
+      "id": "cat-2",
+      "name": "보살이의 집사",
+      "when": {
+        "flags": [
+          "kittens",
+          "cat:2"
+        ]
+      }
+    },
+    {
+      "id": "cat-3",
+      "name": "미륵이의 집사",
+      "when": {
+        "flags": [
+          "kittens",
+          "cat:3"
+        ]
+      }
+    },
+    {
+      "id": "st-president",
+      "name": "학생회장",
+      "when": {
+        "flags": [
+          "stage:student",
+          "st_president"
+        ]
+      }
+    },
+    {
+      "id": "st-vice",
+      "name": "학생회 부회장",
+      "when": {
+        "flags": [
+          "stage:student",
+          "st_vice"
+        ]
+      }
+    },
+    {
+      "id": "inst-buk",
+      "name": "북잡이",
+      "when": {
+        "flags": [
+          "stage:student",
+          "inst:buk"
+        ],
+        "records": {
+          "pungmul_success": 2
+        }
+      }
+    },
+    {
+      "id": "inst-janggu",
+      "name": "장구잡이",
+      "when": {
+        "flags": [
+          "stage:student",
+          "inst:janggu"
+        ],
+        "records": {
+          "pungmul_success": 2
+        }
+      }
+    },
+    {
+      "id": "inst-kkwaenggwari",
+      "name": "상쇠",
+      "when": {
+        "flags": [
+          "stage:student",
+          "inst:kkwaenggwari"
+        ],
+        "records": {
+          "pungmul_success": 2
+        }
+      }
+    },
+    {
+      "id": "inst-jing",
+      "name": "징잡이",
+      "when": {
+        "flags": [
+          "stage:student",
+          "inst:jing"
+        ],
+        "records": {
+          "pungmul_success": 2
+        }
+      }
+    },
+    {
+      "id": "booth",
+      "name": "부스 완판왕",
+      "when": {
+        "records": {
+          "booth_sold": 2
+        }
+      }
+    },
+    {
+      "id": "reels",
+      "name": "릴스 스타",
+      "when": {
+        "records": {
+          "reels_hit": 2
+        }
+      }
+    },
+    {
+      "id": "templestay",
+      "name": "템플스테이 단골",
+      "when": {
+        "records": {
+          "templestay": 2
+        }
+      }
+    },
+    {
+      "id": "ski",
+      "name": "스키 에이스",
+      "when": {
+        "records": {
+          "ski_good": 1
+        }
+      }
+    },
+    {
+      "id": "senior",
+      "name": "동생들의 선배",
+      "when": {
+        "records": {
+          "volunteer": 4
+        }
+      }
+    },
+    {
+      "id": "runner",
+      "name": "러닝 크루",
+      "when": {
+        "records": {
+          "run": 2
+        }
+      }
+    },
+    {
+      "id": "twelve",
+      "name": "12년 개근",
+      "when": {
+        "flags": [
+          "stage:student"
+        ],
+        "attendRate": 1
+      }
+    },
+    {
+      "id": "un-kid-gansa",
+      "name": "어린이회 간사",
+      "when": {
+        "flags": [
+          "uni:kid_gansa"
+        ]
+      }
+    },
+    {
+      "id": "un-st-gansa",
+      "name": "학생회 간사",
+      "when": {
+        "flags": [
+          "uni:st_gansa"
+        ]
+      }
+    },
+    {
+      "id": "un-president",
+      "name": "대학생회 회장",
+      "when": {
+        "flags": [
+          "uni_president"
+        ]
+      }
+    },
+    {
+      "id": "un-mc",
+      "name": "목탁 당번",
+      "when": {
+        "flags": [
+          "stage:university"
+        ],
+        "records": {
+          "moktak_good": 3
+        }
+      }
+    },
+    {
+      "id": "un-meditation",
+      "name": "명상 고수",
+      "when": {
+        "flags": [
+          "stage:university"
+        ],
+        "records": {
+          "meditation": 4
+        }
+      }
+    },
+    {
+      "id": "un-sns",
+      "name": "대학생회 SNS 지킴이",
+      "when": {
+        "records": {
+          "uni_sns": 2
+        }
+      }
+    },
+    {
+      "id": "un-tour",
+      "name": "산사 순례자",
+      "when": {
+        "records": {
+          "temple_tour": 2
+        }
+      }
+    },
+    {
+      "id": "un-sixteen",
+      "name": "16년 개근",
+      "when": {
+        "flags": [
+          "stage:university"
+        ],
+        "attendRate": 1
       }
     }
   ]

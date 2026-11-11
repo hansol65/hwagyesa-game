@@ -18,7 +18,7 @@
       "bg": "lantern-temple"
     },
     "camp": {
-      "bg": "bell-yard"
+      "bg": "water-camp"
     },
     "newyear": {
       "bg": "lantern-temple",
@@ -32,6 +32,18 @@
     },
     "president": {
       "bg": "kids-room"
+    },
+    "instrument": {
+      "bg": "courtyard"
+    },
+    "vacation": {
+      "bg": "bell-yard"
+    },
+    "welcome": {
+      "bg": "students-room"
+    },
+    "offer": {
+      "bg": "courtyard"
     }
   },
   "scenes": {
@@ -163,11 +175,11 @@
       "pose": "run"
     },
     "water-camp": {
-      "bg": "bell-yard",
+      "bg": "water-camp",
       "pose": "happy"
     },
     "camp-first": {
-      "bg": "bell-yard",
+      "bg": "water-camp",
       "pose": "happy"
     },
     "newyear-wish": {
@@ -259,6 +271,601 @@
       ],
       "castPose": {
         "gansa": "cry"
+      }
+    },
+    "st-reels": {
+      "bg": "courtyard",
+      "pose": "happy"
+    },
+    "st-running": {
+      "bg": "outdoor-buddha",
+      "pose": "run"
+    },
+    "st-karaoke": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "happy"
+    },
+    "st-cafe": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "st-meal": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "st-meditation": {
+      "pose": "hapjang",
+      "cast": [
+        "teacher"
+      ]
+    },
+    "st-meditation-walk": {
+      "bg": "outdoor-buddha",
+      "pose": "hapjang"
+    },
+    "st-tea": {
+      "pose": "hapjang",
+      "cast": [
+        "monk"
+      ]
+    },
+    "st-108": {
+      "pose": "hapjang"
+    },
+    "st-pungmul-practice": {
+      "bg": "courtyard"
+    },
+    "st-mentor": {
+      "bg": "kids-room",
+      "cast": [
+        "gansa"
+      ]
+    },
+    "st-cleanup": {
+      "pose": "hapjang"
+    },
+    "st-story-exam-cry": {
+      "pose": "cry",
+      "cast": [
+        "teacher"
+      ]
+    },
+    "st-story-phone": {
+      "pose": "surprised",
+      "cast": [
+        "teacher"
+      ],
+      "castPose": {
+        "teacher": "angry"
+      }
+    },
+    "st-story-cat-again": {
+      "bg": "bell-yard",
+      "cat": true,
+      "kittens": 1,
+      "cast": []
+    },
+    "st-story-friend-cry": {
+      "castPose": {
+        "haram": "cry"
+      },
+      "cast": [
+        "haram",
+        "teacher"
+      ]
+    },
+    "st-story-youngmin-busy": {
+      "cast": [
+        "gansa"
+      ]
+    },
+    "st-instrument": {
+      "bg": "courtyard",
+      "cast": [
+        "gansa"
+      ]
+    },
+    "st-lantern-first": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "run"
+    },
+    "st-lantern-lead": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "run"
+    },
+    "st-buddha-booth": {
+      "bg": "lantern-temple"
+    },
+    "st-buddha-pungmul": {
+      "bg": "lantern-temple"
+    },
+    "st-buddha-last": {
+      "bg": "lantern-temple"
+    },
+    "st-vac-volunteer": {
+      "bg": "water-camp",
+      "pose": "happy"
+    },
+    "st-vac-volunteer2": {
+      "bg": "water-camp"
+    },
+    "st-vac-templestay": {
+      "bg": "outdoor-buddha",
+      "pose": "hapjang"
+    },
+    "st-vac-templestay2": {
+      "bg": "outdoor-buddha"
+    },
+    "st-vac-ski": {
+      "bg": "courtyard",
+      "pose": "run"
+    },
+    "st-vac-ski2": {
+      "bg": "students-room",
+      "night": true
+    },
+    "st-newyear-bell": {
+      "bg": "lantern-temple",
+      "night": true
+    },
+    "st-newyear-wish": {
+      "bg": "lantern-temple",
+      "night": true,
+      "pose": "hapjang"
+    },
+    "st-graduation": {
+      "bg": "students-room",
+      "cast": [
+        "gansa",
+        "teacher",
+        "monk"
+      ],
+      "castPose": {
+        "gansa": "cry"
+      }
+    },
+    "un-am-kg": {
+      "bg": "home",
+      "cast": []
+    },
+    "un-am-kg2": {
+      "bg": "home",
+      "cast": []
+    },
+    "un-am-sg": {
+      "bg": "home",
+      "cast": []
+    },
+    "un-moktak": {
+      "pose": "hapjang",
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-mc": {
+      "cast": [
+        "teacher"
+      ]
+    },
+    "un-sns": {
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-meditation": {
+      "pose": "hapjang"
+    },
+    "un-meditation-walk": {
+      "bg": "outdoor-buddha",
+      "pose": "hapjang"
+    },
+    "un-meditation-candle": {
+      "night": true,
+      "pose": "hapjang"
+    },
+    "un-108": {
+      "pose": "hapjang",
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-dharma": {
+      "pose": "hapjang",
+      "cast": [
+        "monk"
+      ]
+    },
+    "un-teatime": {
+      "pose": "hapjang",
+      "cast": [
+        "monk"
+      ]
+    },
+    "un-meal": {
+      "bg": "lantern-street",
+      "night": true
+    },
+    "un-drink": {
+      "bg": "lantern-street",
+      "night": true,
+      "cast": [
+        "teacher",
+        "gansa"
+      ]
+    },
+    "un-cafe": {
+      "bg": "lantern-street"
+    },
+    "un-union-dharma": {
+      "pose": "hapjang"
+    },
+    "un-senior-talk": {
+      "bg": "courtyard",
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-kg-dodge": {
+      "bg": "courtyard",
+      "pose": "run",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3,
+        "pose": "run"
+      }
+    },
+    "un-kg-dance": {
+      "bg": "kids-room",
+      "pose": "happy",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3,
+        "pose": "happy"
+      }
+    },
+    "un-kg-photo": {
+      "bg": "kids-room",
+      "pose": "happy",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3
+      }
+    },
+    "un-kg-cry": {
+      "bg": "kids-room",
+      "pose": "angry",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 2,
+        "pose": "cry"
+      }
+    },
+    "un-kg-tease": {
+      "bg": "kids-room",
+      "pose": "happy",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3,
+        "pose": "happy"
+      }
+    },
+    "un-kg-sleepy": {
+      "bg": "kids-room",
+      "cast": [
+        "monk"
+      ],
+      "juniors": {
+        "stage": "kid",
+        "n": 2,
+        "pose": "hapjang"
+      }
+    },
+    "un-kg-snack": {
+      "bg": "kids-room",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3
+      }
+    },
+    "un-kg-cat": {
+      "bg": "bell-yard",
+      "cat": true,
+      "kittens": 2,
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 2,
+        "pose": "happy"
+      }
+    },
+    "un-kg-president": {
+      "bg": "kids-room",
+      "pose": "hapjang",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 1,
+        "pose": "hapjang"
+      }
+    },
+    "un-sg-pungmul": {
+      "bg": "courtyard",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 3
+      }
+    },
+    "un-sg-chat": {
+      "cast": [
+        "teacher"
+      ]
+    },
+    "un-sg-moktak": {
+      "pose": "hapjang",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 1,
+        "pose": "hapjang"
+      }
+    },
+    "un-sg-reels": {
+      "bg": "courtyard",
+      "pose": "happy",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 3,
+        "pose": "happy"
+      }
+    },
+    "un-sg-karaoke": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "happy",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 3,
+        "pose": "happy"
+      }
+    },
+    "un-sg-csat": {
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 2
+      }
+    },
+    "un-story-friends-fade": {},
+    "un-story-jisol-forever": {
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-story-youngmin-shy": {
+      "cast": [
+        "teacher"
+      ]
+    },
+    "un-story-cry-burnout": {
+      "pose": "cry"
+    },
+    "un-story-cat": {
+      "bg": "bell-yard",
+      "cat": true,
+      "kittens": 2,
+      "cast": []
+    },
+    "un-story-jung": {
+      "bg": "lantern-temple",
+      "cast": []
+    },
+    "un-cb-jiho-back": {
+      "bg": "courtyard",
+      "pose": "happy",
+      "cast": [
+        "jiho"
+      ]
+    },
+    "un-welcome": {
+      "cast": [
+        "gansa",
+        "teacher"
+      ]
+    },
+    "un-offer-both": {
+      "bg": "courtyard",
+      "cast": [
+        "gansa",
+        "teacher"
+      ]
+    },
+    "un-offer-jisol": {
+      "bg": "courtyard",
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-offer-youngmin": {
+      "bg": "home",
+      "cast": [
+        "teacher"
+      ]
+    },
+    "un-offer-none": {
+      "cast": [
+        "gansa"
+      ]
+    },
+    "un-lantern": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "happy",
+      "cast": [
+        "jiho",
+        "seoyun",
+        "haram"
+      ]
+    },
+    "un-lantern-2": {
+      "bg": "lantern-street",
+      "night": true,
+      "cast": [
+        "jiho",
+        "seoyun",
+        "haram"
+      ]
+    },
+    "un-lantern-kg": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "run",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3,
+        "pose": "run"
+      }
+    },
+    "un-lantern-sg": {
+      "bg": "lantern-street",
+      "night": true,
+      "pose": "run",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 3,
+        "pose": "run"
+      }
+    },
+    "un-buddha": {
+      "bg": "lantern-temple",
+      "cast": [
+        "jiho",
+        "seoyun",
+        "haram"
+      ]
+    },
+    "un-buddha-kg": {
+      "bg": "lantern-temple",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 2
+      }
+    },
+    "un-buddha-sg": {
+      "bg": "lantern-temple",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 2
+      }
+    },
+    "un-vac-temple-tour": {
+      "bg": "outdoor-buddha",
+      "pose": "hapjang",
+      "cast": [
+        "gansa",
+        "teacher"
+      ]
+    },
+    "un-vac-union": {
+      "pose": "hapjang"
+    },
+    "un-vac-temple-tour2": {
+      "bg": "outdoor-buddha",
+      "cast": [
+        "jiho",
+        "seoyun",
+        "haram"
+      ]
+    },
+    "un-vac-kidcamp": {
+      "bg": "water-camp",
+      "pose": "run",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 3,
+        "pose": "run"
+      }
+    },
+    "un-vac-stcamp": {
+      "bg": "students-room",
+      "night": true,
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 3
+      }
+    },
+    "un-vac-stski": {
+      "bg": "courtyard",
+      "cast": [],
+      "juniors": {
+        "stage": "student",
+        "n": 1,
+        "pose": "surprised"
+      }
+    },
+    "un-newyear": {
+      "bg": "bell-yard",
+      "night": true,
+      "cast": [
+        "jiho",
+        "seoyun",
+        "haram"
+      ]
+    },
+    "un-newyear-kids": {
+      "bg": "bell-yard",
+      "night": true,
+      "pose": "happy",
+      "cast": [],
+      "juniors": {
+        "stage": "kid",
+        "n": 2,
+        "pose": "happy"
+      }
+    },
+    "un-newyear-last": {
+      "bg": "bell-yard",
+      "night": true,
+      "pose": "hapjang",
+      "cast": [
+        "jiho",
+        "seoyun",
+        "haram"
+      ]
+    },
+    "un-election": {
+      "cast": [
+        "gansa",
+        "teacher"
+      ]
+    },
+    "un-graduation": {
+      "bg": "students-room",
+      "cast": [
+        "gansa",
+        "teacher",
+        "monk"
+      ],
+      "castPose": {
+        "gansa": "cry",
+        "teacher": "cry"
       }
     }
   }

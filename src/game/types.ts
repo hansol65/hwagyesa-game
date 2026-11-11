@@ -55,6 +55,8 @@ export interface Roll {
   stat?: StatKey;
   /** 스탯 1점당 확률 (기본 1/200). 선거처럼 스탯이 크게 가르는 일은 크게 둔다 */
   statWeight?: number;
+  /** 두 번째 스탯 (같은 무게로 더한다). 예: 학생회장 선거는 리더십 + 매력 */
+  stat2?: StatKey;
   /** 투표: 세 친구와의 정이 확률을 올린다 */
   friends?: boolean;
   /** 친구 정이 얼마나 반영되는지 (기본 1) */
@@ -85,7 +87,7 @@ export interface Choice {
   minigame?: MinigameKind;
 }
 
-export type MinigameKind = 'dodgeball' | 'dance';
+export type MinigameKind = 'dodgeball' | 'dance' | 'pungmul' | 'moktak';
 
 /** 이벤트가 나오거나 후일담이 열리는 조건 */
 export interface Cond {
@@ -103,6 +105,12 @@ export interface Cond {
   flags?: string[];
   /** 이 기억 표시가 하나도 없어야 */
   notFlags?: string[];
+  /** 이 스탯이 이 값보다 낮아야 */
+  statsBelow?: Partial<Record<StatKey, number>>;
+  /** 재능 */
+  talent?: Talent;
+  /** 이 중 하나라도 맞으면 (엔딩용) */
+  any?: Cond[];
 }
 
 export interface GameEvent {
@@ -124,16 +132,47 @@ export interface GameEvent {
   requires?: Cond;
   /** 기억 표시가 맞으면 본문 뒤에 붙는 문장들 (몇 년 전 선택을 떠올리게 함) */
   addenda?: { flags: string[]; text: string; group?: string }[];
+  /** 어느 회의 장면인지 (없으면 어린이회) */
+  stage?: Stage;
+}
+
+/** 어린이회(초1~6) → 학생회(중1~고3) → 대학생회 */
+export type Stage = 'kid' | 'student' | 'university';
+export function stageOf(grade: number): Stage {
+  return grade <= 6 ? 'kid' : grade <= 12 ? 'student' : 'university';
 }
 
 export type Gender = 'male' | 'female';
 
-export type SlotKind = 'sunday' | 'may' | 'lantern' | 'buddha' | 'camp' | 'newyear' | 'graduation' | 'rep' | 'president';
+export type SlotKind =
+  | 'sunday'
+  | 'may'
+  | 'lantern'
+  | 'buddha'
+  | 'camp'
+  | 'newyear'
+  | 'graduation'
+  | 'rep'
+  | 'president'
+  /** 학생회 첫날: 풍물 악기 고르기 */
+  | 'instrument'
+  /** 학생회 방학 행사: 어린이회 캠프 봉사·템플스테이·스키캠프 중 하나 */
+  | 'vacation'
+  /** 대학생회 첫날: 새내기 */
+  | 'welcome'
+  /** 대학생회 2학년: 지솔 쌤·영민 쌤의 간사 제의 */
+  | 'offer'
+  /** 일요일 아침 갈림길: 법회에 갈까 말까 (가면 그날 프로그램이 이어진다) */
+  | 'morning';
 
 export interface Slot {
   kind: SlotKind;
+  /** 이 장면의 학년 (1~16) */
+  grade: number;
   month: number;
   label: string;
+  /** 꼭 나오는 장면 id */
+  event?: string;
 }
 
 export interface Deltas {
@@ -152,6 +191,8 @@ export interface LogEntry {
 export type Phase = 'start' | 'play' | 'result' | 'yearEnd' | 'graduated';
 
 export interface YearReport {
+  /** 마친 장 번호 */
+  chapter: number;
   grade: number;
   went: number;
   total: number;
@@ -172,8 +213,10 @@ export interface GameState {
   traits: Traits;
   stats: Record<StatKey, number>;
   rel: Record<RelKey, number>;
-  /** 1~6 (초등학교 학년) */
+  /** 1~6 초등, 7~12 중고등, 13~16 대학교 (지금 장면의 학년) */
   grade: number;
+  /** 몇 번째 장인지 (calendar.ts의 CHAPTERS) */
+  chapter: number;
   slotIndex: number;
   event: GameEvent | null;
   eventText: string;

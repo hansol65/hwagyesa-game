@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Scene } from './components/Scene';
 import { Graduated, StartScreen, YearEnd } from './components/Screens';
 import { SidePanel } from './components/SidePanel';
+import { MobileStats } from './components/MobileStats';
 import { useGame } from './store';
 
 export default function App() {
   const { game, reset } = useGame();
   const [confirmReset, setConfirmReset] = useState(false);
+  const [notebook, setNotebook] = useState(false);
+  // 다음 일정(또는 한 해 마무리)으로 넘어가면 맨 위에서 다시 읽는다
+  const where = game ? `${game.chapter}-${game.slotIndex}-${game.phase === 'yearEnd'}` : '';
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [where]);
 
   if (!game) return <StartScreen />;
   if (game.phase === 'graduated') return <Graduated game={game} />;
@@ -33,7 +40,8 @@ export default function App() {
             </button>
           )}
         </header>
-        <div className="spread">
+        <MobileStats game={game} open={notebook} onToggle={() => setNotebook((v) => !v)} />
+        <div className={notebook ? 'spread notebook-open' : 'spread'}>
           {game.phase === 'yearEnd' ? <YearEnd game={game} /> : <Scene game={game} />}
           <SidePanel game={game} />
         </div>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { frameFor, SPRITES, type Pose } from '../art/scene';
-import type { GameState, MinigameKind } from '../game/types';
+import { stageOf, type GameState, type MinigameKind } from '../game/types';
 
 const BASE = import.meta.env.BASE_URL;
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
@@ -206,20 +206,49 @@ function Dodgeball({ game, onEnd }: { game: GameState; onEnd: (hits: number, tot
   );
 }
 
-// ───────────────────────── 율동 ─────────────────────────
-// 연등이 박자에 맞춰 점선으로 온다. 박자가 빠르고, 반 박·엇박이 섞인다.
-// 아무것도 없을 때 누르면 '삐끗'으로 한 점 깎인다. 매력·음악 재능이 높을수록 판정이 넓다.
+// ───────────────────────── 박자 게임 (율동·풍물·목탁) ─────────────────────────
+// 박자 표시가 오른쪽에서 점선으로 와요. 닿을 때 누르면 성공, 아무것도 없을 때 누르면 '삐끗'으로 한 점 깎인다.
+// 율동: 매력, 풍물: 건강(+음악 재능, 악기마다 장단이 다름), 목탁: 신앙(+차분한 기질). 목탁은 처음 몇 박만 보이고 그다음은 혼자 박자를 지켜야 한다.
 
-function danceTuning(g: GameState) {
-  return clamp(
-    80 + Math.max(0, (g.stats.charm - 30) * 0.7) + (g.traits.talent === 'music' ? 25 : 0) + (g.traits.temper === 'active' ? 10 : 0),
-    80,
-    140,
-  );
+type Instrument = 'buk' | 'janggu' | 'kkwaenggwari' | 'jing';
+const INST_NAME: Record<Instrument, string> = { buk: '북', janggu: '장구', kkwaenggwari: '꽹과리', jing: '징' };
+
+export function instrumentOf(g: GameState): Instrument {
+  const f = g.flags.find((x) => x.startsWith('inst:'));
+  return (f?.slice(5) as Instrument) || 'buk';
 }
 
-/** 4박 단위 패턴. 1 = 그 칸에 박자 (8분음표 칸) */
-const PATTERNS = [
+interface RhythmSpec {
+  title: string;
+  how: string;
+  button: string;
+  bg: string;
+  night?: boolean;
+  /** 박자 표시: 그림(소품) 또는 글자(장단 소리) */
+  img?: string;
+  glyph?: (i: number) => string;
+  /** 이 번째부터는 박자 표시가 안 보인다 (목탁) */
+  hiddenFrom?: number;
+  travel: number;
+  win: number;
+  beats: number[];
+  need: number;
+  partner: string;
+}
+
+/** 8분음표 칸 패턴을 마디로 이어 붙여 박자 시각을 만든다 */
+function fromPatterns(patterns: number[][], eighth: number, bars: number, start = 1100): number[] {
+  const out: number[] = [];
+  let t = start;
+  const order = [0, ...Array.from({ length: bars - 1 }, () => Math.floor(Math.random() * patterns.length))];
+  for (const k of order) {
+    patterns[k].forEach((on, i) => on && out.push(t + i * eighth));
+    t += eighth * patterns[k].length;
+  }
+  return out;
+}
+
+const DANCE_PATTERNS = [
   [1, 0, 1, 0, 1, 0, 1, 0],
   [1, 0, 1, 1, 0, 1, 1, 0],
   [1, 1, 0, 1, 1, 0, 1, 0],
@@ -227,26 +256,56 @@ const PATTERNS = [
   [1, 0, 0, 1, 1, 0, 1, 1],
 ];
 
-function makeBeats(): number[] {
-  const eighth = 260; // 약 115bpm
-  const out: number[] = [];
-  let t = 1100;
-  const order = [0, 1, 2, 3, 4].sort(() => Math.random() - 0.5);
-  order.unshift(0); // 첫 마디는 쉽게
-  for (const k of order.slice(0, 5)) {
-    PATTERNS[k].forEach((on, i) => on && out.push(t + i * eighth));
-    t += eighth * 8;
+/** 악기마다 장단이 다르다: 징은 느리고 드물게, 꽹과리는 빠르고 촘촘하게 */
+const PUNGMUL: Record<Instrument, { eighth: number; patterns: number[][]; sounds: string[]; extra: number }> = {
+  jing: { eighth: 300, patterns: [[1, 0, 0, 0, 1, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1, 0], [1, 0, 0, 1, 0, 0, 1, 0]], sounds: ['징'], extra: 30 },
+  buk: { eighth: 270, patterns: [[1, 0, 1, 0, 1, 0, 1, 0], [1, 0, 1, 1, 1, 0, 1, 0], [1, 0, 0, 1, 1, 0, 1, 0]], sounds: ['둥', '둥', '딱'], extra: 15 },
+  janggu: { eighth: 250, patterns: [[1, 0, 1, 1, 0, 1, 1, 0], [1, 1, 0, 1, 1, 0, 1, 0], [1, 0, 1, 1, 1, 0, 1, 1]], sounds: ['덩', '기', '덕', '쿵'], extra: 0 },
+  kkwaenggwari: { eighth: 215, patterns: [[1, 1, 1, 0, 1, 1, 1, 0], [1, 0, 1, 1, 1, 1, 0, 1], [1, 1, 0, 1, 1, 1, 1, 0]], sounds: ['갠', '지', '갠', '지'], extra: -10 },
+};
+
+function rhythmSpec(kind: Exclude<MinigameKind, 'dodgeball'>, g: GameState): RhythmSpec {
+  const stage = stageOf(g.grade);
+  const music = g.traits.talent === 'music' ? 25 : 0;
+  if (kind === 'dance') {
+    const beats = fromPatterns(DANCE_PATTERNS, 260, 5);
+    const win = clamp(80 + Math.max(0, (g.stats.charm - 30) * 0.7) + music + (g.traits.temper === 'active' ? 10 : 0), 80, 140);
+    return {
+      title: '율동: 박자에 맞춰라!',
+      how: `연등이 점선에 닿을 때 누르세요. 엇박도 나와요. 지금 매력 ${g.stats.charm}: ${g.stats.charm >= 60 ? '자신감이 넘쳐서 판정이 너그러워요.' : g.stats.charm >= 40 ? '그럭저럭이에요.' : '쭈뼛쭈뼛해서 판정이 깐깐해요.'}`,
+      button: '짝!', bg: 'lantern-street', night: true, img: 'lantern', travel: 1050, win, beats,
+      need: Math.ceil(beats.length * 0.65), partner: `${stage}/friend-b`,
+    };
   }
-  return out;
+  if (kind === 'pungmul') {
+    const inst = instrumentOf(g);
+    const p = PUNGMUL[inst];
+    const beats = fromPatterns(p.patterns, p.eighth, 5);
+    const win = clamp(70 + Math.max(0, (g.stats.health - 30) * 0.6) + music + p.extra, 60, 150);
+    return {
+      title: `풍물: ${INST_NAME[inst]} 장단을 맞춰라!`,
+      how: `내 악기는 ${INST_NAME[inst]}. 장단 소리가 점선에 닿을 때 누르세요. ${inst === 'kkwaenggwari' ? '꽹과리는 상쇠라 제일 빠르고 촘촘해요.' : inst === 'jing' ? '징은 드문드문 오지만 한 번 놓치면 티가 나요.' : inst === 'janggu' ? '장구는 덩 기덕, 박자가 바빠요.' : '북은 묵직하게 박자를 받쳐요.'} 지금 건강 ${g.stats.health}: ${g.stats.health >= 60 ? '팔에 힘이 있어서 판정이 너그러워요.' : '팔이 금방 지쳐서 판정이 깐깐해요.'}`,
+      button: INST_NAME[inst] + '!', bg: 'courtyard', glyph: (i) => p.sounds[i % p.sounds.length], travel: 1000, win, beats,
+      need: Math.ceil(beats.length * 0.65), partner: `${stage}/friend-a`,
+    };
+  }
+  // 목탁: 일정한 박자 16번. 처음 4박만 스님이 같이 쳐 주고(보임), 나머지는 혼자 지킨다
+  const gap = 720;
+  const beats = Array.from({ length: 16 }, (_, i) => 1300 + i * gap);
+  const win = clamp(75 + Math.max(0, (g.stats.faith - 30) * 0.6) + (g.traits.temper === 'calm' ? 20 : 0), 75, 140);
+  return {
+    title: '목탁: 박자를 지켜라!',
+    how: `처음 4박은 스님이 같이 쳐 주세요(똑 표시가 보여요). 그다음부터는 표시 없이 같은 박자를 혼자 지켜야 해요. 빨라지거나 느려지면 놓쳐요. 지금 신앙 ${g.stats.faith}: ${g.stats.faith >= 60 ? '마음이 고요해서 판정이 너그러워요.' : '마음이 들떠서 판정이 깐깐해요.'}`,
+    button: '똑!', bg: stage === 'kid' ? 'kids-room' : 'students-room', glyph: () => '똑', hiddenFrom: 4, travel: 1400, win, beats,
+    need: 11, partner: `${stage}/monk`,
+  };
 }
 
 const DANCE_POSES: Pose[] = ['happy', 'hapjang', 'run', 'happy'];
 const HIT_X = 24;
-const TRAVEL = 1050;
 
-function Dance({ game, onEnd }: { game: GameState; onEnd: (hits: number, total: number) => void }) {
-  const win = useMemo(() => danceTuning(game), [game]);
-  const [beats] = useState(makeBeats);
+function Rhythm({ kind, game, spec, onEnd }: { kind: Exclude<MinigameKind, 'dodgeball'>; game: GameState; spec: RhythmSpec; onEnd: (hits: number, total: number) => void }) {
+  const { beats, win } = spec;
   const [res, setRes] = useState<('hit' | 'miss' | null)[]>(() => beats.map(() => null));
   const resRef = useRef(res);
   resRef.current = res;
@@ -256,8 +315,17 @@ function Dance({ game, onEnd }: { game: GameState; onEnd: (hits: number, total: 
   const { now, elapsed } = useClock(true);
   const beep = useBeep();
   const done = useRef(false);
+  // 스님이 같이 쳐 주는 박자에는 소리를 낸다
+  const guided = useRef(-1);
 
   useEffect(() => {
+    if (spec.hiddenFrom !== undefined) {
+      const k = beats.findIndex((b) => b > now) - 1;
+      if (k >= 0 && k < spec.hiddenFrom && k > guided.current) {
+        guided.current = k;
+        beep(420, 0.06);
+      }
+    }
     const i = beats.findIndex((b, j) => res[j] === null && now > b + win);
     if (i >= 0) {
       setRes((r) => r.map((v, j) => (j === i ? 'miss' : v)));
@@ -266,10 +334,9 @@ function Dance({ game, onEnd }: { game: GameState; onEnd: (hits: number, total: 
     }
     if (!done.current && now > beats[beats.length - 1] + win + 700) {
       done.current = true;
-      const hits = res.filter((v) => v === 'hit').length;
-      onEnd(hits - slips, beats.length);
+      onEnd(res.filter((v) => v === 'hit').length - slips, beats.length);
     }
-  }, [now, beats, res, win, slips, onEnd]);
+  }, [now, beats, res, win, slips, onEnd, spec.hiddenFrom, beep]);
 
   const press = useCallback(() => {
     const t = elapsed();
@@ -289,7 +356,6 @@ function Dance({ game, onEnd }: { game: GameState; onEnd: (hits: number, total: 
       setFlash({ word: bestD < win / 2 ? '딱!' : '좋아', good: true, at: t });
       beep(bestD < win / 2 ? 760 : 620);
     } else {
-      // 헛박자: 한 점 깎이고 연속이 끊긴다
       setSlips((s) => s + 1);
       setCombo(0);
       setFlash({ word: '삐끗!', good: false, at: t });
@@ -299,34 +365,48 @@ function Dance({ game, onEnd }: { game: GameState; onEnd: (hits: number, total: 
 
   const hits = res.filter((v) => v === 'hit').length;
   const recent = flash && now - flash.at < 400 ? flash : null;
-  const hero = game.gender === 'male' ? 'kid/hero-m' : 'kid/hero-f';
-  const pose: Pose = recent ? (recent.good ? DANCE_POSES[hits % 4] : 'surprised') : 'idle';
+  const stage = stageOf(game.grade);
+  const hero = `${stage}/${game.gender === 'male' ? 'hero-m' : 'hero-f'}`;
+  const pose: Pose = recent
+    ? recent.good
+      ? kind === 'dance'
+        ? DANCE_POSES[hits % 4]
+        : kind === 'moktak'
+          ? 'hapjang'
+          : 'run'
+      : 'surprised'
+    : kind === 'moktak'
+      ? 'hapjang'
+      : 'idle';
+  const hiddenNow = spec.hiddenFrom !== undefined && beats.findIndex((b) => b > now) >= spec.hiddenFrom;
 
   return (
     <Shell
-      kind="dance"
-      bg="lantern-street"
-      night
+      kind={kind}
+      bg={spec.bg}
+      night={spec.night}
+      button={spec.button}
       press={press}
       score={`${Math.max(0, hits - slips)} / ${beats.length}${combo >= 4 ? ` · ${combo}연속` : ''}`}
       flash={recent}
       cast={
         <>
           <Kid sprite={hero} pose={pose} x={HIT_X - 10} h={50} />
-          <Kid sprite="kid/friend-b" pose={recent?.good ? DANCE_POSES[(hits + 1) % 4] : 'idle'} x={86} flip h={44} />
+          <Kid sprite={spec.partner} pose={kind === 'moktak' ? 'hapjang' : recent?.good ? DANCE_POSES[(hits + 1) % 4] : 'idle'} x={86} flip h={kind === 'moktak' ? 52 : 46} />
           <span className="mg-line" style={{ left: `${HIT_X}%` }} />
+          {hiddenNow && <span className="mg-call">이제 혼자서 박자를 지켜요</span>}
           {beats.map((b, i) => {
             if (res[i] === 'hit') return null;
-            const p = 1 - (b - now) / TRAVEL;
+            if (spec.hiddenFrom !== undefined && i >= spec.hiddenFrom) return null;
+            const p = 1 - (b - now) / spec.travel;
             if (p < 0 || p > 1.3) return null;
-            return (
-              <img
-                key={i}
-                className={`mg-note${res[i] === 'miss' ? ' missed' : ''}`}
-                src={`${BASE}art/props/lantern.webp`}
-                alt=""
-                style={{ left: `${92 - (92 - HIT_X) * p}%`, bottom: '30%' }}
-              />
+            const style = { left: `${92 - (92 - HIT_X) * p}%`, bottom: '30%' };
+            return spec.img ? (
+              <img key={i} className={`mg-note${res[i] === 'miss' ? ' missed' : ''}`} src={`${BASE}art/props/${spec.img}.webp`} alt="" style={style} />
+            ) : (
+              <span key={i} className={`mg-glyph${res[i] === 'miss' ? ' missed' : ''}`} style={style}>
+                {spec.glyph?.(i)}
+              </span>
             );
           })}
         </>
@@ -345,7 +425,9 @@ function Shell({
   score,
   flash,
   cast,
+  button,
 }: {
+  button?: string;
   kind: MinigameKind;
   bg: string;
   night?: boolean;
@@ -387,29 +469,19 @@ function Shell({
           press();
         }}
       >
-        {kind === 'dodgeball' ? '받기!' : '짝!'} <small>스페이스바</small>
+        {button ?? '받기!'} <small>스페이스바</small>
       </button>
     </>
   );
 }
 
-const INFO: Record<MinigameKind, { title: string; how: (g: GameState) => string; need: number }> = {
-  dodgeball: {
-    title: '피구: 날아오는 공을 받아라!',
-    how: (g) =>
-      `공이 날아오는 동안 바늘이 왔다갔다해요. 바늘이 가운데 칸에 들어왔을 때 누르면 받아요. 빨간 게이지는 던지는 척이니 누르면 안 돼요! 던질수록 빨라져요. 지금 건강 ${g.stats.health}: ${
-        g.stats.health >= 60 ? '몸이 가벼워서 칸이 넓어요.' : g.stats.health >= 40 ? '그럭저럭이에요.' : '몸이 무거워서 칸이 좁고 바늘이 빨라요.'
-      }`,
-    need: 3,
-  },
-  dance: {
-    title: '율동: 박자에 맞춰라!',
-    how: (g) =>
-      `연등이 점선에 닿을 때 누르세요. 박자가 빠르고 엇박도 나와요. 아무것도 없을 때 누르면 삐끗해서 한 점 깎여요. 지금 매력 ${g.stats.charm}: ${
-        g.stats.charm >= 60 ? '자신감이 넘쳐서 판정이 너그러워요.' : g.stats.charm >= 40 ? '그럭저럭이에요.' : '쭈뼛쭈뼛해서 판정이 깐깐해요.'
-      }`,
-    need: 15,
-  },
+const DODGE_INFO = {
+  title: '피구: 날아오는 공을 받아라!',
+  how: (g: GameState) =>
+    `공이 날아오는 동안 바늘이 왔다갔다해요. 바늘이 가운데 칸에 들어왔을 때 누르면 받아요. 빨간 게이지는 던지는 척이니 누르면 안 돼요! 던질수록 빨라져요. 지금 건강 ${g.stats.health}: ${
+      g.stats.health >= 60 ? '몸이 가벼워서 칸이 넓어요.' : g.stats.health >= 40 ? '그럭저럭이에요.' : '몸이 무거워서 칸이 좁고 바늘이 빨라요.'
+    }`,
+  need: 3,
 };
 
 export function Minigame({
@@ -423,7 +495,9 @@ export function Minigame({
   onDone: (success: boolean) => void;
   onAuto: () => void;
 }) {
-  const info = INFO[kind];
+  // 박자 게임은 판마다 박자를 새로 만들고, 목표 점수도 그에 맞춘다
+  const [spec, setSpec] = useState(() => (kind === 'dodgeball' ? null : rhythmSpec(kind, game)));
+  const info = spec ? { title: spec.title, how: () => spec.how, need: spec.need } : DODGE_INFO;
   const [phase, setPhase] = useState<'intro' | 'ready' | 'play' | 'done'>('intro');
   const [count, setCount] = useState(3);
   const [result, setResult] = useState<{ score: number; total: number } | null>(null);
@@ -431,6 +505,7 @@ export function Minigame({
   const success = !!result && result.score >= info.need;
 
   const begin = () => {
+    if (kind !== 'dodgeball') setSpec(rhythmSpec(kind, game));
     setResult(null);
     setRound((r) => r + 1);
     setCount(3);
@@ -459,20 +534,20 @@ export function Minigame({
     return () => window.removeEventListener('keydown', onKey, true);
   });
 
-  const hero = game.gender === 'male' ? 'kid/hero-m' : 'kid/hero-f';
+  const hero = `${stageOf(game.grade)}/${game.gender === 'male' ? 'hero-m' : 'hero-f'}`;
 
   return (
     <div className={`minigame mg-${kind}`}>
       <p className="mg-title">{info.title}</p>
       {phase === 'play' &&
-        (kind === 'dodgeball' ? <Dodgeball key={round} game={game} onEnd={end} /> : <Dance key={round} game={game} onEnd={end} />)}
+        (kind === 'dodgeball' || !spec ? <Dodgeball key={round} game={game} onEnd={end} /> : <Rhythm key={round} kind={kind} game={game} spec={spec} onEnd={end} />)}
       {phase !== 'play' && (
-        <div className={`stage mg-stage${kind === 'dance' ? ' night' : ''}`}>
-          <img className="stage-bg" src={`${BASE}art/bg/${kind === 'dance' ? 'lantern-street' : 'courtyard'}.webp`} alt="" />
+        <div className={`stage mg-stage${spec?.night ? ' night' : ''}`}>
+          <img className="stage-bg" src={`${BASE}art/bg/${spec?.bg ?? 'courtyard'}.webp`} alt="" />
           <div className="stage-cast">
             <Kid sprite={hero} pose={phase === 'done' ? (success ? 'happy' : 'cry') : 'idle'} x={30} h={50} />
             {phase === 'ready' && <span className="mg-count" key={count}>{count > 0 ? count : '시작!'}</span>}
-            <Kid sprite={kind === 'dance' ? 'kid/friend-b' : 'kid/friend-a'} pose={phase === 'done' && success ? 'happy' : 'idle'} x={70} flip h={kind === 'dance' ? 44 : 50} />
+            <Kid sprite={spec?.partner ?? 'kid/friend-a'} pose={phase === 'done' && success ? 'happy' : 'idle'} x={70} flip h={50} />
           </div>
         </div>
       )}
