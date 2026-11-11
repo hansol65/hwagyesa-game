@@ -53,8 +53,12 @@ export interface Roll {
   talent?: Talent;
   temper?: Temper;
   stat?: StatKey;
+  /** 스탯 1점당 확률 (기본 1/200). 선거처럼 스탯이 크게 가르는 일은 크게 둔다 */
+  statWeight?: number;
   /** 투표: 세 친구와의 정이 확률을 올린다 */
   friends?: boolean;
+  /** 친구 정이 얼마나 반영되는지 (기본 1) */
+  friendsWeight?: number;
   /** 기록 하나당 확률 가산 (예: 학년 대표 해 본 횟수) */
   recordBonus?: { key: string; per: number };
   success: Outcome;
@@ -77,7 +81,11 @@ export interface Choice {
   attend?: boolean;
   /** 'program' 이면 이어서 그날 법회 프로그램이 나온다 */
   next?: 'program';
+  /** 고르면 미니게임을 한다. 결과가 roll의 확률 대신 성공·실패를 정한다 ('알아서 하기'면 확률) */
+  minigame?: MinigameKind;
 }
+
+export type MinigameKind = 'dodgeball' | 'dance';
 
 /** 이벤트가 나오거나 후일담이 열리는 조건 */
 export interface Cond {

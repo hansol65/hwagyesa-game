@@ -37,7 +37,8 @@
               }
             }
           }
-        }
+        },
+        "minigame": "dodgeball"
       },
       {
         "label": "구석에서 피하기만 한다",

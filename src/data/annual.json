@@ -38,7 +38,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "하늘을 덮은 연등을 올려다본다",
@@ -107,7 +108,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "내 연등이 꺼지지 않게 지킨다",
@@ -173,7 +175,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "길 잃은 동생을 찾아 데려온다",
@@ -246,7 +249,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "연등을 들고 묵묵히 걷는다",
@@ -317,7 +321,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "뒷줄에서 친구들과 박자를 맞춘다",
@@ -386,7 +391,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "공양간에서 비빔밥 나르기를 돕는다",
@@ -582,7 +588,8 @@
                 }
               }
             }
-          }
+          },
+          "minigame": "dance"
         },
         {
           "label": "공연이 끝나고 아기 부처님을 씻겨 드린다",
@@ -1187,7 +1194,7 @@
           "label": "손을 번쩍 든다",
           "tag": "active",
           "roll": {
-            "chance": 0.2,
+            "chance": -0.12,
             "stat": "charm",
             "friends": true,
             "success": {
@@ -1211,7 +1218,9 @@
                 }
               },
               "record": "rep_lost"
-            }
+            },
+            "statWeight": 0.011,
+            "friendsWeight": 0.4
           }
         },
         {
@@ -1259,12 +1268,12 @@
           "label": "대표에 나간다",
           "tag": "active",
           "roll": {
-            "chance": 0.15,
+            "chance": -0.16,
             "stat": "charm",
             "friends": true,
             "recordBonus": {
               "key": "rep_years",
-              "per": 0.1
+              "per": 0.08
             },
             "success": {
               "text": "친구들 표를 가장 많이 받았어요! 올해 {grade}학년 대표예요. 대표는 빠지면 티가 나요.",
@@ -1287,7 +1296,9 @@
                 }
               },
               "record": "rep_lost"
-            }
+            },
+            "statWeight": 0.011,
+            "friendsWeight": 0.4
           }
         },
         {
@@ -1335,12 +1346,12 @@
           "label": "회장에 나간다",
           "tag": "active",
           "roll": {
-            "chance": 0,
+            "chance": -0.32,
             "stat": "charm",
             "friends": true,
             "recordBonus": {
               "key": "rep_years",
-              "per": 0.14
+              "per": 0.1
             },
             "success": {
               "text": "{seoyun}를 한 표 차이로 이겼어요! 올해 일요일마다 목탁을 쳐요. {seoyun}가 먼저 축하한다며 손을 내밀었어요.",
@@ -1368,18 +1379,20 @@
                 }
               },
               "flag": "president_lost"
-            }
+            },
+            "statWeight": 0.011,
+            "friendsWeight": 0.4
           }
         },
         {
           "label": "부회장에 나간다",
           "roll": {
-            "chance": 0.15,
+            "chance": -0.15,
             "stat": "charm",
             "friends": true,
             "recordBonus": {
               "key": "rep_years",
-              "per": 0.1
+              "per": 0.08
             },
             "success": {
               "text": "부회장이 됐어요. 회장 옆에서 법회 준비를 돕게 됐어요.",
@@ -1405,7 +1418,9 @@
                   "seoyun": 2
                 }
               }
-            }
+            },
+            "statWeight": 0.011,
+            "friendsWeight": 0.4
           }
         },
         {

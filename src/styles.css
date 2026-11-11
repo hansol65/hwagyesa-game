@@ -360,3 +360,74 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .stage .cat.kitten { animation: wiggle 0.9s ease-in-out infinite; }
 @keyframes wiggle { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8%; } }
 @media (prefers-reduced-motion: reduce) { .stage .cat { animation: none; } }
+
+/* 미니게임: 한 버튼 타이밍 게임. 배경은 장면보다 조금 밝게 */
+.minigame { margin: 8px 0 10px; }
+.mg-title { font-family: var(--serif); font-size: 18px; margin-bottom: 10px; }
+.mg-stage { margin-bottom: 14px; touch-action: manipulation; cursor: pointer; }
+.mg-stage .stage-bg { filter: brightness(0.7) saturate(0.9); }
+.mg-stage.night .stage-bg { filter: brightness(0.45) saturate(0.85); }
+.mg-line {
+  position: absolute; top: 18%; bottom: 6%; width: 0; border-left: 3px dashed rgba(251, 246, 234, 0.75);
+  transform: translateX(-50%); z-index: 4;
+}
+.mg-note { position: absolute; height: 13%; width: auto; transform: translate(-50%, 50%); z-index: 5; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)); }
+.mg-dance .mg-note { height: 17%; }
+.mg-note.missed { opacity: 0.35; }
+.mg-flash {
+  position: absolute; left: 24%; top: 10%; transform: translateX(-50%); z-index: 6;
+  font-family: var(--brush); font-size: clamp(24px, 4.5vw, 38px); color: #f3c9c0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); animation: pop 0.45s ease-out both;
+}
+.mg-flash.good { color: #fbe7a8; }
+@keyframes pop { from { transform: translate(-50%, 6px) scale(0.85); opacity: 0; } to { transform: translate(-50%, 0) scale(1); opacity: 1; } }
+.mg-score { position: absolute; right: 3%; top: 4%; z-index: 6; color: #fbf6ea; font-size: 18px; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); }
+.mg-button {
+  display: block; width: 100%; padding: 18px; border-radius: 12px; border: 0;
+  background: var(--seal); color: #fbf6ea; font-family: var(--brush); font-size: 30px; cursor: pointer;
+  touch-action: manipulation; user-select: none;
+}
+.mg-button small { font-family: var(--sans); font-size: 13px; opacity: 0.75; margin-left: 8px; }
+.mg-button:active { transform: translateY(1px); }
+.mg-intro p { line-height: 1.7; margin-bottom: 14px; }
+.mg-actions { display: flex; align-items: center; gap: 18px; }
+@media (prefers-reduced-motion: reduce) { .mg-flash { animation: none; } }
+
+/* 칭호 모음: 얻은 건 낙관, 못 얻은 건 빈 자리 */
+.title-book { margin: 26px 0 8px; }
+.title-book h3 { font-family: var(--serif); font-size: 17px; margin-bottom: 10px; }
+.title-book h3 span { color: var(--ink-soft); font-size: 15px; margin-left: 6px; }
+.title-book ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.title-book li {
+  position: relative; padding: 6px 10px; border-radius: 6px; font-size: 14px;
+  border: 1px dashed var(--rule); color: var(--ink-faint); min-width: 44px; text-align: center;
+}
+.title-book li.has { border: 1px solid var(--seal); color: var(--seal); background: color-mix(in srgb, var(--seal) 8%, transparent); }
+.title-book li.fresh { background: var(--seal); color: #fbf6ea; }
+.title-book li small { position: absolute; top: -9px; right: -6px; font-size: 11px; background: #e0ad3e; color: #2b2620; padding: 0 4px; border-radius: 4px; }
+.title-book-open { display: block; margin: 18px auto 0; font-size: 15px; }
+.title-book li.locked { opacity: 0.6; }
+
+/* 피구 게이지: 바늘이 왔다갔다, 가운데 칸에서 누르면 받는다. 빨간 게이지는 던지는 척 */
+.mg-gauge {
+  position: absolute; left: 50%; top: 9%; width: 62%; height: 9%; transform: translateX(-50%); z-index: 6;
+  background: rgba(20, 16, 12, 0.72); border: 2px solid #fbf6ea; border-radius: 8px; overflow: hidden;
+}
+.mg-gauge .zone { position: absolute; left: 50%; top: 0; bottom: 0; transform: translateX(-50%); background: #7fbf6a; }
+.mg-gauge .needle { position: absolute; top: -10%; bottom: -10%; width: 4px; transform: translateX(-50%); background: #fbe7a8; box-shadow: 0 0 6px #fbe7a8; }
+.mg-gauge.fake { border-color: #e06a5a; }
+.mg-gauge.fake .zone { background: #c24a3c; }
+.mg-call {
+  position: absolute; right: 6%; top: 22%; z-index: 6; font-family: var(--brush); font-size: clamp(20px, 3.6vw, 30px);
+  color: #f3c9c0; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+.mg-dodgeball .mg-flash { top: 22%; }
+.seal { position: relative; }
+.seal-new { position: absolute; top: -10px; right: -10px; writing-mode: horizontal-tb; font-size: 11px; background: #e0ad3e; color: #2b2620; padding: 1px 5px; border-radius: 4px; }
+.mg-tag { display: inline-block; margin-top: 4px; font-size: 13px; color: var(--seal); border: 1px solid currentColor; border-radius: 999px; padding: 1px 8px; }
+.mg-count {
+  position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: 7;
+  font-family: var(--brush); font-size: clamp(56px, 12vw, 110px); color: #fbe7a8;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.75); animation: count-pop 0.6s ease-out both;
+}
+@keyframes count-pop { from { transform: translate(-50%, -50%) scale(1.6); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }

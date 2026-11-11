@@ -20,6 +20,7 @@ import {
   type GameEvent,
   type GameState,
   type Gender,
+  type MinigameKind,
   type Outcome,
   type RelKey,
   type StatKey,
@@ -298,9 +299,9 @@ export function rollChance(roll: NonNullable<Choice['roll']>, state: GameState):
   let c = roll.chance;
   if (roll.talent && roll.talent === state.traits.talent) c += 0.3;
   if (roll.temper && roll.temper === state.traits.temper) c += 0.15;
-  if (roll.stat) c += (state.stats[roll.stat] - 30) / 200;
+  if (roll.stat) c += (state.stats[roll.stat] - 30) * (roll.statWeight ?? 1 / 200);
   // 투표: 친구들과의 정이 표가 된다
-  if (roll.friends) c += ((state.rel.jiho + state.rel.seoyun + state.rel.haram) / 3 - 40) / 150;
+  if (roll.friends) c += (((state.rel.jiho + state.rel.seoyun + state.rel.haram) / 3 - 40) / 150) * (roll.friendsWeight ?? 1);
   // 경험: 예를 들어 학년 대표를 해 본 횟수
   if (roll.recordBonus) c += (state.records[roll.recordBonus.key] ?? 0) * roll.recordBonus.per;
   return clamp(c, 0.05, 0.95);
@@ -347,7 +348,17 @@ function applyDeltas(state: GameState, d: Deltas): GameState {
   return { ...state, stats, rel };
 }
 
-export function choose(prev: GameState, index: number, rng: Rng): GameState {
+/** 미니게임에서 실패하면 원래 실패보다 훨씬 크게 잃는다 */
+const MINIGAME_FAIL: Record<MinigameKind, Effects> = {
+  dodgeball: { stats: { health: -4, mental: -4, charm: -2 } },
+  dance: { stats: { charm: -5, mental: -4 } },
+};
+
+/**
+ * played: 미니게임을 직접 했으면 그 결과. 성공·실패를 확률 대신 정하고, 실패하면 벌이 더 크다.
+ * 없으면('알아서 하기' 포함) 예전처럼 확률로 정한다.
+ */
+export function choose(prev: GameState, index: number, rng: Rng, played?: { success: boolean }): GameState {
   if (prev.phase !== 'play' || !prev.event) return prev;
   const event = prev.event;
   const choice = event.choices[index];
@@ -361,8 +372,10 @@ export function choose(prev: GameState, index: number, rng: Rng): GameState {
   addEffects(deltas, choice.effects, choice, state);
   let outcome: Outcome | null = null;
   if (choice.roll) {
-    outcome = rng() < rollChance(choice.roll, state) ? choice.roll.success : choice.roll.fail;
+    const success = played ? played.success : rng() < rollChance(choice.roll, state);
+    outcome = success ? choice.roll.success : choice.roll.fail;
     addEffects(deltas, outcome.effects, choice, state);
+    if (played && !success && choice.minigame) addEffects(deltas, MINIGAME_FAIL[choice.minigame], choice, state);
   }
   for (const rec of [choice.record, outcome?.record]) if (rec) records[rec] = (records[rec] ?? 0) + 1;
   const flags = [...state.flags];

@@ -8,7 +8,8 @@ const rng = Math.random;
 interface Store {
   game: GameState | null;
   start: (name: string, gender: Gender) => void;
-  choose: (index: number) => void;
+  /** played: 미니게임을 직접 한 결과 */
+  choose: (index: number, played?: { success: boolean }) => void;
   next: () => void;
   nextYear: () => void;
   fastForward: (mode: YearMode) => void;
@@ -20,7 +21,7 @@ export const useGame = create<Store>()(
     (set) => ({
       game: null,
       start: (name, gender) => set({ game: newGame(name, gender, rng) }),
-      choose: (index) => set((s) => (s.game ? { game: choose(s.game, index, rng) } : s)),
+      choose: (index, played) => set((s) => (s.game ? { game: choose(s.game, index, rng, played) } : s)),
       next: () => set((s) => (s.game ? { game: advance(s.game, rng) } : s)),
       nextYear: () => set((s) => (s.game ? { game: startNextYear(s.game, rng) } : s)),
       fastForward: (mode) => set((s) => (s.game ? { game: autoYear(s.game, mode, rng) } : s)),

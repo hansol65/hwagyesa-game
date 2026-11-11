@@ -1,7 +1,7 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import { frameFor, SPRITES, type Pose } from '../art/scene';
 import { attendRate } from '../game/engine';
-import { personName } from '../game/names';
+import { catName, personName } from '../game/names';
 import type { GameState } from '../game/types';
 
 const BASE = import.meta.env.BASE_URL;
@@ -15,17 +15,40 @@ const PROPS: { prop: string; size: number; when: (g: GameState) => boolean }[] =
   { prop: 'beads', size: 0.18, when: (g) => (g.records.beads_made ?? 0) > 0 },
 ];
 
-/** 사진 아래 지솔 쌤의 한마디: 그 아이가 6년 동안 가장 크게 남긴 것 */
+/**
+ * 사진 아래 지솔 쌤의 한마디. 잘 놀리고, 사진 집착하고, 늘 졸업 준비로 피곤한 쌤.
+ * 그 아이가 6년 동안 가장 크게 남긴 것으로 고르고, 같은 갈래 안에서는 판마다 다른 말을 한다.
+ */
 function jisolNote(g: GameState): string {
   const r = (k: string) => g.records[k] ?? 0;
-  if (g.flags.includes('president')) return '네 목탁 소리, 쌤이 몰래 다 녹음해 놨다?';
-  if (r('ocarina_success') + r('song_solo') > 0) return '네 오카리나 독주, 쌤 휴대폰에 영상 다 있다.';
-  if (r('helped_kid') >= 2 || g.flags.includes('mentored_kid')) return '동생들 챙기는 건 쌤보다 네가 더 잘하더라.';
-  if (r('dodgeball_win') > 0) return '피구할 때 쌤 맞힌 거, 아직 안 잊었다.';
-  if (g.flags.includes('chased_elephant')) return '코끼리 연등 쫓아가던 1학년이 벌써 졸업이네.';
-  if (attendRate(g) >= 0.9) return '6년 동안 일요일마다 와 줘서 고마워.';
-  if (attendRate(g) < 0.5) return '자주는 못 봤어도, 올 때마다 반가웠어.';
-  return '6년 동안 제일 많이 웃은 건 너였어.';
+  const cried = g.seen.filter((id) => id.startsWith('story-cry')).length;
+  const cat = catName(g);
+  const lines: string[] = g.flags.includes('president')
+    ? ['목탁 박자 놓친 거 쌤이 다 찍어 놨다. 너 결혼식 때 튼다.', '회장님, 마지막으로 사인 한 장만. 나중에 비싸질 것 같아서.']
+    : r('ocarina_success') + r('song_solo') > 0
+      ? ['오카리나 삑사리 모음집 3분짜리 있다. 졸업 선물로 줄까?', '독주 때 손 덜덜 떨던 거, 쌤 폰에 고화질로 있다. 지워 달라고 해도 안 지워.']
+      : r('dodgeball_win') > 0
+        ? ['피구 때 쌤 얼굴 정통으로 맞힌 거, 일부러였지? 다 알아.', '피구왕 은퇴식이다. 공은 쌤이 압수한다.']
+        : r('helped_kid') >= 2 || g.flags.includes('mentored_kid')
+          ? ['동생들이 쌤 말고 너만 찾아서 쌤 일자리 위태로웠다. 진짜로.', '너 학생회 가면 동생들은 누가 챙기냐. 쌤? 쌤 졸업 준비해야 돼…']
+          : g.flags.includes('chased_elephant')
+            ? ['1학년 때 코끼리 연등 쫓아가서 쌤 수명 10년 줄었다. 갚아라.']
+            : cried >= 2
+              ? ['6년 동안 우는 사진만 폴더 하나다. 오늘은 웃어서 다행이다… 아 쌤이 울고 있네.']
+              : g.flags.includes('cat_cared') || g.flags.includes('kittens')
+                ? [`솔직히 ${cat} 사진이 너 사진보다 많다. 비밀이다.`]
+                : attendRate(g) >= 0.95
+                  ? ['6년 개근 실화냐. 쌤은 시험 기간에 빠졌는데. 존경한다.', '일요일마다 와 줘서 쌤 주말이 없었다. 고맙다… 이제 좀 자자.']
+                  : attendRate(g) < 0.5
+                    ? ['얼굴 까먹을 뻔했다. 사진이라도 박제해 둔다.', '자주는 못 봤는데 올 때마다 간식은 제일 많이 먹더라.']
+                    : [
+                        '사진 2,847장 중에 너 눈 감은 게 2,000장이다. 이게 제일 잘 나온 거야.',
+                        '쌤 과제 미루고 찍은 사진이다. 소중히 해라.',
+                        '학생회 가서도 놀러 와. 쌤 졸업 못 하면 아직 여기 있을 거야.',
+                      ];
+  let h = 5;
+  for (const c of g.name + Object.values(g.friends).join('')) h = (h * 41 + c.charCodeAt(0)) >>> 0;
+  return lines[h % lines.length];
 }
 
 type Person = { key: string; sprite: string; pose: Pose; x: number; back?: boolean; flip?: boolean; edge?: boolean };

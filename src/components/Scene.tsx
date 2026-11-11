@@ -5,6 +5,7 @@ import type { GameState } from '../game/types';
 import { useGame } from '../store';
 import { Deltas } from './Deltas';
 import { SceneStage } from './SceneStage';
+import { Minigame } from './Minigame';
 import { staging } from '../art/scene';
 import { Arrow, BrushLine, InkCircle, LanternRow, TrackMark } from './Ink';
 
@@ -24,6 +25,12 @@ function YearTrack({ game }: { game: GameState }) {
 export function Scene({ game }: { game: GameState }) {
   const { choose, next, fastForward } = useGame();
   const [ffOpen, setFfOpen] = useState(false);
+  /** 미니게임이 붙은 선택지를 고르면 그 자리에서 게임을 한다 */
+  const [playing, setPlaying] = useState<number | null>(null);
+  const pick = (i: number) => {
+    if (choices[i]?.minigame) setPlaying(i);
+    else choose(i);
+  };
   const slot = currentSlot(game);
   const festive = FESTIVE_KINDS.includes(slot.kind);
   const isResult = game.phase === 'result' && !!game.result;
@@ -52,6 +59,9 @@ export function Scene({ game }: { game: GameState }) {
     game.prelude &&
     staging({ id: game.prelude.id, slotKind: slot.kind, isProgram: false, text: game.prelude.text, game, alone: true });
 
+  // 장면이 바뀌면 하던 미니게임은 접는다
+  useEffect(() => setPlaying(null), [eventId, game.phase]);
+
   // 간다를 고르면 아래에 펼쳐진 법회로 부드럽게 내려간다
   useEffect(() => {
     if (game.prelude && game.phase === 'play') {
@@ -63,11 +73,12 @@ export function Scene({ game }: { game: GameState }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (playing !== null) return;
       if (!isResult) {
         const n = Number(e.key);
         if (n >= 1 && n <= choices.length) {
           e.preventDefault();
-          choose(n - 1);
+          pick(n - 1);
         }
       } else if (e.key === 'Enter' && !(e.target instanceof HTMLButtonElement)) {
         e.preventDefault();
@@ -76,7 +87,7 @@ export function Scene({ game }: { game: GameState }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [isResult, choices.length, choose, next]);
+  });
 
   return (
     <section className={festive ? 'page festive' : 'page'} aria-live="polite">
@@ -111,7 +122,7 @@ export function Scene({ game }: { game: GameState }) {
 
       {game.event && (
         <div key={`${game.grade}-${game.slotIndex}-${game.event.id}-${game.phase}`} className="ink-in" ref={bodyRef}>
-          {scene && <SceneStage staging={scene} alt={game.event.title} />}
+          {scene && playing === null && <SceneStage staging={scene} alt={game.event.title} />}
           {game.prelude ? (
             <h3 className="sub-title">{game.event.title}</h3>
           ) : (
@@ -121,17 +132,45 @@ export function Scene({ game }: { game: GameState }) {
             </>
           )}
 
-          {!isResult && (
+          {!isResult && playing !== null && choices[playing]?.minigame && (
+            <>
+              <p className="picked">
+                <InkCircle />
+                {choices[playing].label}
+              </p>
+              <Minigame
+                kind={choices[playing].minigame!}
+                game={game}
+                onDone={(success) => {
+                  const i = playing;
+                  setPlaying(null);
+                  choose(i, { success });
+                }}
+                onAuto={() => {
+                  const i = playing;
+                  setPlaying(null);
+                  choose(i);
+                }}
+              />
+            </>
+          )}
+
+          {!isResult && playing === null && (
             <>
               <p className="story">{game.eventText}</p>
               <ol className="choices">
                 {choices.map((c, i) => (
                   <li key={i} className={c.attend === false ? 'stay' : undefined}>
                     {c.attend === false && choices[i - 1]?.attend !== false && <p className="or">법회에 안 간다면</p>}
-                    <button className="choice" onClick={() => choose(i)}>
+                    <button className="choice" onClick={() => pick(i)}>
                       <span className="key" aria-hidden="true">{i + 1}</span>
                       {/* 결과(스탯 변화)는 고른 뒤에만 보여 준다 */}
                       <span className="label">{c.label}</span>
+                      {c.minigame && (
+                        <span className="meta">
+                          <span className="mg-tag">🎮 미니게임 · {c.minigame === 'dodgeball' ? '피구 (건강)' : '율동 (매력)'}</span>
+                        </span>
+                      )}
                     </button>
                   </li>
                 ))}

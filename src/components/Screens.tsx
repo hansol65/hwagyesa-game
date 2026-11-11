@@ -6,11 +6,13 @@ import { useGame } from '../store';
 import { StatHex } from './StatHex';
 import { Arrow, AttendStamp, BrushLine } from './Ink';
 import { GradPhoto } from './GradPhoto';
+import { addTitles, ALL_TITLES, loadTitles, TitleBook } from './TitleBook';
 
 export function StartScreen() {
   const { start } = useGame();
   const [name, setName] = useState('');
   const [gender, setGender] = useState<Gender>('female');
+  const [book, setBook] = useState(false);
   return (
     <main className="desk start">
       <div className="sheet">
@@ -60,6 +62,10 @@ export function StartScreen() {
           </button>
         </form>
         <p className="save-note">진행 상황은 이 브라우저에 자동으로 저장돼요.</p>
+        <button className="textlink title-book-open" type="button" onClick={() => setBook((v) => !v)} aria-expanded={book}>
+          칭호 모음 {loadTitles().length} / {ALL_TITLES.length}
+        </button>
+        {book && <TitleBook owned={loadTitles()} />}
       </div>
     </main>
   );
@@ -126,6 +132,8 @@ const TALENT = { music: '음악', sports: '운동', craft: '손재주' };
 export function Graduated({ game }: { game: GameState }) {
   const { reset } = useGame();
   const ending = computeEnding(game);
+  // 이번 판 칭호를 모음에 넣는다 (모음은 첫 화면의 '칭호 모음'에서 본다). 처음 얻은 건 낙관에 '새로' 표시
+  const [fresh] = useState(() => addTitles(ending.titles));
   const tilts = [-3, 2, -1, 3, -2, 1];
   return (
     <main className="desk">
@@ -140,8 +148,9 @@ export function Graduated({ game }: { game: GameState }) {
           {ending.titles.length > 0 && (
             <ul className="seals" aria-label="받은 칭호">
               {ending.titles.map((t, i) => (
-                <li key={t} className="seal" style={{ ['--tilt' as string]: `${tilts[i % tilts.length]}deg` }} aria-label={t}>
+                <li key={t} className={fresh.includes(t) ? 'seal fresh' : 'seal'} style={{ ['--tilt' as string]: `${tilts[i % tilts.length]}deg` }} aria-label={fresh.includes(t) ? `${t} (처음 얻음)` : t}>
                   {t.replaceAll(' ', '')}
+                  {fresh.includes(t) && <small className="seal-new">새로</small>}
                 </li>
               ))}
             </ul>

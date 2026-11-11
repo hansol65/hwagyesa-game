@@ -379,7 +379,7 @@
       "name": "피구왕",
       "when": {
         "records": {
-          "dodgeball_win": 1
+          "dodgeball_win": 2
         }
       }
     },
@@ -388,7 +388,8 @@
       "name": "오카리나 소리꾼",
       "when": {
         "records": {
-          "ocarina_success": 1
+          "ocarina_success": 1,
+          "ocarina_practice": 1
         }
       }
     },
@@ -397,7 +398,7 @@
       "name": "연등회 율동 에이스",
       "when": {
         "records": {
-          "lantern_dance": 1
+          "lantern_dance": 2
         }
       }
     },
@@ -406,7 +407,7 @@
       "name": "물총 대장",
       "when": {
         "records": {
-          "water_fight": 2
+          "water_fight": 3
         }
       }
     },
@@ -415,7 +416,7 @@
       "name": "제야의 종 지킴이",
       "when": {
         "records": {
-          "new_year_bell": 4
+          "new_year_bell": 5
         }
       }
     },
@@ -460,7 +461,7 @@
       "name": "동생 지킴이",
       "when": {
         "records": {
-          "helped_kid": 3
+          "helped_kid": 4
         }
       }
     },
@@ -469,7 +470,7 @@
       "name": "담력왕",
       "when": {
         "records": {
-          "brave": 1
+          "brave": 2
         }
       }
     },
