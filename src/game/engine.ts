@@ -605,7 +605,7 @@ export function choose(prev: GameState, index: number, rng: Rng, played?: { succ
     result: { text, deltas: total, choice: choice.label },
     log: [
       ...state.log,
-      { grade: state.grade, label: slot.label, title: event.title, choice: choice.label, text },
+      { grade: state.grade, id: event.id, kind: slot.kind, label: slot.label, title: event.title, choice: choice.label, text },
     ].slice(-200),
   };
   // 법회에 안 가면 결과 화면 없이 바로 다음 일정으로. 그날 한 일은 다음 화면 맨 위에 한 줄로 남긴다.
@@ -812,8 +812,8 @@ const ENDING_OVERLAP: Record<string, string[]> = {
   vet: ['kittens'],
 };
 
-export function computeEnding(state: GameState) {
-  const ending = pickEnding(state);
+export function computeEnding(state: GameState, owned: string[] = []) {
+  const ending = pickEnding(state, owned);
   const rank = (c: { priority: number; when: Cond }) =>
     c.priority +
     (state.grade > KIDS_LAST_GRADE && c.when.flags?.includes('stage:student') ? 5 : 0) +
@@ -838,15 +838,23 @@ export interface Ending {
   name: string;
   title: string;
   text: string;
-  hint: string;
   when: Cond;
 }
 export const ENDINGS = (endingsData as { endings: Ending[] }).endings;
 
-/** 10년 뒤 나는 어떤 어른이 되었나: 조건이 맞는 것 중 가장 우선인 하나 */
-export function pickEnding(state: GameState): Ending {
-  const fit = ENDINGS.filter((e) => meets(state, e.when)).sort((a, b) => b.priority - a.priority);
-  return fit[0] ?? ENDINGS[ENDINGS.length - 1];
+/**
+ * 10년 뒤 나는 어떤 어른이 되었나: 조건이 맞는 것 중 하나.
+ * 여럿이 맞으면 도감에 아직 없는 것(owned에 없는 것)부터, 그 안에서는 우선순위가 높은 것.
+ * 회사원(조건 없음)은 다른 엔딩이 하나도 안 맞을 때만.
+ */
+export function pickEnding(state: GameState, owned: string[] = []): Ending {
+  // 이미 정해 둔 엔딩이 있으면 그대로 (새로고침해도 안 바뀌게)
+  const fixed = state.flags.find((f) => f.startsWith('ending:'));
+  const fixedEnding = fixed && ENDINGS.find((e) => e.id === fixed.slice(7));
+  if (fixedEnding) return fixedEnding;
+  const fallback = ENDINGS[ENDINGS.length - 1];
+  const fit = ENDINGS.filter((e) => e !== fallback && meets(state, e.when)).sort((a, b) => b.priority - a.priority);
+  return fit.find((e) => !owned.includes(e.id)) ?? fit[0] ?? fallback;
 }
 
 export { REL_KEYS };

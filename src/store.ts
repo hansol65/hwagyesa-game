@@ -18,6 +18,8 @@ interface Store {
   /** 학생회 졸업 뒤 대학생회로 이어 간다 */
   toUniversity: () => void;
   fastForward: (mode: YearMode) => void;
+  /** 엔딩을 한 번 정하면 판에 적어 둔다 (새로고침해도 같은 엔딩) */
+  fixEnding: (id: string) => void;
   reset: () => void;
 }
 
@@ -32,6 +34,8 @@ export const useGame = create<Store>()(
       toStudent: () => set((s) => (s.game ? { game: enterStudent(s.game, rng) } : s)),
       toUniversity: () => set((s) => (s.game ? { game: enterUniversity(s.game, rng) } : s)),
       fastForward: (mode) => set((s) => (s.game ? { game: autoYear(s.game, mode, rng) } : s)),
+      fixEnding: (id) =>
+        set((s) => (s.game && !s.game.flags.some((f) => f.startsWith('ending:')) ? { game: { ...s.game, flags: [...s.game.flags, `ending:${id}`] } } : s)),
       reset: () => set({ game: null }),
     }),
     {

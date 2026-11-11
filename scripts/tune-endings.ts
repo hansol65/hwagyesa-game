@@ -2,7 +2,7 @@
 //
 // 엔딩은 판이 끝난 뒤의 상태로만 정해지니, 여러 방식으로 끝까지 한 판들을 한 번 모아 두고
 // 엔딩마다 스탯·정 기준을 조금씩 올리고 내리며 목표 비율에 맞춘다. 결과는 src/data/endings.json에 쓴다.
-// 출가는 아주 드물게(0.5%), 아무 조건 없는 '일요일의 회사원'은 남는 몫을 받는다.
+// 출가는 아주 드물게(0.5%), 아무 조건 없는 '일요일의 회사원'은 남는 몫(4판에 1번쯤)을 받는다.
 import fs from 'node:fs';
 import path from 'node:path';
 import { advance, choose, ENDINGS, enterStudent, enterUniversity, newGame, startNextYear, type Ending } from '../src/game/engine';
@@ -62,6 +62,7 @@ function meets(s: GameState, w: Cond): boolean {
   if (w.statsBelow && !Object.entries(w.statsBelow).every(([k, v]) => s.stats[k as StatKey] < (v ?? 0))) return false;
   if (w.records && !Object.entries(w.records).every(([k, v]) => (s.records[k] ?? 0) >= v)) return false;
   if (w.attendRate !== undefined && rate < w.attendRate) return false;
+  if (w.attendRateBelow !== undefined && rate >= w.attendRateBelow) return false;
   if (w.gender && s.gender !== w.gender) return false;
   if (w.flags && !w.flags.every((f) => s.flags.includes(f))) return false;
   if (w.notFlags && w.notFlags.some((f) => s.flags.includes(f))) return false;
@@ -72,10 +73,11 @@ function meets(s: GameState, w: Cond): boolean {
 
 /** 기준 숫자를 d만큼 어렵게(+) 또는 쉽게(-). 이상 조건은 올리고, 미만 조건은 내린다 */
 function shift(w: Cond, d: number): Cond {
-  const c = (v: number) => Math.max(5, Math.min(97, Math.round(v + d)));
+  // 너무 낮은 기준(건강 9↑ 같은)은 조건으로서 뜻이 없으니 35 아래로는 안 내린다. 미만 조건도 65 위로는 안 올린다
+  const c = (v: number) => Math.max(35, Math.min(97, Math.round(v + d)));
   const out: Cond = { ...w };
   if (w.stats) out.stats = Object.fromEntries(Object.entries(w.stats).map(([k, v]) => [k, c(v!)]));
-  if (w.statsBelow) out.statsBelow = Object.fromEntries(Object.entries(w.statsBelow).map(([k, v]) => [k, Math.max(3, Math.min(95, Math.round(v! - d)))]));
+  if (w.statsBelow) out.statsBelow = Object.fromEntries(Object.entries(w.statsBelow).map(([k, v]) => [k, Math.max(3, Math.min(65, Math.round(v! - d)))]));
   if (w.rel) out.rel = Object.fromEntries(Object.entries(w.rel).map(([k, v]) => [k, c(v!)]));
   if (w.bestFriend) out.bestFriend = { ...w.bestFriend, min: c(w.bestFriend.min) };
   if (w.any) out.any = w.any.map((x) => shift(x, d));
@@ -84,7 +86,9 @@ function shift(w: Cond, d: number): Cond {
 
 const base: Ending[] = JSON.parse(JSON.stringify(ENDINGS));
 const FALLBACK = 'office';
-const target = (id: string) => (id === 'monk' ? 0.005 : id === FALLBACK ? 0.03 : (1 - 0.005 - 0.03) / (base.length - 2));
+/** 회사원은 4판에 1번쯤. 나머지 엔딩은 까다로운 조건을 맞춘 판들이 고르게 나눠 갖는다 */
+const OFFICE_SHARE = 0.25;
+const target = (id: string) => (id === 'monk' ? 0.005 : id === FALLBACK ? OFFICE_SHARE : (1 - 0.005 - OFFICE_SHARE) / (base.length - 2));
 const delta: Record<string, number> = Object.fromEntries(base.map((e) => [e.id, 0]));
 
 function distribution(list: Ending[]) {

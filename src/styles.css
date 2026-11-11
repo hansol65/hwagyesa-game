@@ -85,15 +85,15 @@ p { margin: 0; }
 
 /* ---------- 머리 ---------- */
 .masthead {
-  display: flex; align-items: baseline; gap: 14px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px;
   padding: 22px 36px 14px;
   border-bottom: 1px solid var(--rule);
 }
-.masthead .title { font-family: var(--brush); font-size: 30px; font-weight: 400; line-height: 1; letter-spacing: 0.02em; }
-.masthead .who { color: var(--ink-faint); font-size: 14px; margin-right: auto; }
-.textlink { color: var(--ink-soft); font-size: 14px; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 4px; }
+.masthead .title { white-space: nowrap; font-family: var(--brush); font-size: 30px; font-weight: 400; line-height: 1; letter-spacing: 0.02em; }
+.masthead .who { white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--ink-faint); font-size: 14px; margin-right: auto; }
+.textlink { white-space: nowrap; color: var(--ink-soft); font-size: 14px; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 4px; }
 .textlink:hover { color: var(--ink); text-decoration-color: var(--ink-faint); }
-.confirm { display: inline-flex; gap: 12px; align-items: baseline; font-size: 14px; color: var(--ink-soft); }
+.confirm { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 12px; align-items: baseline; font-size: 14px; color: var(--ink-soft); text-wrap: balance; }
 
 /* ---------- 펼침면 ---------- */
 .spread { display: grid; grid-template-columns: minmax(0, 1fr) 300px; }
@@ -104,6 +104,8 @@ p { margin: 0; }
   .notebook { border-left: 0; border-top: 1px solid var(--rule); }
   .page, .notebook { padding: 26px 22px 30px; }
   .masthead { padding: 18px 22px 12px; }
+  /* 좁은 화면에서는 '처음부터 할까요?'를 제목 아래 한 줄로 */
+  .masthead .confirm { flex-basis: 100%; justify-content: flex-start; }
 }
 
 /* 날짜줄과 올해 일정 */
@@ -467,6 +469,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 /* ── 엔딩: 10년 뒤 나는 ── */
 .ending-card { margin: 30px 0 8px; padding: 26px 24px 24px; border: 1px solid var(--seal); border-radius: 4px; background: color-mix(in srgb, var(--seal) 6%, transparent); text-align: left; }
+.ending-card .ending-art { display: block; width: calc(100% + 48px); max-width: none; height: auto; aspect-ratio: 3 / 2; margin: -26px -24px 20px; border-radius: 3px 3px 0 0; border-bottom: 1px solid var(--seal); }
 .ending-card .kicker { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-size: 13px; letter-spacing: 0.08em; color: var(--seal); }
 .ending-card h1 { font-family: var(--serif); font-size: clamp(26px, 4.4vw, 36px); line-height: 1.25; margin: 0 0 14px; text-wrap: balance; }
 .ending-card .ending-text { font-family: var(--serif); font-size: 17px; line-height: 1.8; color: var(--ink-soft); margin: 0; max-width: 62ch; }
@@ -475,12 +478,65 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .ending-book { margin: 26px 0 8px; text-align: left; }
 .ending-book h3 { font-family: var(--serif); font-size: 17px; margin-bottom: 12px; text-align: center; }
 .ending-book h3 span { color: var(--ink-soft); font-size: 15px; margin-left: 6px; }
-.ending-book ol { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
-.ending-book li { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; row-gap: 2px; align-items: baseline; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 4px; min-width: 0; }
-.ending-book li .no { grid-row: span 2; font-size: 12px; color: var(--ink-faint); }
-.ending-book li b { font-family: var(--serif); font-size: 15px; font-weight: 700; }
-.ending-book li small { font-size: 12.5px; line-height: 1.5; color: var(--ink-faint); }
-.ending-book li.has { border-color: color-mix(in srgb, var(--seal) 55%, var(--rule)); }
-.ending-book li.has b { color: var(--seal); }
-.ending-book li.now { background: color-mix(in srgb, var(--seal) 9%, transparent); }
-.ending-book li.locked b { color: var(--ink-faint); letter-spacing: 0.1em; }
+.ending-book > ol { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; list-style: none; padding: 0; margin: 0; }
+@media (max-width: 480px) { .ending-book > ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }
+.ending-book > ol > li { display: flex; flex-direction: column; gap: 6px; padding: 8px 8px 10px; border: 1px solid var(--rule); border-radius: 4px; min-width: 0; }
+.ending-book .thumb { display: grid; place-items: center; width: 100%; height: auto; aspect-ratio: 3 / 2; border-radius: 2px; background: color-mix(in srgb, var(--ink-faint) 10%, transparent); color: color-mix(in srgb, var(--ink-faint) 70%, transparent); font-family: var(--serif); font-size: 26px; }
+.ending-book .tile-head { display: flex; align-items: baseline; gap: 6px; margin: 2px 2px 0; }
+.ending-book .tile-head .no { font-size: 11.5px; color: var(--ink-faint); }
+.ending-book .tile-head b { font-family: var(--serif); font-size: 15px; font-weight: 700; line-height: 1.3; }
+.ending-book > ol > li > small { margin: 0 2px; font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+.ending-book .conds { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.ending-book .conds li { padding: 2px 7px; border-radius: 4px; font-size: 11.5px; line-height: 1.5; border: 1px solid var(--rule); color: var(--ink-soft); }
+.ending-book .conds li.act { border-color: transparent; background: color-mix(in srgb, var(--seal) 14%, transparent); color: var(--ink); }
+.ending-book > ol > li.has { border-color: color-mix(in srgb, var(--seal) 55%, var(--rule)); }
+.ending-book > ol > li.has b { color: var(--seal); }
+.ending-book > ol > li.now { background: color-mix(in srgb, var(--seal) 9%, transparent); }
+.ending-book > ol > li.locked .tile-head b { color: var(--ink-faint); letter-spacing: 0.1em; }
+
+/* ---- 주마등: 대학생회 졸업 → 엔딩 사이 ---- */
+.flashback { position: fixed; inset: 0; z-index: 60; overflow: hidden; background: #0d0b09; cursor: pointer; animation: fb-in 600ms ease-out both; }
+.fb-frame { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 450ms ease; }
+.fb-frame.on { opacity: 1; }
+.fb-frame img { width: 100%; height: 100%; max-width: none; object-fit: cover; image-rendering: pixelated; filter: sepia(0.35) saturate(0.85) brightness(0.9); }
+.fb-frame.on img { animation: fb-drift 1800ms ease-out both; }
+.fb-frame::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 18vmin 6vmin #0d0b09; pointer-events: none; }
+.fb-frame figcaption { position: absolute; left: max(24px, env(safe-area-inset-left, 0px)); right: max(24px, env(safe-area-inset-right, 0px)); bottom: calc(28px + env(safe-area-inset-bottom, 0px)); z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; color: #f3ead8; text-shadow: 0 1px 3px #000c; }
+.fb-frame.on figcaption { animation: fb-cap 700ms ease-out both; }
+.fb-when { font-size: 12px; letter-spacing: 0.12em; padding: 1px 8px; border: 1px solid #f3ead880; border-radius: 3px; }
+.fb-title { font-family: var(--serif); font-size: clamp(20px, 4vw, 30px); line-height: 1.25; }
+.fb-choice { font-family: var(--serif); font-size: 15px; opacity: 0.85; }
+.fb-choice::before { content: '“'; } .fb-choice::after { content: '”'; }
+.fb-outro { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: #f6f0e4; opacity: 0; pointer-events: none; transition: opacity 900ms ease-in; }
+.fb-outro.on { opacity: 1; }
+.fb-outro p { margin: 0; font-family: var(--serif); font-size: clamp(22px, 4vw, 32px); letter-spacing: 0.3em; color: #3a332b; opacity: 0; }
+.fb-outro.on p { animation: fb-cap 900ms 500ms ease-out both; }
+.fb-skip { position: absolute; z-index: 3; top: calc(14px + env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px)); padding: 6px 12px; border: 1px solid #f3ead860; border-radius: 999px; background: #0d0b0999; color: #f3ead8; font-size: 13px; cursor: pointer; }
+.ending-in { animation: ending-in 1100ms ease-out both; }
+@keyframes fb-in { from { opacity: 0; } }
+@keyframes fb-drift { from { transform: scale(1.12) translateX(-1.5%); } to { transform: scale(1.02); } }
+@keyframes fb-cap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes ending-in { from { opacity: 0; filter: brightness(1.6); } }
+@media (prefers-reduced-motion: reduce) {
+  .fb-frame.on img, .fb-frame.on figcaption, .fb-outro.on p, .ending-in { animation: none; }
+  .fb-outro.on p { opacity: 1; }
+}
+
+/* 도감: 모은 엔딩 그림 크게 보기 */
+.ending-book .tile-open { display: flex; flex-direction: column; gap: 6px; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: zoom-in; }
+.ending-book .tile-open:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; border-radius: 2px; }
+.ending-book .tile-open .thumb { transition: transform 160ms ease; }
+.ending-book .tile-open:hover .thumb { transform: scale(1.02); }
+.ending-book .tile-open small { margin: 0 2px; font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+.ending-lightbox { width: min(960px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper, var(--bg, #1c1a17)); color: var(--ink); overflow: auto; }
+.ending-lightbox::backdrop { background: #0d0b09d0; }
+.ending-lightbox[open] { animation: lb-in 220ms ease-out; }
+.ending-lightbox figure { margin: 0; }
+.ending-lightbox img { display: block; width: 100%; height: auto; max-height: calc(100dvh - 160px); object-fit: contain; image-rendering: pixelated; background: #0d0b09; }
+.ending-lightbox figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 14px 18px 4px; }
+.ending-lightbox figcaption .no { font-size: 12px; color: var(--ink-faint); }
+.ending-lightbox figcaption b { font-family: var(--serif); font-size: 18px; color: var(--seal); }
+.ending-lightbox figcaption span:last-child { flex-basis: 100%; font-family: var(--serif); font-size: 15px; color: var(--ink-soft); }
+.ending-lightbox .lb-bar { display: flex; justify-content: space-between; gap: 12px; padding: 8px 18px 14px; }
+@keyframes lb-in { from { opacity: 0; transform: scale(0.97); } }
+@media (prefers-reduced-motion: reduce) { .ending-lightbox[open] { animation: none; } }

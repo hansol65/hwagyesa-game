@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { computeEnding, openStats, attendRate } from '../game/engine';
 import { CHAPTERS } from '../game/calendar';
 import { STAT_KEYS, STAT_LABEL, type GameState, type Gender, type Stage, type StatKey } from '../game/types';
@@ -6,7 +6,8 @@ import { useGame } from '../store';
 import { StatHex } from './StatHex';
 import { Arrow, AttendStamp, BrushLine } from './Ink';
 import { GradPhoto } from './GradPhoto';
-import { addEnding, EndingBook, loadEndings } from './EndingBook';
+import { Flashback } from './Flashback';
+import { addEnding, EndingBook, endingArt, loadEndings } from './EndingBook';
 import { ENDINGS } from '../game/engine';
 
 export function StartScreen() {
@@ -153,19 +154,52 @@ const TALENT = { music: '음악', sports: '운동', craft: '손재주' };
 
 /**
  * 졸업. 어린이회·학생회 졸업은 사진 한 장과 한 줄로 짧게 넘어가고,
- * 대학교 졸업에서 "10년 뒤 나는…" 엔딩이 나온다.
+ * 대학교 졸업은 사진 → "10년 뒤" 버튼 → 주마등 → "10년 뒤 나는…" 엔딩.
  */
 export function Graduated({ game }: { game: GameState }) {
   const { reset, toStudent, toUniversity } = useGame();
   const stage = CHAPTERS[game.chapter].stage;
   const last = stage === 'university';
+  // 엔딩을 이미 봤으면(새로고침) 바로 엔딩으로
+  const [step, setStep] = useState<'photo' | 'flash' | 'ending'>(() =>
+    game.flags.some((f) => f.startsWith('ending:')) ? 'ending' : 'photo',
+  );
+  const toEnding = useCallback(() => setStep('ending'), []);
+  useEffect(() => {
+    if (step === 'ending') window.scrollTo({ top: 0 });
+  }, [step]);
+  if (last && step === 'ending') {
+    return (
+      <main className="desk">
+        <article className="sheet">
+          <div className="page diploma ending-in">
+            <EndingView game={game} onReset={reset} />
+          </div>
+        </article>
+      </main>
+    );
+  }
   return (
     <main className="desk">
+      {step === 'flash' && <Flashback game={game} onDone={toEnding} />}
       <article className="sheet">
         <div className="page diploma ink-in">
           <GradPhoto game={game} />
           {last ? (
-            <EndingView game={game} onReset={reset} />
+            <>
+              <h1>대학생회 졸업</h1>
+              <ul className="diary">
+                {(game.yearReport?.highlights ?? []).slice(0, 3).map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+                <li>{game.flags.includes('skipped') ? '대학생회에서 보낸 일요일이 여기서 끝나요.' : '초등학교 1학년 때부터 다닌 일요일이 여기서 한 번 끝나요.'}</li>
+              </ul>
+              <div className="coda">
+                <button className="seal-btn" onClick={() => setStep('flash')} autoFocus>
+                  10년 뒤 <span aria-hidden="true">· · ·</span>
+                </button>
+              </div>
+            </>
           ) : (
             <>
               <h1>{stage === 'kid' ? '어린이회 졸업' : '학생회 졸업'}</h1>
@@ -194,17 +228,21 @@ export function Graduated({ game }: { game: GameState }) {
 
 /** 마지막 엔딩: 10년 뒤 나는 어떤 어른이 되었나 */
 function EndingView({ game, onReset }: { game: GameState; onReset: () => void }) {
-  const result = computeEnding(game);
+  // 도감에 없는 엔딩부터 나오게, 이 판을 넣기 전의 도감을 한 번만 읽어 둔다 (다시 그려도 엔딩이 안 바뀌게)
+  const [result] = useState(() => computeEnding(game, loadEndings()));
   const ending = result.ending;
   // 학생회·대학생회부터 시작한 판(앞을 건너뛴 판)은 도감에 넣지 않는다
   const skipped = game.flags.includes('skipped');
   const [fresh] = useState(() => (skipped ? false : addEnding(ending.id)));
+  const fixEnding = useGame((s) => s.fixEnding);
+  useEffect(() => fixEnding(ending.id), [fixEnding, ending.id]);
   const [book, setBook] = useState(false);
   const owned = loadEndings();
   const no = ENDINGS.findIndex((e) => e.id === ending.id) + 1;
   return (
     <>
       <section className="ending-card" aria-labelledby="ending-title">
+        <img className="ending-art" src={endingArt(ending.id)} alt="" width={960} height={640} />
         <p className="kicker">
           10년 뒤 · 엔딩 <span className="tabular">{String(no).padStart(2, '0')}</span>
           {fresh && <span className="ending-new">새 엔딩</span>}

@@ -289,15 +289,16 @@ function rhythmSpec(kind: Exclude<MinigameKind, 'dodgeball'>, g: GameState): Rhy
       need: Math.ceil(beats.length * 0.65), partner: `${stage}/friend-a`,
     };
   }
-  // 목탁: 일정한 박자 16번. 처음 4박만 스님이 같이 쳐 주고(보임), 나머지는 혼자 지킨다
-  const gap = 720;
-  const beats = Array.from({ length: 16 }, (_, i) => 1300 + i * gap);
-  const win = clamp(75 + Math.max(0, (g.stats.faith - 30) * 0.6) + (g.traits.temper === 'calm' ? 20 : 0), 75, 140);
+  // 목탁: 일정한 박자 12번. 처음 6박은 스님이 같이 쳐 주고(보임), 나머지 6박은 혼자 지킨다.
+  // 너무 어렵다는 말에 느리게, 판정은 넉넉하게, 12박 중 7박만 맞히면 되게 했다
+  const gap = 820;
+  const beats = Array.from({ length: 12 }, (_, i) => 1300 + i * gap);
+  const win = clamp(120 + Math.max(0, (g.stats.faith - 30) * 0.6) + (g.traits.temper === 'calm' ? 20 : 0), 120, 180);
   return {
     title: '목탁: 박자를 지켜라!',
-    how: `처음 4박은 스님이 같이 쳐 주세요(똑 표시가 보여요). 그다음부터는 표시 없이 같은 박자를 혼자 지켜야 해요. 빨라지거나 느려지면 놓쳐요. 지금 신앙 ${g.stats.faith}: ${g.stats.faith >= 60 ? '마음이 고요해서 판정이 너그러워요.' : '마음이 들떠서 판정이 깐깐해요.'}`,
-    button: '똑!', bg: stage === 'kid' ? 'kids-room' : 'students-room', glyph: () => '똑', hiddenFrom: 4, travel: 1400, win, beats,
-    need: 11, partner: `${stage}/monk`,
+    how: `처음 6박은 스님이 같이 쳐 주세요(똑 표시가 보여요). 그다음 6박은 표시 없이 같은 박자를 혼자 지켜요. 12박 중 7박만 맞히면 돼요. 지금 신앙 ${g.stats.faith}: ${g.stats.faith >= 60 ? '마음이 고요해서 판정이 너그러워요.' : '마음이 들떠서 판정이 깐깐해요.'}`,
+    button: '똑!', bg: stage === 'kid' ? 'kids-room' : 'students-room', glyph: () => '똑', hiddenFrom: 6, travel: 1400, win, beats,
+    need: 7, partner: `${stage}/monk`,
   };
 }
 

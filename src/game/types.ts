@@ -182,6 +182,9 @@ export interface Deltas {
 
 export interface LogEntry {
   grade: number;
+  /** 장면 id와 일정 종류: 마지막 주마등에서 그때 배경을 다시 그린다 */
+  id?: string;
+  kind?: string;
   label: string;
   title: string;
   choice: string;

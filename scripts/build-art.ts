@@ -4,6 +4,7 @@
  *   art-src/backgrounds/<이름>.png      → public/art/bg/<이름>.webp  (용량만 줄인다)
  *   art-src/sprites/<단계>/<인물>.png   → public/art/sprites/<단계>/<인물>.webp
  *   art-src/props/props.png             → public/art/props/<소품>.webp
+ *   art-src/endings/<엔딩 id>.png       → public/art/endings/<id>.webp (카드용 960px) + <id>.thumb.webp (도감용 360px)
  *
  * 스프라이트 시트(투명 배경, 동작 6개가 한 줄)는 비어 있는 세로줄을 찾아 동작마다 자르고,
  * 같은 크기 칸 6개를 가로로 붙인 띠 한 장으로 다시 저장한다.
@@ -161,6 +162,18 @@ async function main() {
   for (const f of fs.readdirSync(bgDir).filter((f) => f.endsWith('.png'))) {
     await sharp(path.join(bgDir, f)).webp({ quality: 86 }).toFile(path.join(OUT, 'bg', f.replace('.png', '.webp')));
     console.log('bg', f);
+  }
+
+  // 엔딩 카드 그림
+  const enDir = path.join(SRC, 'endings');
+  if (fs.existsSync(enDir)) {
+    fs.mkdirSync(path.join(OUT, 'endings'), { recursive: true });
+    for (const f of fs.readdirSync(enDir).filter((f) => f.endsWith('.png'))) {
+      const id = f.replace('.png', '');
+      await sharp(path.join(enDir, f)).resize(960, 640, { kernel: 'lanczos3' }).webp({ quality: 82 }).toFile(path.join(OUT, 'endings', `${id}.webp`));
+      await sharp(path.join(enDir, f)).resize(360, 240, { kernel: 'lanczos3' }).webp({ quality: 78 }).toFile(path.join(OUT, 'endings', `${id}.thumb.webp`));
+      console.log('ending', id);
+    }
   }
 
   // 인물
