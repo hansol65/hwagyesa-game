@@ -34,7 +34,7 @@
       "bg": "kids-room"
     },
     "instrument": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     },
     "vacation": {
       "bg": "bell-yard"
@@ -43,7 +43,7 @@
       "bg": "students-room"
     },
     "offer": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     }
   },
   "scenes": {
@@ -51,31 +51,31 @@
       "bg": "kids-room"
     },
     "dodgeball": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "pose": "run"
     },
     "bazaar": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     },
     "treasure-hunt": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "pose": "run"
     },
     "cleaning": {
-      "bg": "courtyard"
+      "bg": "seonwon"
     },
     "jump-rope": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "pose": "run"
     },
     "flower-bed": {
-      "bg": "courtyard"
+      "bg": "seonwon"
     },
     "kimchi": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     },
     "walk": {
-      "bg": "outdoor-buddha",
+      "bg": "seonwon",
       "pose": "run"
     },
     "seon-visit": {
@@ -98,24 +98,24 @@
       "pose": "hapjang"
     },
     "role-rep-line": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     },
     "story-fight-jiho": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "surprised",
       "castPose": {
         "jiho": "angry"
       }
     },
     "cb-jiho-ignored": {
-      "bg": "courtyard"
+      "bg": "seonwon"
     },
     "story-friends-split": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "surprised"
     },
     "cb-split-jiho": {
-      "bg": "courtyard"
+      "bg": "seonwon"
     },
     "story-cat": {
       "bg": "bell-yard",
@@ -135,14 +135,14 @@
       "pose": "cry"
     },
     "story-monk-name": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "surprised"
     },
     "story-bell-peek": {
       "bg": "bell-yard"
     },
     "story-lost-beads": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "surprised"
     },
     "story-meditation-kid": {
@@ -164,7 +164,7 @@
       "night": true
     },
     "buddha-lunch": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     },
     "camp-night": {
       "bg": "kids-room",
@@ -220,7 +220,7 @@
       ]
     },
     "story-cry-dodgeball": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "pose": "cry",
       "cast": [
         "gansa",
@@ -274,7 +274,7 @@
       }
     },
     "st-reels": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "happy"
     },
     "st-running": {
@@ -282,16 +282,16 @@
       "pose": "run"
     },
     "st-karaoke": {
-      "bg": "lantern-street",
+      "bg": "lantern-temple",
       "night": true,
       "pose": "happy"
     },
     "st-cafe": {
-      "bg": "lantern-street",
+      "bg": "lantern-temple",
       "night": true
     },
     "st-meal": {
-      "bg": "lantern-street",
+      "bg": "lantern-temple",
       "night": true
     },
     "st-meditation": {
@@ -301,7 +301,7 @@
       ]
     },
     "st-meditation-walk": {
-      "bg": "outdoor-buddha",
+      "bg": "seonwon",
       "pose": "hapjang"
     },
     "st-tea": {
@@ -314,7 +314,7 @@
       "pose": "hapjang"
     },
     "st-pungmul-practice": {
-      "bg": "courtyard"
+      "bg": "bell-yard"
     },
     "st-mentor": {
       "bg": "kids-room",
@@ -361,7 +361,7 @@
       ]
     },
     "st-instrument": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "cast": [
         "gansa"
       ]
@@ -400,7 +400,7 @@
       "bg": "outdoor-buddha"
     },
     "st-vac-ski": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "pose": "run"
     },
     "st-vac-ski2": {
@@ -459,7 +459,7 @@
       "pose": "hapjang"
     },
     "un-meditation-walk": {
-      "bg": "outdoor-buddha",
+      "bg": "seonwon",
       "pose": "hapjang"
     },
     "un-meditation-candle": {
@@ -485,11 +485,11 @@
       ]
     },
     "un-meal": {
-      "bg": "lantern-street",
+      "bg": "lantern-temple",
       "night": true
     },
     "un-drink": {
-      "bg": "lantern-street",
+      "bg": "lantern-temple",
       "night": true,
       "cast": [
         "teacher",
@@ -497,19 +497,19 @@
       ]
     },
     "un-cafe": {
-      "bg": "lantern-street"
+      "bg": "bell-yard"
     },
     "un-union-dharma": {
       "pose": "hapjang"
     },
     "un-senior-talk": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "cast": [
         "gansa"
       ]
     },
     "un-kg-dodge": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "pose": "run",
       "cast": [],
       "juniors": {
@@ -598,7 +598,7 @@
       }
     },
     "un-sg-pungmul": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "cast": [],
       "juniors": {
         "stage": "student",
@@ -620,7 +620,7 @@
       }
     },
     "un-sg-reels": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "happy",
       "cast": [],
       "juniors": {
@@ -630,7 +630,7 @@
       }
     },
     "un-sg-karaoke": {
-      "bg": "lantern-street",
+      "bg": "lantern-temple",
       "night": true,
       "pose": "happy",
       "cast": [],
@@ -672,7 +672,7 @@
       "cast": []
     },
     "un-cb-jiho-back": {
-      "bg": "courtyard",
+      "bg": "seonwon",
       "pose": "happy",
       "cast": [
         "jiho"
@@ -685,14 +685,14 @@
       ]
     },
     "un-offer-both": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "cast": [
         "gansa",
         "teacher"
       ]
     },
     "un-offer-jisol": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "cast": [
         "gansa"
       ]
@@ -812,7 +812,7 @@
       }
     },
     "un-vac-stski": {
-      "bg": "courtyard",
+      "bg": "bell-yard",
       "cast": [],
       "juniors": {
         "stage": "student",
@@ -821,7 +821,7 @@
       }
     },
     "un-newyear": {
-      "bg": "bell-yard",
+      "bg": "lantern-temple",
       "night": true,
       "cast": [
         "jiho",
@@ -830,7 +830,7 @@
       ]
     },
     "un-newyear-kids": {
-      "bg": "bell-yard",
+      "bg": "lantern-temple",
       "night": true,
       "pose": "happy",
       "cast": [],
@@ -841,7 +841,7 @@
       }
     },
     "un-newyear-last": {
-      "bg": "bell-yard",
+      "bg": "lantern-temple",
       "night": true,
       "pose": "hapjang",
       "cast": [
