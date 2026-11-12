@@ -44,7 +44,7 @@ scripts/         개발용 도구
 | `node scripts/university-data.cjs` | 대학생회 장면 JSON을 다시 만든다 |
 | `node scripts/side-choices.cjs` | 장면마다 덧붙는 '한 스탯 몰아주기 / 모 아니면 도' 선택지를 다시 만든다 |
 
-그림 만드는 법은 [ART_GUIDE.md](ART_GUIDE.md)에 있습니다.
+그림 만드는 법은 [ART_GUIDE.md](ART_GUIDE.md), 3D 화계사 자료는 [3D.md](3D.md)에 있습니다.
 
 ## 진행
 
