@@ -1,0 +1,30 @@
+:root { color-scheme: dark; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #1b1d1f; }
+body { font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif; color: #f4efe4; }
+#cv { display: block; width: 100vw; height: 100vh; touch-action: none; }
+.hud {
+  position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(14px, env(safe-area-inset-left, 0px));
+  display: flex; align-items: baseline; gap: 12px; pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+.hud .title { font-family: 'Nanum Brush Script', sans-serif; font-size: 34px; line-height: 1; }
+.hud .place { font-size: 15px; font-weight: 600; }
+.tag {
+  position: fixed; left: 0; top: 0; pointer-events: none;
+  padding: 7px 12px; border-radius: 8px; background: rgba(22, 24, 26, 0.82);
+  display: flex; flex-direction: column; gap: 2px; text-align: center; max-width: 240px;
+}
+.tag b { font-size: 15px; }
+.tag span { font-size: 12.5px; color: #d8cfbd; line-height: 1.4; }
+.pad {
+  position: fixed; width: 120px; height: 120px; border-radius: 50%; pointer-events: none;
+  background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.knob { position: absolute; left: 35px; top: 35px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); }
+.help {
+  position: fixed; right: max(14px, env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  max-width: 300px; padding: 12px 14px; border-radius: 10px; background: rgba(22, 24, 26, 0.85); font-size: 13.5px; line-height: 1.5;
+}
+.help p { margin: 0 0 6px; }
+.help button { margin-top: 4px; padding: 6px 12px; border: 0; border-radius: 6px; background: #d65b4c; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+[hidden] { display: none !important; }

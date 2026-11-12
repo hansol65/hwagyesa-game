@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>3D 화계사</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" />
+  </head>
+  <body>
+    <canvas id="cv"></canvas>
+    <header class="hud">
+      <span class="title">화계사</span>
+      <span id="place" class="place"></span>
+    </header>
+    <div id="tag" class="tag" hidden></div>
+    <div id="pad" class="pad" hidden><div id="knob" class="knob"></div></div>
+    <div id="help" class="help">
+      <p><b>이동</b> WASD · 방향키 (Shift 빨리) · 폰은 왼쪽 아래를 끌기</p>
+      <p><b>둘러보기</b> 화면 끌기 · 휠로 멀리/가까이</p>
+      <button id="help-close" type="button">알겠어요</button>
+    </div>
+    <script type="module" src="/src/three/main.ts"></script>
+  </body>
+</html>
