@@ -200,11 +200,7 @@ export function Graduated({ game }: { game: GameState }) {
                 {(game.yearReport?.highlights ?? []).slice(0, 3).map((h) => (
                   <li key={h}>{h}</li>
                 ))}
-                <li>
-                  {game.flags.includes("skipped")
-                    ? "대학생회에서 보낸 일요일이 여기서 끝나요."
-                    : "초등학교 1학년 때부터 다닌 일요일이 여기서 한 번 끝나요."}
-                </li>
+                <li>초등학교 1학년 때부터 다닌 일요일이 여기서 한 번 끝나요.</li>
               </ul>
               <div className="coda">
                 <button
@@ -257,11 +253,7 @@ function EndingView({
   // 도감에 없는 엔딩부터 나오게, 이 판을 넣기 전의 도감을 한 번만 읽어 둔다 (다시 그려도 엔딩이 안 바뀌게)
   const [result] = useState(() => computeEnding(game, loadEndings()));
   const ending = result.ending;
-  // 학생회·대학생회부터 시작한 판(앞을 건너뛴 판)은 도감에 넣지 않는다
-  const skipped = game.flags.includes("skipped");
-  const [fresh] = useState(() =>
-    skipped ? false : addEnding(ending.id, game.name),
-  );
+  const [fresh] = useState(() => addEnding(ending.id, game.name));
   const fixEnding = useGame((s) => s.fixEnding);
   useEffect(() => fixEnding(ending.id), [fixEnding, ending.id]);
   const [book, setBook] = useState(false);
@@ -325,11 +317,6 @@ function EndingView({
           {owned.filter((id) => ENDINGS.some((e) => e.id === id)).length} /{" "}
           {ENDINGS.length}
         </button>
-        {skipped && (
-          <p className="from-note">
-            앞을 건너뛴 판이라 이 엔딩은 도감에 안 들어가요.
-          </p>
-        )}
       </div>
       {book && <EndingBook owned={owned} current={ending.id} />}
     </>

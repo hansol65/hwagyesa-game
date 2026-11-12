@@ -77,7 +77,6 @@ const ROLE_CHANCE = 0.6;
 /** 대학생 간사가 되면 일요일은 거의 다시 어린이회·학생회에서 보낸다 */
 const GANSA_ROLE_CHANCE = 0.85;
 /** 갈림길(투표)이 있는 일정. 빠르게 넘기기도 여기서는 멈춘다 */
-export const TURNING_POINTS = ['rep', 'president', 'graduation', 'instrument', 'offer'];
 /** 최근에 본 장면은 이만큼 지나야 다시 나온다 */
 const RECENT_WINDOW = 14;
 
@@ -710,71 +709,6 @@ export function enterUniversity(state: GameState, rng: Rng): GameState {
   });
 }
 
-/**
- * 학생회나 대학생회부터 바로 시작하기. 앞의 회는 '적당히 나간다'로 알아서 지나가고
- * (갈림길은 무작위), 그 회의 첫 일요일에서 멈춘다. 앞의 회는 건너뛴 판이라 'skipped' 표시가 붙는다.
- */
-export function newGameFrom(name: string, gender: Gender, from: Stage, rng: Rng): GameState {
-  let s = newGame(name, gender, rng);
-  if (from === 'kid') return s;
-  const target = STAGE_FIRST_CHAPTER[from];
-  for (let guard = 0; guard < 2000 && s.chapter < target; guard++) {
-    if (s.phase === 'graduated') {
-      s = CHAPTERS[s.chapter].stage === 'kid' ? enterStudent(s, rng) : enterUniversity(s, rng);
-      continue;
-    }
-    if (s.phase === 'yearEnd') {
-      s = startNextYear(s, rng);
-      continue;
-    }
-    if (s.phase === 'result') {
-      s = advance(s, rng);
-      continue;
-    }
-    const before = s;
-    s = autoYear(s, 'normal', rng);
-    if (s === before && s.event) s = choose(s, Math.floor(rng() * s.event.choices.length), rng);
-  }
-  return { ...s, flags: [...s.flags, 'skipped'], log: [], lastNote: null };
-}
-
-// ---------- 한 해 빠르게 넘기기 ----------
-
-export type YearMode = 'eager' | 'normal' | 'rare';
-export const YEAR_MODE_LABEL: Record<YearMode, string> = {
-  eager: '열심히 나간다',
-  normal: '적당히 나간다',
-  rare: '거의 안 나간다',
-};
-const ATTEND_PROB: Record<YearMode, number> = { eager: 0.95, normal: 0.65, rare: 0.2 };
-
-/** 졸업식 같은 전환점이 오면 멈추고, 플레이어가 직접 고르게 둔다 */
-export function autoYear(start: GameState, mode: YearMode, rng: Rng): GameState {
-  let state = start;
-  const chapter = state.chapter;
-  for (let guard = 0; guard < 100; guard++) {
-    if (state.chapter !== chapter) break;
-    if (state.phase === 'result') {
-      state = advance(state, rng);
-      continue;
-    }
-    if (state.phase !== 'play' || !state.event) break;
-    if (TURNING_POINTS.includes(currentSlot(state).kind)) break;
-    const choices = state.event.choices;
-    const hasAttend = choices.some((c) => c.attend !== undefined && c.attend !== null);
-    let index: number;
-    if (hasAttend) {
-      const wantGo = rng() < ATTEND_PROB[mode];
-      const options = choices.map((c, i) => ({ c, i })).filter(({ c }) => (c.attend ?? true) === wantGo);
-      index = options.length ? pick(options, rng).i : 0;
-    } else {
-      index = Math.floor(rng() * choices.length);
-    }
-    state = choose(state, index, rng);
-  }
-  return state;
-}
-
 // ---------- 엔딩 ----------
 
 export function attendRate(state: GameState): number {
@@ -826,10 +760,7 @@ export function computeEnding(state: GameState, owned: string[] = []) {
     .sort((a, b) => rank(b) - rank(a))
     .slice(0, 6)
     .map((c) => fillTokens(c.text, state, () => 0));
-  const titles = (epilogueData.titles as { id: string; name: string; when: Cond }[])
-    .filter((t) => meets(state, t.when))
-    .map((t) => t.name);
-  return { cards: cards.length ? cards : [epilogueData.fallback], titles, ending };
+  return { cards: cards.length ? cards : [epilogueData.fallback], ending };
 }
 
 export interface Ending {

@@ -271,9 +271,6 @@ details.help dd { margin: 0; }
 .field input[type='text']:focus { outline: none; border-bottom-color: var(--seal); }
 fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .choose-one { display: flex; gap: 28px; }
-.choose-one.wrap { flex-wrap: wrap; gap: 10px 24px; }
-.choose-one.wrap label { font-size: 16px; }
-.from-note { margin: 8px 0 0; font-size: 13px; color: var(--ink-faint); }
 .choose-one label { position: relative; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-family: var(--serif); font-size: 18px; color: var(--ink-soft); }
 .choose-one input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
 .choose-one .mark { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--ink-faint); display: grid; place-items: center; }
@@ -307,14 +304,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .diploma { position: relative; }
 .diploma h1 { font-family: var(--brush); font-weight: 400; font-size: clamp(54px, 9vw, 84px); line-height: 1; }
 .diploma .sub { margin-top: 12px; font-family: var(--serif); font-size: 18px; color: var(--ink-soft); }
-.seals { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; list-style: none; padding: 0; }
-.seal {
-  writing-mode: vertical-rl; text-orientation: upright;
-  font-family: var(--serif); font-weight: 700; font-size: 15px; letter-spacing: 0.08em; line-height: 1.15;
-  color: var(--seal); border: 2px solid var(--seal); border-radius: 5px; padding: 9px 6px;
-  transform: rotate(var(--tilt, -2deg));
-  background: color-mix(in srgb, var(--seal) 6%, transparent);
-}
 .diploma-grid { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 40px; margin-top: 34px; align-items: start; }
 @media (max-width: 760px) { .diploma-grid { grid-template-columns: minmax(0, 1fr); } }
 .traits { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; margin: 16px 0 0; }
@@ -400,19 +389,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 @media (prefers-reduced-motion: reduce) { .mg-flash { animation: none; } }
 
 /* 칭호 모음: 얻은 건 낙관, 못 얻은 건 빈 자리 */
-.title-book { margin: 26px 0 8px; }
-.title-book h3 { font-family: var(--serif); font-size: 17px; margin-bottom: 10px; }
-.title-book h3 span { color: var(--ink-soft); font-size: 15px; margin-left: 6px; }
-.title-book ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
-.title-book li {
-  position: relative; padding: 6px 10px; border-radius: 6px; font-size: 14px;
-  border: 1px dashed var(--rule); color: var(--ink-faint); min-width: 44px; text-align: center;
-}
-.title-book li.has { border: 1px solid var(--seal); color: var(--seal); background: color-mix(in srgb, var(--seal) 8%, transparent); }
-.title-book li.fresh { background: var(--seal); color: #fbf6ea; }
-.title-book li small { position: absolute; top: -9px; right: -6px; font-size: 11px; background: #e0ad3e; color: #2b2620; padding: 0 4px; border-radius: 4px; }
 .title-book-open { display: block; margin: 18px auto 0; font-size: 15px; }
-.title-book li.locked { opacity: 0.6; }
 
 /* 피구 게이지: 바늘이 왔다갔다, 가운데 칸에서 누르면 받는다. 빨간 게이지는 던지는 척 */
 .mg-gauge {
@@ -428,8 +405,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
   color: #f3c9c0; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 .mg-dodgeball .mg-flash { top: 22%; }
-.seal { position: relative; }
-.seal-new { position: absolute; top: -10px; right: -10px; writing-mode: horizontal-tb; font-size: 11px; background: #e0ad3e; color: #2b2620; padding: 1px 5px; border-radius: 4px; }
 .mg-tag { display: inline-block; margin-top: 4px; font-size: 13px; color: var(--seal); border: 1px solid currentColor; border-radius: 999px; padding: 1px 8px; }
 .mg-count {
   position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: 7;

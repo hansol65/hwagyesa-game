@@ -4,7 +4,6 @@ dist/
 .DS_Store
 Thumbs.db
 
-# 로컬 도구 설정 (impeccable 스킬 설치본 등)
+# 로컬 도구 설정
 .claude/
-.impeccable/
 dist-phone/
