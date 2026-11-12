@@ -165,29 +165,9 @@ export function buildWorld(scene: THREE.Scene): THREE.Object3D[] {
   scene.add(broadleaf(-18, 0, 17, 1.3));
   scene.add(pine(12, 4.5, -31, 1.1));
 
-  // 마당 위 연등 줄
-  const colors = ['#d9443a', '#e9b23a', '#f1ece0', '#4f9b6e', '#d46a9a', '#4a78b5'];
-  const lanternGeo = new THREE.SphereGeometry(0.32, 10, 8);
-  for (let row = 0; row < 5; row++) {
-    const z = -6 + row * 5;
-    const x0 = -19;
-    const x1 = 12;
-    const n = 26;
-    const line = new THREE.BufferGeometry().setFromPoints(
-      Array.from({ length: n + 1 }, (_, i) => {
-        const t = i / n;
-        return new THREE.Vector3(x0 + (x1 - x0) * t, 9.5 - Math.sin(t * Math.PI) * 0.8, z);
-      }),
-    );
-    scene.add(new THREE.Line(line, new THREE.LineBasicMaterial({ color: '#5a4a3a' })));
-    for (let i = 1; i < n; i++) {
-      const t = i / n;
-      const l = new THREE.Mesh(lanternGeo, new THREE.MeshLambertMaterial({ color: colors[(i + row) % colors.length], emissive: colors[(i + row) % colors.length], emissiveIntensity: 0.25 }));
-      l.scale.y = 1.2;
-      l.position.set(x0 + (x1 - x0) * t, 9.5 - Math.sin(t * Math.PI) * 0.8 - 0.45, z);
-      scene.add(l);
-    }
-  }
+  // 연등 줄: 사진처럼 줄마다 색이 이어지는 무지개 연등을 촘촘히
+  lanternRows(scene, { x0: -20, x1: 12, z0: -8, z1: 16, rows: 9, y: 9.5 });
+  lanternRows(scene, { x0: -14, x1: 14, z0: -48, z1: -40, rows: 4, y: 15.5 });
 
   // 미륵전: 오른쪽 위 축대 위 하얀 아치 (멀리서 보이는 정도)
   const mireuk = new THREE.Group();
@@ -203,4 +183,35 @@ export function buildWorld(scene: THREE.Scene): THREE.Object3D[] {
   mireuk.position.set(40, 0, -18);
   scene.add(mireuk);
   return solids;
+}
+
+const LANTERN = ['#ec5b8f', '#f3c43a', '#4fb06d', '#4a86d0', '#f08a3a', '#d9443a', '#9a6cc8', '#f6f1e4'];
+
+function lanternRows(scene: THREE.Scene, o: { x0: number; x1: number; z0: number; z1: number; rows: number; y: number }) {
+  const n = Math.round((o.x1 - o.x0) / 0.85);
+  const geo = new THREE.SphereGeometry(0.32, 10, 8);
+  geo.scale(1, 1.2, 1);
+  const lamp = new THREE.MeshBasicMaterial({ color: '#ffffff' });
+  const inst = new THREE.InstancedMesh(geo, lamp, o.rows * (n - 1));
+  const m = new THREE.Matrix4();
+  const col = new THREE.Color();
+  let k = 0;
+  for (let row = 0; row < o.rows; row++) {
+    const z = o.z0 + ((o.z1 - o.z0) / Math.max(1, o.rows - 1)) * row;
+    const sag = (t: number) => o.y - Math.sin(t * Math.PI) * 0.8;
+    const line = new THREE.BufferGeometry().setFromPoints(
+      Array.from({ length: n + 1 }, (_, i) => new THREE.Vector3(o.x0 + ((o.x1 - o.x0) * i) / n, sag(i / n), z)),
+    );
+    scene.add(new THREE.Line(line, new THREE.LineBasicMaterial({ color: '#5a4a3a' })));
+    for (let i = 1; i < n; i++) {
+      const t = i / n;
+      m.makeTranslation(o.x0 + (o.x1 - o.x0) * t, sag(t) - 0.45, z);
+      inst.setMatrixAt(k, m);
+      // 한 줄은 거의 한 색, 줄마다 색이 바뀐다 (가끔 섞임)
+      const c = LANTERN[(row + (i % 7 === 0 ? 3 : 0)) % LANTERN.length];
+      inst.setColorAt(k, col.set(c));
+      k++;
+    }
+  }
+  scene.add(inst);
 }

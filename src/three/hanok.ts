@@ -1,6 +1,7 @@
 // 한옥 전각을 코드로 만든다: 돌 기단, 빨간 기둥, 벽, 단청 띠, 처마가 들린 기와지붕.
 import * as THREE from 'three';
 import type { Building } from './layout';
+import { bandMat, doorMat, signboard } from './textures';
 
 const C = {
   stone: '#a7a294',
@@ -95,16 +96,25 @@ export function hipRoof(w: number, d: number, h: number, ridgeRatio = 0.5, curl 
 function story(w: number, d: number, h: number, wall: string) {
   const g = new THREE.Group();
   g.add(box(w - 0.5, h * 0.82, d - 0.5, wall, 0, 0, 0));
-  // 창살 느낌의 초록 틀 (앞뒤 면)
-  const bays = Math.max(2, Math.round(w / 3));
-  for (let i = 0; i < bays; i++) {
-    const x = -w / 2 + (w / bays) * (i + 0.5);
-    for (const z of [d / 2 - 0.22, -d / 2 + 0.22]) {
-      const frame = box(w / bays - 1.1, h * 0.5, 0.08, C.frame, x, h * 0.16, z);
-      frame.castShadow = false;
-      g.add(frame);
+  // 창호: 초록 살에 흰 창호지. 칸마다 문 서너 짝
+  const doors = (len: number, along: 'x' | 'z', off: number) => {
+    const bays = Math.max(2, Math.round(len / 3));
+    const bw = len / bays - 0.7;
+    for (let i = 0; i < bays; i++) {
+      const t = -len / 2 + (len / bays) * (i + 0.5);
+      for (const side of [off, -off]) {
+        const m = new THREE.Mesh(
+          along === 'x' ? new THREE.BoxGeometry(bw, h * 0.62, 0.08) : new THREE.BoxGeometry(0.08, h * 0.62, bw),
+          doorMat(bw / 0.9),
+        );
+        if (along === 'x') m.position.set(t, h * 0.06 + h * 0.31, side);
+        else m.position.set(side, h * 0.06 + h * 0.31, t);
+        g.add(m);
+      }
     }
-  }
+  };
+  doors(w, 'x', d / 2 - 0.22);
+  doors(d, 'z', w / 2 - 0.22);
   // 기둥
   const pillarGeo = new THREE.CylinderGeometry(0.22, 0.26, h, 8);
   const cols = Math.max(2, Math.round(w / 3.2));
@@ -126,7 +136,9 @@ function story(w: number, d: number, h: number, wall: string) {
     put(-w / 2, z);
   }
   // 단청 띠
-  g.add(box(w + 0.3, 0.55, d + 0.3, C.band, 0, h - 0.55, 0));
+  const bandBox = new THREE.Mesh(new THREE.BoxGeometry(w + 0.3, 0.55, d + 0.3), bandMat(Math.max(w, d) / 3));
+  bandBox.position.y = h - 0.55 + 0.275;
+  g.add(bandBox);
   g.add(box(w + 0.32, 0.12, d + 0.32, C.bandRed, 0, h - 0.62, 0));
   return g;
 }
@@ -147,28 +159,95 @@ function balcony(w: number, d: number, y: number) {
   return g;
 }
 
-/** 범종각: 기둥만 있는 2층 누각, 안에 종 */
+/** 여러 모(육각 등) 지붕. 꼭짓점에서 처마가 들린다 */
+function polyRoof(sides: number, r: number, h: number, curl = 1) {
+  const N = 8;
+  const pos: number[] = [];
+  const idx: number[] = [];
+  for (let k = 0; k < sides; k++) {
+    const a0 = (k / sides) * Math.PI * 2;
+    const a1 = ((k + 1) / sides) * Math.PI * 2;
+    const base = pos.length / 3;
+    for (let i = 0; i <= N; i++) {
+      const t = i / N;
+      for (let j = 0; j <= N; j++) {
+        const s = j / N;
+        const ex = Math.cos(a0) * r * (1 - s) + Math.cos(a1) * r * s;
+        const ez = Math.sin(a0) * r * (1 - s) + Math.sin(a1) * r * s;
+        const corner = Math.pow(Math.abs(s - 0.5) * 2, 3);
+        const y = h * Math.pow(t, 1.6) + curl * corner * Math.pow(1 - t, 2);
+        pos.push(ex * (1 - t), y, ez * (1 - t));
+      }
+    }
+    for (let i = 0; i < N; i++)
+      for (let j = 0; j < N; j++) {
+        const a = base + i * (N + 1) + j;
+        idx.push(a, a + N + 1, a + 1, a + 1, a + N + 1, a + N + 2);
+      }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setIndex(idx);
+  geo.computeVertexNormals();
+  const roof = new THREE.Mesh(geo, mat(C.roof, { side: THREE.DoubleSide }));
+  roof.castShadow = true;
+  const g = new THREE.Group();
+  g.add(roof);
+  // 꼭대기 절병통
+  const top = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.35, 0.9, 8), mat(C.roofEdge));
+  top.position.y = h + 0.3;
+  g.add(top);
+  return g;
+}
+
+/** 범종각: 2층 육각 누각. 아래층은 막힌 벽, 위층은 빨간 난간을 두른 열린 누각에 초록빛 동종 */
 function pavilion(b: Building) {
   const g = new THREE.Group();
-  g.add(box(b.w + 1, 0.8, b.d + 1, C.stone));
+  const r = b.w / 2;
+  const corners = Array.from({ length: 6 }, (_, k) => {
+    const a = (k / 6) * Math.PI * 2;
+    return [Math.cos(a) * r, Math.sin(a) * r] as const;
+  });
+  const hex = (rad: number, hh: number, color: string | THREE.Material, y: number) => {
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad, hh, 6), typeof color === 'string' ? mat(color) : color);
+    m.position.y = y + hh / 2;
+    m.castShadow = true;
+    m.receiveShadow = true;
+    g.add(m);
+    return m;
+  };
+  hex(r + 0.6, 0.8, C.stone, 0);
   const h = b.storyH * b.stories;
   const pillarGeo = new THREE.CylinderGeometry(0.24, 0.28, h, 8);
-  for (const [x, z] of [
-    [-1, -1],
-    [1, -1],
-    [-1, 1],
-    [1, 1],
-  ]) {
+  for (const [x, z] of corners) {
     const p = new THREE.Mesh(pillarGeo, mat(C.pillar));
-    p.position.set((x * b.w) / 2, 0.8 + h / 2, (z * b.d) / 2);
+    p.position.set(x, 0.8 + h / 2, z);
     p.castShadow = true;
     g.add(p);
   }
-  // 아래층은 막힌 벽, 위층은 열린 누각
-  g.add(box(b.w - 0.6, b.storyH * 0.9, b.d - 0.6, '#e9d27a', 0, 0.8, 0));
-  g.add(box(b.w + 0.3, 0.3, b.d + 0.3, C.stoneDark, 0, 0.8 + b.storyH, 0));
-  g.add(balcony(b.w - 1.6, b.d - 1.6, 0.8 + b.storyH + 0.3));
-  // 종
+  hex(r - 0.25, b.storyH * 0.92, C.wall, 0.8);
+  hex(r + 0.35, 0.3, C.stoneDark, 0.8 + b.storyH);
+  // 위층 난간
+  const railY = 0.8 + b.storyH + 0.3;
+  const rr = r + 0.2;
+  for (let k = 0; k < 6; k++) {
+    const a0 = (k / 6) * Math.PI * 2;
+    const a1 = ((k + 1) / 6) * Math.PI * 2;
+    const x0 = Math.cos(a0) * rr;
+    const z0 = Math.sin(a0) * rr;
+    const x1 = Math.cos(a1) * rr;
+    const z1 = Math.sin(a1) * rr;
+    const len = Math.hypot(x1 - x0, z1 - z0);
+    const rail = box(len, 0.12, 0.12, C.rail);
+    rail.position.set((x0 + x1) / 2, railY + 0.9, (z0 + z1) / 2);
+    rail.rotation.y = -Math.atan2(z1 - z0, x1 - x0);
+    g.add(rail);
+    for (let i = 1; i < 4; i++) {
+      const t = i / 4;
+      g.add(box(0.09, 0.9, 0.09, C.rail, x0 + (x1 - x0) * t, railY, z0 + (z1 - z0) * t));
+    }
+  }
+  // 종 (오래된 동종이라 초록빛이 돈다)
   const bellPts = [
     new THREE.Vector2(0.05, 1.6),
     new THREE.Vector2(0.55, 1.5),
@@ -176,12 +255,13 @@ function pavilion(b: Building) {
     new THREE.Vector2(0.85, 0.3),
     new THREE.Vector2(1.0, 0),
   ];
-  const bell = new THREE.Mesh(new THREE.LatheGeometry(bellPts, 16), mat('#6f5a32', { side: THREE.DoubleSide }));
+  const bell = new THREE.Mesh(new THREE.LatheGeometry(bellPts, 16), mat('#5d7a63', { side: THREE.DoubleSide }));
   bell.position.set(0, 0.8 + b.storyH + 0.6, 0);
   bell.castShadow = true;
   g.add(bell);
-  g.add(box(b.w + 0.3, 0.5, b.d + 0.3, C.band, 0, 0.8 + h - 0.5, 0));
-  const roof = hipRoof(b.w + 3, b.d + 3, 2.6, 0.25, 1.0);
+  const bandM = bandMat(6);
+  hex(r + 0.15, 0.5, bandM, 0.8 + h - 0.5);
+  const roof = polyRoof(6, r + 1.8, 2.6, 1.0);
   roof.position.y = 0.8 + h;
   g.add(roof);
   return g;
@@ -198,7 +278,9 @@ function gate(b: Building) {
     g.add(p);
     g.add(box(1, 0.5, 1, C.stone, x, 0, 0));
   }
-  g.add(box(b.w, 0.7, 1.1, C.band, 0, h - 0.7, 0));
+  const gb = new THREE.Mesh(new THREE.BoxGeometry(b.w, 0.7, 1.1), bandMat(3));
+  gb.position.y = h - 0.35;
+  g.add(gb);
   const roof = hipRoof(b.w + 2.4, 3.2, 1.8, 0.55, 0.8);
   roof.position.y = h;
   g.add(roof);
@@ -246,6 +328,43 @@ export function buildBuilding(b: Building): THREE.Group {
       y += b.storyH;
     }
   }
+  if (b.sign) g.add(hangSign(b));
   g.position.set(b.x, b.y, b.z);
   return g;
+}
+
+/** 현판을 정면 처마 밑에 건다 */
+function hangSign(b: Building) {
+  const holder = new THREE.Group();
+  let y: number;
+  let half: number; // 정면까지 거리 (정면 쪽 축 기준)
+  let height: number;
+  if (b.kind === 'pavilion') {
+    y = 0.8 + b.storyH * b.stories - 1.15;
+    half = b.w / 2 + 0.45;
+    height = 0.75;
+  } else if (b.kind === 'gate') {
+    y = b.storyH - 1.45;
+    half = 0.6;
+    height = 0.8;
+  } else {
+    // 대적광전은 3층 법당 입구에, 나머지는 맨 위층에
+    const i = b.id === 'daejeok' ? 2 : b.stories - 1;
+    const shrink = 1 - i * 0.05;
+    const along = b.face === '+x' || b.face === '-x' ? b.w : b.d;
+    y = 0.7 + i * b.storyH + b.storyH - 1.25;
+    half = (along * shrink) / 2 + 0.4;
+    height = Math.min(1.3, Math.max(0.75, b.storyH * 0.22));
+  }
+  const sign = signboard(b.sign!, height);
+  sign.position.set(0, y, half);
+  holder.add(sign);
+  if (b.kind === 'gate') {
+    const back = signboard(b.sign!, height);
+    back.position.set(0, y, -half);
+    back.rotation.y = Math.PI;
+    holder.add(back);
+  }
+  holder.rotation.y = { '+z': 0, '-z': Math.PI, '+x': Math.PI / 2, '-x': -Math.PI / 2 }[b.face ?? '+z'];
+  return holder;
 }
