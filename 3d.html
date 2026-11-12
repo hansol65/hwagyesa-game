@@ -16,8 +16,17 @@
     </header>
     <div id="tag" class="tag" hidden></div>
     <div id="pad" class="pad" hidden><div id="knob" class="knob"></div></div>
+    <button id="mute" class="mute" type="button" aria-pressed="false">소리 끄기</button>
+    <button id="act" class="act" type="button" hidden></button>
+    <div id="sit" class="sit" hidden>
+      <div id="breath" class="breath"><span id="breath-word">들이쉬고</span></div>
+      <p id="sit-text"></p>
+      <p class="sit-time" id="sit-time">0:00</p>
+      <button id="stand" type="button">일어나기</button>
+    </div>
     <div id="help" class="help">
       <p><b>이동</b> WASD · 방향키 (Shift 빨리) · 폰은 왼쪽 아래를 끌기</p>
+      <p><b>들어가기·앉기</b> E 또는 화면의 버튼. 대적광전 3층 법당과 보륜당에 들어갈 수 있어요</p>
       <p><b>둘러보기</b> 화면 끌기 · 휠로 멀리/가까이</p>
       <button id="help-close" type="button">알겠어요</button>
     </div>

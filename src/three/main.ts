@@ -1,9 +1,12 @@
 // 3D 화계사: 진입로에서 출발해 마당, 대적광전, 범종각, 돌계단, 윗마당까지 걸어 다닌다.
+// 실내는 두 곳: 대적광전 3층 법당(법문을 들으며 앉아 있기), 보륜당(음악을 들으며 명상).
 import * as THREE from 'three';
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import './three.css';
 import { BUILDINGS, DOORS, groundAt, insideBuilding } from './layout';
 import { buildWorld } from './world';
+import { buildBeopdang, buildBoryun, type Room, type Seat } from './interior';
+import { isMuted, play, setMuted, type Track } from './audio';
 
 const canvas = document.getElementById('cv') as HTMLCanvasElement;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -11,25 +14,33 @@ renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color('#bcd6e6');
-scene.fog = new THREE.Fog('#bcd6e6', 90, 320);
-
+// ---------- 바깥 ----------
+const outdoor = new THREE.Scene();
+outdoor.background = new THREE.Color('#bcd6e6');
+outdoor.fog = new THREE.Fog('#bcd6e6', 90, 320);
 const sun = new THREE.DirectionalLight('#fff3df', 2.2);
-sun.position.set(-60, 90, 50);
 sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048);
-const sc = sun.shadow.camera;
-sc.left = -90;
-sc.right = 90;
-sc.top = 90;
-sc.bottom = -90;
-sc.far = 300;
-scene.add(sun, sun.target);
-scene.add(new THREE.HemisphereLight('#dfefff', '#6b7a4a', 1.4));
+Object.assign(sun.shadow.camera, { left: -90, right: 90, top: 90, bottom: -90, far: 300 });
+outdoor.add(sun, sun.target);
+outdoor.add(new THREE.HemisphereLight('#dfefff', '#6b7a4a', 1.4));
+const outdoorSolids = buildWorld(outdoor);
 
-const solids = buildWorld(scene);
-const ray = new THREE.Raycaster();
+// ---------- 실내 ----------
+type PlaceId = 'outdoor' | 'beopdang' | 'boryun';
+const rooms: Record<Exclude<PlaceId, 'outdoor'>, Room & { track: Track; sitText: string; meditate: boolean }> = {
+  beopdang: { ...buildBeopdang(), track: 'dharma', sitText: '법문이 흘러나와요. 가만히 들어 보세요.', meditate: false },
+  boryun: { ...buildBoryun(), track: 'calm', sitText: '숨을 따라가 보세요.', meditate: true },
+};
+/** 바깥의 문: 다가가면 '들어가기' */
+const ENTRANCES: { room: Exclude<PlaceId, 'outdoor'>; x: number; z: number; y: number; label: string; out: { x: number; z: number; yaw: number } }[] = [
+  { room: 'beopdang', x: -21.2, z: -44, y: 9, label: '법당 들어가기', out: { x: -19.4, z: -44, yaw: Math.PI / 2 } },
+  { room: 'boryun', x: 16.1, z: -4, y: 0, label: '보륜당 들어가기', out: { x: 14.6, z: -4, yaw: -Math.PI / 2 } },
+];
+
+let place: PlaceId = 'outdoor';
+const sceneOf = () => (place === 'outdoor' ? outdoor : rooms[place].scene);
+const solidsOf = () => (place === 'outdoor' ? outdoorSolids : rooms[place].solids);
 
 // ---------- 주인공 ----------
 const hero = new THREE.Group();
@@ -46,26 +57,29 @@ const hero = new THREE.Group();
   for (const m of [body, legs, head, hair]) m.castShadow = true;
   hero.add(body, legs, head, hair);
 }
-scene.add(hero);
+outdoor.add(hero);
 
 const START = { x: 1, z: 40 };
 const P = { x: START.x, z: START.z, y: groundAt(START.x, START.z)!.y, yaw: Math.PI, walk: 0 };
-let camYaw = 0; // 카메라가 바라보는 방향 (0 = 북쪽, -z)
+let camYaw = 0; // 0이면 카메라가 남쪽(+z)에서 북쪽을 본다
 let camPitch = 0.38;
 let camDist = 11;
+let sitting: Seat | null = null;
+let sitTime = 0;
 
 const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 900);
 
 // ---------- 입력 ----------
 const keys = new Set<string>();
 addEventListener('keydown', (e) => {
-  keys.add(e.key.toLowerCase());
-  if (e.key.startsWith('Arrow')) e.preventDefault();
+  const k = e.key.toLowerCase();
+  keys.add(k);
+  if (e.key.startsWith('Arrow') || k === ' ') e.preventDefault();
+  if ((k === 'e' || k === ' ' || k === 'enter') && !e.repeat) act();
 });
 addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
 addEventListener('blur', () => keys.clear());
 
-// 화면 끌기: 카메라 돌리기 (마우스·터치 모두). 터치 왼쪽 아래는 조이스틱.
 const stick = { active: false, id: -1, ox: 0, oy: 0, dx: 0, dy: 0 };
 const drag = { id: -1, x: 0, y: 0 };
 const knob = document.getElementById('knob')!;
@@ -73,18 +87,12 @@ const pad = document.getElementById('pad')!;
 canvas.addEventListener('pointerdown', (e) => {
   const isTouch = e.pointerType !== 'mouse';
   if (isTouch && e.clientX < innerWidth * 0.45 && e.clientY > innerHeight * 0.45 && !stick.active) {
-    stick.active = true;
-    stick.id = e.pointerId;
-    stick.ox = e.clientX;
-    stick.oy = e.clientY;
-    stick.dx = stick.dy = 0;
+    Object.assign(stick, { active: true, id: e.pointerId, ox: e.clientX, oy: e.clientY, dx: 0, dy: 0 });
     pad.style.left = `${e.clientX - 60}px`;
     pad.style.top = `${e.clientY - 60}px`;
     pad.hidden = false;
   } else if (drag.id === -1) {
-    drag.id = e.pointerId;
-    drag.x = e.clientX;
-    drag.y = e.clientY;
+    Object.assign(drag, { id: e.pointerId, x: e.clientX, y: e.clientY });
   }
   canvas.setPointerCapture(e.pointerId);
 });
@@ -109,9 +117,7 @@ canvas.addEventListener('pointermove', (e) => {
 });
 const release = (e: PointerEvent) => {
   if (e.pointerId === stick.id) {
-    stick.active = false;
-    stick.id = -1;
-    stick.dx = stick.dy = 0;
+    Object.assign(stick, { active: false, id: -1, dx: 0, dy: 0 });
     knob.style.transform = '';
     pad.hidden = true;
   }
@@ -122,19 +128,125 @@ canvas.addEventListener('pointercancel', release);
 canvas.addEventListener(
   'wheel',
   (e) => {
-    camDist = Math.min(60, Math.max(4, camDist + e.deltaY * 0.01));
+    camDist = Math.min(place === 'outdoor' ? 60 : 7, Math.max(3, camDist + e.deltaY * 0.01));
     e.preventDefault();
   },
   { passive: false },
 );
 
-// ---------- 이름표 ----------
+// ---------- 화면 글자 ----------
 const placeEl = document.getElementById('place')!;
 const tagEl = document.getElementById('tag')!;
+const actBtn = document.getElementById('act') as HTMLButtonElement;
+const sitEl = document.getElementById('sit')!;
+const sitTextEl = document.getElementById('sit-text')!;
+const breathEl = document.getElementById('breath')!;
+const breathWord = document.getElementById('breath-word')!;
+const sitTimeEl = document.getElementById('sit-time')!;
+const muteBtn = document.getElementById('mute') as HTMLButtonElement;
+muteBtn.addEventListener('click', () => {
+  setMuted(!isMuted());
+  muteBtn.textContent = isMuted() ? '소리 켜기' : '소리 끄기';
+  muteBtn.setAttribute('aria-pressed', String(isMuted()));
+});
+actBtn.addEventListener('click', act);
+document.getElementById('stand')!.addEventListener('click', stand);
+
 const POINTS = [
   ...BUILDINGS.map((b) => ({ name: b.name, note: b.note, x: b.x, z: b.z, y: b.y + b.stories * b.storyH + 1.5, r: Math.max(b.w, b.d) / 2 + 7 })),
   ...DOORS.map((d) => ({ name: d.name, note: '', x: d.x, z: d.z, y: d.y + 3, r: 5 })),
 ];
+
+// ---------- 근처에서 할 수 있는 일 ----------
+type Action = { label: string; run: () => void } | null;
+function nearAction(): Action {
+  if (sitting) return null;
+  if (place === 'outdoor') {
+    for (const d of ENTRANCES) {
+      if (Math.hypot(d.x - P.x, d.z - P.z) < 2.6 && Math.abs(d.y - P.y) < 1) return { label: d.label, run: () => enter(d.room) };
+    }
+    return null;
+  }
+  const r = rooms[place];
+  let best: Seat | null = null;
+  let bestD = 1.1;
+  for (const s of r.seats) {
+    const d = Math.hypot(s.x - P.x, s.z - P.z);
+    if (d < bestD) {
+      best = s;
+      bestD = d;
+    }
+  }
+  if (best) {
+    const seat = best;
+    return { label: r.meditate ? '앉아서 명상하기' : '앉아서 법문 듣기', run: () => sit(seat) };
+  }
+  if (Math.hypot(r.exit.x - P.x, r.exit.z - P.z) < 1.5) return { label: '나가기', run: leave };
+  return null;
+}
+function act() {
+  if (sitting) return stand();
+  nearAction()?.run();
+}
+
+function moveHeroTo(scene: THREE.Scene) {
+  hero.removeFromParent();
+  scene.add(hero);
+}
+
+function enter(id: Exclude<PlaceId, 'outdoor'>) {
+  const r = rooms[id];
+  place = id;
+  moveHeroTo(r.scene);
+  Object.assign(P, { x: r.entry.x, z: r.entry.z, y: 0, yaw: r.entry.yaw });
+  camYaw = r.entry.yaw - Math.PI;
+  // 방 안은 좁아서 조금 위에서 내려다본다
+  camPitch = 0.62;
+  camDist = 5;
+  play(r.track);
+}
+function leave() {
+  const from = place as Exclude<PlaceId, 'outdoor'>;
+  const d = ENTRANCES.find((e) => e.room === from)!;
+  place = 'outdoor';
+  moveHeroTo(outdoor);
+  const g = groundAt(d.out.x, d.out.z)!;
+  Object.assign(P, { x: d.out.x, z: d.out.z, y: g.y, yaw: d.out.yaw });
+  // 등 뒤는 방금 나온 건물이라, 카메라는 앞쪽에서 문을 나서는 모습을 본다
+  camYaw = d.out.yaw;
+  camPitch = 0.42;
+  camDist = 10;
+  play(null);
+}
+function sit(s: Seat) {
+  sitting = s;
+  sitTime = 0;
+  Object.assign(P, { x: s.x, z: s.z, yaw: s.yaw });
+  const r = rooms[place as Exclude<PlaceId, 'outdoor'>];
+  sitTextEl.textContent = r.sitText;
+  breathEl.hidden = !r.meditate;
+  sitEl.hidden = false;
+  document.body.classList.add('sitting');
+}
+function stand() {
+  sitting = null;
+  sitEl.hidden = true;
+  document.body.classList.remove('sitting');
+}
+
+// ---------- 걷기 ----------
+function canStand(x: number, z: number): { y: number } | null {
+  if (place === 'outdoor') {
+    const g = groundAt(x, z);
+    if (!g || Math.abs(g.y - P.y) > 0.9 || insideBuilding(x, z, g.y)) return null;
+    return g;
+  }
+  const r = rooms[place];
+  const f = r.floor;
+  if (x < f.x0 || x > f.x1 || z < f.z0 || z > f.z1) return null;
+  if (r.blocks.some((b) => x > b.x0 - 0.3 && x < b.x1 + 0.3 && z > b.z0 - 0.3 && z < b.z1 + 0.3)) return null;
+  return { y: 0 };
+}
 
 function move(dt: number) {
   let fx = 0;
@@ -152,12 +264,12 @@ function move(dt: number) {
     P.walk = 0;
     return;
   }
+  if (sitting) stand();
   if (len > 1) {
     fx /= len;
     fz /= len;
   }
-  const speed = (keys.has('shift') ? 9 : 5.5) * dt;
-  // 카메라 기준: 앞 = (sin(-yaw), -cos(yaw))
+  const speed = (keys.has('shift') ? 9 : place === 'outdoor' ? 5.5 : 3) * dt;
   const fwdX = -Math.sin(camYaw);
   const fwdZ = -Math.cos(camYaw);
   const rightX = Math.cos(camYaw);
@@ -165,27 +277,25 @@ function move(dt: number) {
   const mx = (fwdX * fz + rightX * fx) * speed;
   const mz = (fwdZ * fz + rightZ * fx) * speed;
   const tryStep = (nx: number, nz: number) => {
-    const g = groundAt(nx, nz);
-    if (!g || Math.abs(g.y - P.y) > 0.9) return false;
-    if (insideBuilding(nx, nz, g.y)) return false;
-    P.x = nx;
-    P.z = nz;
-    P.y = g.y;
+    const g = canStand(nx, nz);
+    if (!g) return false;
+    Object.assign(P, { x: nx, z: nz, y: g.y });
     return true;
   };
-  if (!tryStep(P.x + mx, P.z + mz)) {
-    // 벽에 비스듬히 닿으면 미끄러지듯
-    tryStep(P.x + mx, P.z) || tryStep(P.x, P.z + mz);
-  }
+  if (!tryStep(P.x + mx, P.z + mz)) tryStep(P.x + mx, P.z) || tryStep(P.x, P.z + mz);
   P.yaw = Math.atan2(mx, mz);
   P.walk += dt;
 }
 
+// ---------- 이름표·버튼 ----------
 const v = new THREE.Vector3();
-function updateLabels() {
-  const g = groundAt(P.x, P.z);
-  placeEl.textContent = g?.name ?? '';
-  // 가장 가까운 전각·문
+function updateHud() {
+  placeEl.textContent = place === 'outdoor' ? (groundAt(P.x, P.z)?.name ?? '') : rooms[place].name;
+  const a = nearAction();
+  actBtn.hidden = !a;
+  if (a) actBtn.textContent = a.label;
+  tagEl.hidden = true;
+  if (place !== 'outdoor') return;
   let best: (typeof POINTS)[number] | null = null;
   let bestD = Infinity;
   for (const p of POINTS) {
@@ -195,15 +305,9 @@ function updateLabels() {
       bestD = d;
     }
   }
-  if (!best) {
-    tagEl.hidden = true;
-    return;
-  }
+  if (!best) return;
   v.set(best.x, best.y, best.z).project(camera);
-  if (v.z > 1) {
-    tagEl.hidden = true;
-    return;
-  }
+  if (v.z > 1) return;
   tagEl.hidden = false;
   tagEl.innerHTML = `<b>${best.name}</b>${best.note ? `<span>${best.note}</span>` : ''}`;
   const x = Math.min(innerWidth - 120, Math.max(120, (v.x * 0.5 + 0.5) * innerWidth));
@@ -211,43 +315,88 @@ function updateLabels() {
   tagEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%)`;
 }
 
+/** 명상 숨: 4초 들이쉬고 6초 내쉬기 */
+function updateSitting(dt: number) {
+  if (!sitting) return;
+  sitTime += dt;
+  const m = Math.floor(sitTime / 60);
+  const s = Math.floor(sitTime % 60);
+  sitTimeEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+  const c = sitTime % 10;
+  const inhale = c < 4;
+  const k = inhale ? c / 4 : 1 - (c - 4) / 6;
+  breathEl.style.setProperty('--k', String(0.55 + k * 0.45));
+  breathWord.textContent = inhale ? '들이쉬고' : '내쉬고';
+}
+
 function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   camera.aspect = innerWidth / innerHeight;
-  // 세로 화면(폰)은 옆이 좁으니 시야를 넓힌다
   camera.fov = camera.aspect < 1 ? 72 : 55;
   camera.updateProjectionMatrix();
 }
 addEventListener('resize', resize);
 resize();
 
+const ray = new THREE.Raycaster();
 let last = performance.now();
 function frame(now: number) {
   const dt = Math.min(0.05, (now - last) / 1000);
   last = now;
   move(dt);
+  updateSitting(dt);
   const bob = P.walk ? Math.abs(Math.sin(P.walk * 10)) * 0.08 : 0;
-  hero.position.set(P.x, P.y + bob, P.z);
+  hero.position.set(P.x, P.y + bob - (sitting ? 0.45 : 0), P.z);
+  hero.scale.y = sitting ? 0.82 : 1;
   hero.rotation.y = P.yaw;
-  // 카메라는 주인공 뒤 위에서
-  const target = new THREE.Vector3(P.x, P.y + 1.6, P.z);
+
+  const eye = sitting ? 1.0 : 1.6;
+  const target = new THREE.Vector3(P.x, P.y + eye, P.z);
+  // 앉아 있으면 카메라가 천천히 등 뒤 낮은 자리로
+  if (sitting) {
+    camYaw += (wrap(P.yaw - Math.PI - camYaw) * Math.min(1, dt * 1.5));
+    camPitch += (0.35 - camPitch) * Math.min(1, dt * 1.5);
+    camDist += (3.2 - camDist) * Math.min(1, dt * 1.5);
+  }
   const dir = new THREE.Vector3(Math.sin(camYaw) * Math.cos(camPitch), Math.sin(camPitch), Math.cos(camYaw) * Math.cos(camPitch));
-  // 건물이나 축대가 사이에 있으면 카메라를 그 앞으로 당긴다
   ray.set(target, dir);
   ray.far = camDist;
-  const hit = ray.intersectObjects(solids, true)[0];
-  const dist = hit ? Math.max(1.2, hit.distance - 0.4) : camDist;
+  const hit = ray.intersectObjects(solidsOf(), true)[0];
+  const dist = hit ? Math.max(1.0, hit.distance - 0.3) : camDist;
   camera.position.copy(target).addScaledVector(dir, dist);
+  if (place !== 'outdoor') {
+    // 방 안에서는 카메라가 벽·천장 밖으로 나가지 않게
+    const r = rooms[place];
+    camera.position.x = Math.min(r.floor.x1 + 0.2, Math.max(r.floor.x0 - 0.2, camera.position.x));
+    camera.position.z = Math.min(r.floor.z1, Math.max(r.floor.z0 - 0.2, camera.position.z));
+    camera.position.y = Math.min(r.height - 0.4, Math.max(0.4, camera.position.y));
+  }
   camera.lookAt(target);
-  sun.target.position.set(P.x, P.y, P.z);
-  sun.position.set(P.x - 60, P.y + 90, P.z + 50);
-  updateLabels();
-  renderer.render(scene, camera);
+  // 앉아 있으면 내 눈으로: 몸은 감추고, 앉은 방향(불단·초)을 조금 내려다본다
+  hero.visible = !sitting;
+  if (sitting) {
+    const fx = Math.sin(P.yaw);
+    const fz = Math.cos(P.yaw);
+    camera.position.set(P.x - fx * 0.2, 1.15, P.z - fz * 0.2);
+    camera.lookAt(P.x + fx * 4, 0.9, P.z + fz * 4);
+  }
+  if (place === 'outdoor') {
+    sun.target.position.set(P.x, P.y, P.z);
+    sun.position.set(P.x - 60, P.y + 90, P.z + 50);
+  }
+  updateHud();
+  renderer.render(sceneOf(), camera);
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
 
-// 개발할 때만: 콘솔에서 위치·카메라를 바꿔 볼 수 있게
+function wrap(a: number) {
+  while (a > Math.PI) a -= Math.PI * 2;
+  while (a < -Math.PI) a += Math.PI * 2;
+  return a;
+}
+
+// 개발할 때만: 콘솔에서 위치·카메라·방을 바꿔 볼 수 있게
 if (import.meta.env.DEV) {
   (globalThis as unknown as { __hw: unknown }).__hw = {
     go(x: number, z: number) {
@@ -259,6 +408,10 @@ if (import.meta.env.DEV) {
       camPitch = pitch;
       camDist = dist;
     },
+    enter,
+    leave,
+    act,
+    P,
   };
 }
 
