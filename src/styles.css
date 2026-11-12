@@ -15,9 +15,10 @@
   --lantern-gold: #d9a53a;
   --lantern-pink: #cf7497;
   --lantern-green: #4f8f68;
-  --brush: 'Nanum Brush Script', 'Gowun Batang', serif;
-  --serif: 'Gowun Batang', 'Nanum Myeongjo', 'Batang', serif;
-  --sans: 'Gowun Dodum', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --brush: 'Nanum Brush Script', var(--sans);
+  /* 제목 '화계사 이야기'만 붓글씨, 나머지는 모두 Pretendard */
+  --sans: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --serif: var(--sans);
   --paper-grain-opacity: 0.5;
   color-scheme: light;
 }
@@ -341,7 +342,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .held-prop { position: absolute; left: 62%; bottom: 30%; width: auto; image-rendering: auto; }
 .countdown {
   position: absolute; left: 0; right: 0; top: 10%; text-align: center;
-  font-family: var(--brush); font-size: clamp(30px, 6vw, 52px); color: #fbf6ea;
+  font-family: var(--sans); font-weight: 800; letter-spacing: -0.02em; font-size: clamp(26px, 5vw, 44px); color: #fbf6ea;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 .flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
@@ -381,7 +382,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .mg-note.missed { opacity: 0.35; }
 .mg-flash {
   position: absolute; left: 24%; top: 10%; transform: translateX(-50%); z-index: 6;
-  font-family: var(--brush); font-size: clamp(24px, 4.5vw, 38px); color: #f3c9c0;
+  font-family: var(--sans); font-weight: 800; font-size: clamp(20px, 3.8vw, 32px); color: #f3c9c0;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); animation: pop 0.45s ease-out both;
 }
 .mg-flash.good { color: #fbe7a8; }
@@ -389,7 +390,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .mg-score { position: absolute; right: 3%; top: 4%; z-index: 6; color: #fbf6ea; font-size: 18px; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); }
 .mg-button {
   display: block; width: 100%; padding: 18px; border-radius: 12px; border: 0;
-  background: var(--seal); color: #fbf6ea; font-family: var(--brush); font-size: 30px; cursor: pointer;
+  background: var(--seal); color: #fbf6ea; font-family: var(--sans); font-weight: 800; font-size: 24px; cursor: pointer;
   touch-action: manipulation; user-select: none;
 }
 .mg-button small { font-family: var(--sans); font-size: 13px; opacity: 0.75; margin-left: 8px; }
@@ -423,7 +424,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .mg-gauge.fake { border-color: #e06a5a; }
 .mg-gauge.fake .zone { background: #c24a3c; }
 .mg-call {
-  position: absolute; right: 6%; top: 22%; z-index: 6; font-family: var(--brush); font-size: clamp(20px, 3.6vw, 30px);
+  position: absolute; right: 6%; top: 22%; z-index: 6; font-family: var(--sans); font-weight: 800; font-size: clamp(17px, 3vw, 24px);
   color: #f3c9c0; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 .mg-dodgeball .mg-flash { top: 22%; }
@@ -540,3 +541,83 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .ending-lightbox .lb-bar { display: flex; justify-content: space-between; gap: 12px; padding: 8px 18px 14px; }
 @keyframes lb-in { from { opacity: 0; transform: scale(0.97); } }
 @media (prefers-reduced-motion: reduce) { .ending-lightbox[open] { animation: none; } }
+
+/* ---- Pretendard 조정: 붓글씨는 제목 '화계사 이야기'와 졸업 사진 속 손글씨에만 ---- */
+body { font-feature-settings: 'ss06'; letter-spacing: -0.005em; }
+.scene-title, .festive .scene-title, .year h2, .ending-card h1, .sub-title { font-family: var(--sans); font-weight: 700; letter-spacing: -0.025em; }
+.festive .scene-title { font-size: clamp(28px, 3.6vw, 36px); line-height: 1.2; }
+.diploma h1 { font-family: var(--sans); font-weight: 800; font-size: clamp(34px, 5vw, 46px); letter-spacing: -0.03em; line-height: 1.15; }
+.story { font-size: 17px; line-height: 1.8; letter-spacing: -0.01em; }
+.choice .label { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; }
+.ending-card .ending-text { font-size: 16.5px; line-height: 1.8; }
+.diary li { font-size: 16px; line-height: 1.7; }
+.start .lead { font-size: 16px; line-height: 1.75; }
+/* 붓선 장식은 붓글씨 제목과 짝이라 본문이 Pretendard가 된 뒤로는 뺀다 */
+.brushline { display: none; }
+.scene-title { margin-bottom: 14px; }
+
+/* 선택지: 문서 목록이 아니라 누르는 버튼으로 보이게 */
+.choices { gap: 8px; }
+.choice {
+  grid-template-columns: 26px minmax(0, 1fr); gap: 4px 12px; align-items: center;
+  padding: 13px 16px 13px 12px; border-radius: 8px;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--paper-deep) 45%, transparent);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.choice .key {
+  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 700; text-align: center;
+  background: color-mix(in srgb, var(--ink) 9%, transparent); color: var(--ink-soft);
+}
+.choice .label { text-decoration: none; }
+.choice .meta { grid-column: 2; }
+.choice:hover { background: color-mix(in srgb, var(--paper-deep) 90%, transparent); border-color: color-mix(in srgb, var(--seal) 60%, var(--rule)); }
+.choice:hover .key { background: var(--seal); color: var(--seal-text); }
+.choice:active { transform: translateY(1px); }
+.choice:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+.choices .or { margin-left: 4px; }
+
+/* 큰 버튼: 번지는 그림자 대신 단정하게 */
+.seal-btn {
+  border-radius: 8px; padding: 14px 22px; font-family: var(--sans); font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--seal) 55%, black);
+}
+.seal-btn:hover { transform: none; background: color-mix(in srgb, var(--seal) 88%, white); }
+.seal-btn:active { transform: translateY(1px); box-shadow: none; }
+::selection { background: color-mix(in srgb, var(--seal) 35%, transparent); }
+.choices { max-width: none; }
+/* 다음 장으로: 밑줄 텍스트 대신 선택지와 같은 결의 버튼 */
+.next {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+  padding: 12px 18px; border: 1px solid var(--rule); border-radius: 8px;
+  background: color-mix(in srgb, var(--paper-deep) 45%, transparent);
+  font-family: var(--sans); font-size: 16px; font-weight: 600;
+}
+.next:hover { border-color: color-mix(in srgb, var(--seal) 60%, var(--rule)); background: color-mix(in srgb, var(--paper-deep) 90%, transparent); }
+.next:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+.next:focus:not(:focus-visible) { outline: none; }
+
+/* ---- 붓글씨가 어울리는 자리: 행사 제목, 졸업, 장을 마칠 때, 사진 카운트다운, 미니게임 외침, 주마등 '10년 뒤' ---- */
+.festive .scene-title { font-family: var(--brush); font-weight: 400; letter-spacing: 0; font-size: clamp(40px, 5vw, 52px); line-height: 1.05; }
+.festive .brushline { display: block; }
+.diploma h1 { font-family: var(--brush); font-weight: 400; letter-spacing: 0; font-size: clamp(54px, 9vw, 80px); line-height: 1; }
+.year h2 { font-family: var(--brush); font-weight: 400; letter-spacing: 0; font-size: clamp(36px, 5vw, 48px); line-height: 1.1; }
+.year .brushline { display: block; }
+.countdown { font-family: var(--brush); font-weight: 400; letter-spacing: 0; font-size: clamp(32px, 6vw, 54px); }
+.mg-call { font-family: var(--brush); font-weight: 400; font-size: clamp(22px, 3.8vw, 32px); }
+.fb-outro p { font-family: var(--brush); font-size: clamp(40px, 7vw, 64px); letter-spacing: 0.08em; }
+.mg-flash { font-family: var(--brush); font-weight: 400; font-size: clamp(26px, 4.5vw, 38px); }
+.mg-button { font-family: var(--brush); font-weight: 400; font-size: 30px; }
+
+/* 이름을 안 적으면 시작 버튼이 잠긴다 */
+.seal-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+.seal-btn:disabled:hover { background: var(--seal); }
+
+/* 같은 엔딩에 도착한 이름들 */
+.ending-names { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin: 2px 0 0; padding: 0; }
+.ending-names li { padding: 1px 7px; border-radius: 4px; font-size: 12px; line-height: 1.6; background: color-mix(in srgb, var(--seal) 12%, transparent); color: var(--ink); }
+.ending-names li.more { background: none; color: var(--ink-faint); }
+.ending-lightbox .ending-names { flex-basis: 100%; margin: 6px 0 0; }
+/* 엔딩 제목: 붓글씨, 긴 제목도 두 줄 안에 */
+.diploma .ending-card h1 { font-family: var(--brush); font-weight: 400; letter-spacing: 0; font-size: clamp(36px, 5.2vw, 50px); line-height: 1.15; }

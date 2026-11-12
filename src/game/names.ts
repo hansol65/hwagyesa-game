@@ -54,6 +54,12 @@ export function withWa(name: string) {
   return name + (code >= 0 && code <= 11171 && code % 28 !== 0 ? '과' : '와');
 }
 
+/** 받침에 따라 '은/는' (영어 등 한글이 아니면 '는') */
+export function withEunNeun(name: string) {
+  const code = name.charCodeAt(name.length - 1) - 0xac00;
+  return name + (code >= 0 && code <= 11171 && code % 28 !== 0 ? '은' : '는');
+}
+
 /** 공양간 뒤 고양이 이름. 판마다 하나로 정해진다 (그 판 친구 이름으로 고르니 한 판 안에서는 늘 같다). */
 /**
  * 공양간 뒤 고양이. 판마다 세 마리 중 한 마리가 무작위로 정해지고(flag 'cat:1'~'cat:3'),
