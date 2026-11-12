@@ -1,6 +1,6 @@
 // 땅, 계단, 나무, 산, 연등을 만든다.
 import * as THREE from 'three';
-import { BUILDINGS, GROUND, type Ground, type Surface } from './layout';
+import { BUILDINGS, GROUND, heightOf, type Ground, type Surface } from './layout';
 import { buildBuilding, mat } from './hanok';
 
 const SURFACE: Record<Surface, string> = {
@@ -13,13 +13,13 @@ const BOTTOM = -12;
 
 /** 윗면 네 모서리 높이를 따로 주는 덩어리 (평지·비탈 공용) */
 function slab(g: Ground) {
-  const top = (z: number) => (g.kind === 'flat' ? g.y : g.y0 + ((z - g.z0) / (g.z1 - g.z0)) * (g.y1 - g.y0));
+  const top = (x: number, z: number) => heightOf(g, x, z);
   const { x0, x1, z0, z1 } = g;
   const v = [
-    [x0, top(z0), z0],
-    [x1, top(z0), z0],
-    [x1, top(z1), z1],
-    [x0, top(z1), z1],
+    [x0, top(x0, z0), z0],
+    [x1, top(x1, z0), z0],
+    [x1, top(x1, z1), z1],
+    [x0, top(x0, z1), z1],
     [x0, BOTTOM, z0],
     [x1, BOTTOM, z0],
     [x1, BOTTOM, z1],
@@ -49,12 +49,16 @@ function slab(g: Ground) {
   // 계단이면 디딤판을 얹는다
   if (g.kind === 'ramp' && g.steps) {
     const n = Math.round(Math.abs(g.y1 - g.y0) / 0.32);
-    const len = g.z1 - g.z0;
+    const alongX = g.axis === 'x';
+    const len = alongX ? g.x1 - g.x0 : g.z1 - g.z0;
     for (let i = 0; i < n; i++) {
-      const z = g.z0 + (len / n) * (i + 0.5);
-      const y = top(z);
-      const step = new THREE.Mesh(new THREE.BoxGeometry(g.x1 - g.x0, 0.32, len / n + 0.02), mat('#c9c2b0'));
-      step.position.set((g.x0 + g.x1) / 2, y - 0.16, z);
+      const t = (len / n) * (i + 0.5);
+      const x = alongX ? g.x0 + t : (g.x0 + g.x1) / 2;
+      const z = alongX ? (g.z0 + g.z1) / 2 : g.z0 + t;
+      const y = top(x, z);
+      const geo = alongX ? new THREE.BoxGeometry(len / n + 0.02, 0.32, g.z1 - g.z0) : new THREE.BoxGeometry(g.x1 - g.x0, 0.32, len / n + 0.02);
+      const step = new THREE.Mesh(geo, mat('#c9c2b0'));
+      step.position.set(x, y - 0.16, z);
       step.receiveShadow = true;
       group.add(step);
     }
@@ -101,8 +105,11 @@ function inBuilding(x: number, z: number) {
 
 /** 땅 높이를 대략 (나무를 산비탈에 심을 때) */
 function hillY(x: number, z: number) {
-  // 마당 근처는 마당보다 조금 낮게, 북쪽(-z)으로 산비탈, 남쪽(진입로)으로 내리막
-  return -1 + Math.min(Math.max(0, -z - 10), 90) * 0.24 - Math.max(0, z - 20) * 0.22 + Math.sin(x * 0.07) * 0.6;
+  // 절 마당 언저리는 마당 높이, 서쪽(-x)·북쪽(-z)으로 산비탈, 동쪽 일주문 쪽으로 내리막
+  const west = Math.min(Math.max(0, -x - 20), 120) * 0.22;
+  const north = Math.min(Math.max(0, -z - 30), 120) * 0.16;
+  const east = Math.max(0, x - 20) * 0.11;
+  return -1 + west + north - east + Math.sin(z * 0.07) * 0.6;
 }
 
 /** 장면을 채우고, 카메라가 뚫고 들어가면 안 되는 것(건물·땅)을 돌려준다 */
@@ -134,11 +141,11 @@ export function buildWorld(scene: THREE.Scene): THREE.Object3D[] {
 
   // 뒷산 (삼각산 능선)
   const ridge = [
-    [-160, -230, 70, 110],
-    [-60, -260, 90, 140],
-    [60, -250, 80, 120],
-    [170, -220, 60, 100],
-    [120, -300, 120, 160],
+    [-240, 140, 60, 100],
+    [-270, 30, 90, 140],
+    [-250, -90, 80, 120],
+    [-200, -200, 70, 110],
+    [-320, -160, 120, 160],
   ];
   for (const [x, z, h, r] of ridge) {
     const m = new THREE.Mesh(new THREE.ConeGeometry(r, h, 9), mat('#4f7d4b'));
@@ -147,27 +154,29 @@ export function buildWorld(scene: THREE.Scene): THREE.Object3D[] {
   }
   // 바위 봉우리
   const peak = new THREE.Mesh(new THREE.ConeGeometry(14, 40, 6), mat('#b9b6ad'));
-  peak.position.set(150, 12 + 70 + 14, -310);
+  peak.position.set(-330, 12 + 70 + 14, -180);
   scene.add(peak);
 
   // 나무: 걷는 곳과 건물을 피해서
   let seed = 7;
   const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
   for (let i = 0; i < 260; i++) {
-    const x = -90 + rnd() * 180;
-    const z = -130 + rnd() * 200;
+    const x = -140 + rnd() * 230;
+    const z = -110 + rnd() * 190;
     if (walkable(x, z) || inBuilding(x, z)) continue;
     const y = hillY(x, z) - 0.6;
     const s = 0.8 + rnd() * 0.7;
     scene.add(rnd() < 0.65 ? pine(x, y, z, s) : broadleaf(x, y, z, s));
   }
   // 마당 가장자리 큰 나무 몇 그루
-  scene.add(broadleaf(-18, 0, 17, 1.3));
-  scene.add(pine(12, 4.5, -31, 1.1));
+  scene.add(broadleaf(15, 0, 38, 1.3));
+  scene.add(pine(-17.5, 4.5, 10.5, 1.0));
 
   // 연등 줄: 사진처럼 줄마다 색이 이어지는 무지개 연등을 촘촘히
-  lanternRows(scene, { x0: -20, x1: 12, z0: -8, z1: 16, rows: 9, y: 9.5 });
-  lanternRows(scene, { x0: -14, x1: 14, z0: -48, z1: -40, rows: 4, y: 15.5 });
+  lanternRows(scene, { x0: -15, x1: 19, z0: -4, z1: 10, rows: 8, y: 9.5 });
+  lanternRows(scene, { x0: -2, x1: 15, z0: 14, z1: 38, rows: 9, y: 9.5 });
+  // 윗마당: 대웅전과 보화루 사이
+  lanternRows(scene, { x0: -61, x1: -50, z0: 14, z1: 34, rows: 9, y: 18.5 });
 
   // 미륵전: 오른쪽 위 축대 위 하얀 아치 (멀리서 보이는 정도)
   const mireuk = new THREE.Group();
@@ -180,7 +189,7 @@ export function buildWorld(scene: THREE.Scene): THREE.Object3D[] {
   const statue = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1, 3.4, 8), mat('#e9e5da'));
   statue.position.set(0, 7.7, -3);
   mireuk.add(statue);
-  mireuk.position.set(40, 0, -18);
+  mireuk.position.set(-26, hillY(-26, -62) + 4, -62);
   scene.add(mireuk);
   return solids;
 }

@@ -329,6 +329,8 @@ export function buildBuilding(b: Building): THREE.Group {
     }
   }
   if (b.sign) g.add(hangSign(b));
+  // 일주문은 길을 가로질러 선다: 길이 동서로 나 있으면 돌려 세운다
+  if (b.kind === 'gate' && (b.face === '+x' || b.face === '-x')) g.rotation.y = Math.PI / 2;
   g.position.set(b.x, b.y, b.z);
   return g;
 }
@@ -348,8 +350,8 @@ function hangSign(b: Building) {
     half = 0.6;
     height = 0.8;
   } else {
-    // 대적광전은 3층 법당 입구에, 나머지는 맨 위층에
-    const i = b.id === 'daejeok' ? 2 : b.stories - 1;
+    // 대적광전은 주차장 쪽 1층 정면에, 나머지는 맨 위층에
+    const i = b.id === 'daejeok' ? 0 : b.stories - 1;
     const shrink = 1 - i * 0.05;
     const along = b.face === '+x' || b.face === '-x' ? b.w : b.d;
     y = 0.7 + i * b.storyH + b.storyH - 1.25;
@@ -365,6 +367,6 @@ function hangSign(b: Building) {
     back.rotation.y = Math.PI;
     holder.add(back);
   }
-  holder.rotation.y = { '+z': 0, '-z': Math.PI, '+x': Math.PI / 2, '-x': -Math.PI / 2 }[b.face ?? '+z'];
+  if (b.kind !== 'gate') holder.rotation.y = { '+z': 0, '-z': Math.PI, '+x': Math.PI / 2, '-x': -Math.PI / 2 }[b.face ?? '+z'];
   return holder;
 }

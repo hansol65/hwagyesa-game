@@ -1,4 +1,4 @@
-// 3D 화계사: 진입로에서 출발해 마당, 대적광전, 범종각, 돌계단, 윗마당까지 걸어 다닌다.
+// 3D 화계사: 일주문에서 화계사길을 올라 마당, 보륜당, 오르막, 범종각, 돌계단, 법당 앞, 윗마당까지 걸어 다닌다.
 // 실내는 두 곳: 대적광전 3층 법당(법문을 들으며 앉아 있기), 보륜당(음악을 들으며 명상).
 import * as THREE from 'three';
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
@@ -34,8 +34,9 @@ const rooms: Record<Exclude<PlaceId, 'outdoor'>, Room & { track: Track; sitText:
 };
 /** 바깥의 문: 다가가면 '들어가기' */
 const ENTRANCES: { room: Exclude<PlaceId, 'outdoor'>; x: number; z: number; y: number; label: string; out: { x: number; z: number; yaw: number } }[] = [
-  { room: 'beopdang', x: -21.2, z: -44, y: 9, label: '법당 들어가기', out: { x: -19.4, z: -44, yaw: Math.PI / 2 } },
-  { room: 'boryun', x: 16.1, z: -4, y: 0, label: '보륜당 들어가기', out: { x: 14.6, z: -4, yaw: -Math.PI / 2 } },
+  // 법당: 대적광전 서쪽 법당 앞에서 3층으로. 보륜당: 길 쪽(남쪽) 문
+  { room: 'beopdang', x: -26.6, z: 30, y: 9, label: '법당 들어가기', out: { x: -28.4, z: 30, yaw: -Math.PI / 2 } },
+  { room: 'boryun', x: -8, z: -14.6, y: 0.4, label: '보륜당 들어가기', out: { x: -8, z: -12.8, yaw: 0 } },
 ];
 
 let place: PlaceId = 'outdoor';
@@ -59,9 +60,10 @@ const hero = new THREE.Group();
 }
 outdoor.add(hero);
 
-const START = { x: 1, z: 40 };
-const P = { x: START.x, z: START.z, y: groundAt(START.x, START.z)!.y, yaw: Math.PI, walk: 0 };
-let camYaw = 0; // 0이면 카메라가 남쪽(+z)에서 북쪽을 본다
+// 일주문 안쪽 화계사길에서 서쪽(절 쪽)을 보고 출발
+const START = { x: 58, z: -18 };
+const P = { x: START.x, z: START.z, y: groundAt(START.x, START.z)!.y, yaw: -Math.PI / 2, walk: 0 };
+let camYaw = Math.PI / 2; // 0이면 카메라가 남쪽(+z)에서 북쪽을, π/2면 동쪽에서 서쪽을 본다
 let camPitch = 0.38;
 let camDist = 11;
 let sitting: Seat | null = null;
@@ -153,7 +155,7 @@ actBtn.addEventListener('click', act);
 document.getElementById('stand')!.addEventListener('click', stand);
 
 const POINTS = [
-  ...BUILDINGS.map((b) => ({ name: b.name, note: b.note, x: b.x, z: b.z, y: b.y + b.stories * b.storyH + 1.5, r: Math.max(b.w, b.d) / 2 + 7 })),
+  ...BUILDINGS.filter((b) => !b.quiet).map((b) => ({ name: b.name, note: b.note, x: b.x, z: b.z, y: b.y + b.stories * b.storyH + 1.5, r: Math.max(b.w, b.d) / 2 + 7 })),
   ...DOORS.map((d) => ({ name: d.name, note: '', x: d.x, z: d.z, y: d.y + 3, r: 5 })),
 ];
 
