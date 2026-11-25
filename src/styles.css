@@ -1,4 +1,4 @@
-/* 화계사 이야기 — 한지와 먹
+/* 매주 일요일 — 한지와 먹
    책상 위에 펼친 한지 한 장. 글은 먹으로, 강조는 붉은 낙관 하나. 행사 날에만 연등 색이 번진다. */
 :root {
   --desk: #ddd4c4;
@@ -16,7 +16,7 @@
   --lantern-pink: #cf7497;
   --lantern-green: #4f8f68;
   --brush: 'Nanum Brush Script', var(--sans);
-  /* 제목 '화계사 이야기'만 붓글씨, 나머지는 모두 Pretendard */
+  /* 제목 '매주 일요일'만 붓글씨, 나머지는 모두 Pretendard */
   --sans: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --serif: var(--sans);
   --paper-grain-opacity: 0.5;
@@ -517,7 +517,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 @keyframes lb-in { from { opacity: 0; transform: scale(0.97); } }
 @media (prefers-reduced-motion: reduce) { .ending-lightbox[open] { animation: none; } }
 
-/* ---- Pretendard 조정: 붓글씨는 제목 '화계사 이야기'와 졸업 사진 속 손글씨에만 ---- */
+/* ---- Pretendard 조정: 붓글씨는 제목 '매주 일요일'과 졸업 사진 속 손글씨에만 ---- */
 body { font-feature-settings: 'ss06'; letter-spacing: -0.005em; }
 .scene-title, .festive .scene-title, .year h2, .ending-card h1, .sub-title { font-family: var(--sans); font-weight: 700; letter-spacing: -0.025em; }
 .festive .scene-title { font-size: clamp(28px, 3.6vw, 36px); line-height: 1.2; }

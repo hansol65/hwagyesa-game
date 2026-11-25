@@ -22,7 +22,7 @@ export default function App() {
     <main className="desk">
       <div className="sheet">
         <header className="masthead">
-          <span className="title">화계사 이야기</span>
+          <span className="title">매주 일요일</span>
           <span className="who">{game.name}</span>
           {confirmReset ? (
             <span className="confirm">

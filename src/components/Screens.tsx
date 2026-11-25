@@ -25,7 +25,7 @@ export function StartScreen() {
   return (
     <main className="desk start">
       <div className="sheet">
-        <h1>화계사 이야기</h1>
+        <h1>매주 일요일</h1>
         <p className="lead">
           초등학교 1학년, 처음 어린이법회에 왔어요.
           <br />
