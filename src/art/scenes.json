@@ -75,7 +75,7 @@
       "bg": "bell-yard"
     },
     "walk": {
-      "bg": "seonwon",
+      "bg": "hike",
       "pose": "run"
     },
     "seon-visit": {
@@ -171,7 +171,7 @@
       "night": true
     },
     "camp-last": {
-      "bg": "outdoor-buddha",
+      "bg": "hike",
       "pose": "run"
     },
     "water-camp": {
@@ -400,11 +400,11 @@
       "bg": "outdoor-buddha"
     },
     "st-vac-ski": {
-      "bg": "bell-yard",
+      "bg": "ski",
       "pose": "run"
     },
     "st-vac-ski2": {
-      "bg": "students-room",
+      "bg": "ski",
       "night": true
     },
     "st-newyear-bell": {
@@ -459,7 +459,7 @@
       "pose": "hapjang"
     },
     "un-meditation-walk": {
-      "bg": "seonwon",
+      "bg": "hike",
       "pose": "hapjang"
     },
     "un-meditation-candle": {
@@ -812,7 +812,7 @@
       }
     },
     "un-vac-stski": {
-      "bg": "bell-yard",
+      "bg": "ski",
       "cast": [],
       "juniors": {
         "stage": "student",
