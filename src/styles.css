@@ -279,6 +279,30 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .choose-one input:checked + .mark::after { transform: scale(1); }
 .choose-one input:checked ~ .txt { color: var(--ink); }
 .choose-one input:focus-visible + .mark { outline: 2px solid var(--seal); outline-offset: 3px; }
+
+/* 시작 캐릭터 고르기: 성향 카드 셋 */
+.kid-types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.field .kid-type { margin: 0; font-size: inherit; color: inherit; position: relative; display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 12px; border: 1.5px solid var(--rule); border-radius: 6px; cursor: pointer; background: color-mix(in srgb, var(--paper-deep) 40%, transparent); transition: border-color 0.15s, background 0.15s; }
+.kid-type:hover { border-color: var(--ink-faint); }
+.kid-type input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.kid-type:has(input:checked) { border-color: var(--seal); background: color-mix(in srgb, var(--seal) 7%, var(--paper)); }
+.kid-type:has(input:focus-visible) { outline: 2px solid var(--seal); outline-offset: 2px; }
+.kt-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+.kid-type:has(input:checked) .kt-name { color: var(--seal); }
+.kt-desc { font-size: 13px; line-height: 1.55; color: var(--ink-soft); min-height: 3.1em; }
+.kt-stats { display: grid; gap: 4px; }
+.kt-stat { display: grid; grid-template-columns: 3.2em 1fr; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-faint); }
+.kt-meter { height: 5px; border-radius: 3px; background: var(--rule); overflow: hidden; }
+.kt-meter > span { display: block; height: 100%; background: var(--ink-soft); border-radius: 3px; }
+.kid-type:has(input:checked) .kt-meter > span { background: var(--seal); }
+.kt-gb { display: grid; margin-top: auto; font-size: 12px; line-height: 1.5; color: var(--ink-faint); }
+.kt-reroll { margin-top: 10px; align-self: flex-start; }
+@media (max-width: 640px) {
+  .kid-types { grid-template-columns: 1fr; }
+  .kt-desc { min-height: 0; }
+  .kt-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 14px; }
+  .field .kid-type { padding: 12px; gap: 6px; }
+}
 .seal-btn {
   justify-self: start; display: inline-flex; align-items: center; gap: 10px;
   background: var(--seal); color: var(--seal-text); border-radius: 4px; padding: 13px 22px;

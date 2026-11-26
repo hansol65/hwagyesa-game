@@ -2,12 +2,13 @@
 import { advance, choose, computeEnding, ENDINGS, enterStudent, enterUniversity, newGame, startNextYear } from '../src/game/engine';
 import { CHAPTERS } from '../src/game/calendar';
 import { STAT_KEYS, type Choice, type GameState, type StatKey } from '../src/game/types';
+import { ARCHETYPES, type ArchetypeId } from '../src/game/archetypes';
 
 type Policy = (s: GameState) => number;
 
 /** 끝까지 한 판. policy가 선택지를 고른다 */
-function playThrough(policy: Policy): { s: GameState; screens: number } {
-  let s = newGame('테스트', Math.random() < 0.5 ? 'male' : 'female', Math.random);
+function playThrough(policy: Policy, type?: ArchetypeId): { s: GameState; screens: number } {
+  let s = newGame('테스트', Math.random() < 0.5 ? 'male' : 'female', Math.random, type);
   let screens = 0;
   for (let i = 0; i < 500; i++) {
     if (s.phase === 'graduated') {
@@ -77,4 +78,18 @@ console.log('\n플레이 방식별 가장 많은 엔딩');
 for (const [name, m] of Object.entries(perPolicy)) {
   const top = Object.entries(m).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, v]) => `${ENDINGS.find((e) => e.id === k)?.name} ${v}`);
   console.log(`  ${name}: ${top.join(', ')}`);
+}
+
+// 시작 성향별로 아무거나 눌렀을 때 (가장 흔한 플레이) 어떤 엔딩이 나오나
+console.log('\n시작 성향별 엔딩 (아무거나 누르기)');
+for (const a of ARCHETYPES) {
+  const m: Record<string, number> = {};
+  const n = 800;
+  for (let i = 0; i < n; i++) {
+    const e = computeEnding(playThrough(randomPolicy, a.id).s).ending.id;
+    m[e] = (m[e] ?? 0) + 1;
+  }
+  const kinds = Object.keys(m).length;
+  const top = Object.entries(m).sort((x, y) => y[1] - x[1]).slice(0, 5).map(([k, v]) => `${ENDINGS.find((e) => e.id === k)?.name} ${Math.round((100 * v) / n)}%`);
+  console.log(`  ${a.name.padEnd(6)} 엔딩 ${kinds}종 | ${top.join(', ')}`);
 }

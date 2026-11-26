@@ -16,12 +16,19 @@ import { Flashback } from "./Flashback";
 import { addEnding, EndingBook, endingArt, loadEndings } from "./EndingBook";
 import { ENDINGS } from "../game/engine";
 import { withEunNeun } from "../game/names";
+import { rollArchetypes, type ArchetypeId } from "../game/archetypes";
+
+/** 시작 카드에 보여 줄 능력치 (리더십은 처음엔 숨어 있다) */
+const CARD_STATS: StatKey[] = ["health", "intellect", "charm", "mental", "faith"];
 
 export function StartScreen() {
   const { start } = useGame();
   const [name, setName] = useState("");
   const [gender, setGender] = useState<Gender>("female");
   const [book, setBook] = useState(false);
+  // 판마다 여섯 성향 중 셋이 나온다
+  const [kids, setKids] = useState(() => rollArchetypes(Math.random));
+  const [type, setType] = useState<ArchetypeId | null>(null);
   return (
     <main className="desk start">
       <div className="sheet">
@@ -34,7 +41,7 @@ export function StartScreen() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            start(name.trim(), gender);
+            if (type) start(name.trim(), gender, type);
           }}
         >
           <div className="field">
@@ -74,7 +81,57 @@ export function StartScreen() {
               ))}
             </div>
           </fieldset>
-          <button className="seal-btn" type="submit" disabled={!name.trim()}>
+          <fieldset className="field">
+            <legend>어떤 아이였나요</legend>
+            <div className="kid-types">
+              {kids.map((a) => (
+                <label key={a.id} className="kid-type">
+                  <input
+                    type="radio"
+                    name="type"
+                    value={a.id}
+                    checked={type === a.id}
+                    onChange={() => setType(a.id)}
+                  />
+                  <span className="kt-name">{a.name}</span>
+                  <span className="kt-desc">{a.desc}</span>
+                  <span className="kt-stats">
+                    {CARD_STATS.map((k) => (
+                      <span key={k} className="kt-stat">
+                        <span className="kt-label">{STAT_LABEL[k]}</span>
+                        <span className="kt-meter">
+                          <span
+                            style={{
+                              width: `${Math.min(100, (a.stats[k] / 54) * 100)}%`,
+                            }}
+                          />
+                        </span>
+                      </span>
+                    ))}
+                  </span>
+                  <span className="kt-gb">
+                    <span>잘하는 것 · {a.good}</span>
+                    <span>약한 것 · {a.bad}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="textlink kt-reroll"
+              onClick={() => {
+                setKids(rollArchetypes(Math.random));
+                setType(null);
+              }}
+            >
+              다른 아이들 보기
+            </button>
+          </fieldset>
+          <button
+            className="seal-btn"
+            type="submit"
+            disabled={!name.trim() || !type}
+          >
             법회에 가기 <Arrow />
           </button>
         </form>

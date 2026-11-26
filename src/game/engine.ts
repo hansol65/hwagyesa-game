@@ -1,4 +1,5 @@
 // 게임 규칙. React와 무관한 순수 함수라서 시뮬레이션 스크립트에서도 그대로 쓴다.
+import { archetypeOf, STRONG_GAIN, WEAK_GAIN, type ArchetypeId } from './archetypes';
 import programsData from '../data/programs.json';
 import statusData from '../data/status.json';
 import sundayData from '../data/sunday.json';
@@ -119,16 +120,22 @@ function rollTraits(rng: Rng): Traits {
   };
 }
 
-export function newGame(name: string, gender: Gender, rng: Rng): GameState {
+export function newGame(name: string, gender: Gender, rng: Rng, archetype?: ArchetypeId): GameState {
   const r = (base: number, spread: number) => Math.round(base + rng() * spread);
-  const stats = {
-    health: r(30, 12),
-    intellect: r(25, 12),
-    charm: r(25, 12),
-    mental: r(32, 10),
-    leadership: 0,
-    faith: r(14, 8),
-  };
+  const type = archetypeOf(archetype);
+  // 고른 성향이 있으면 그 능력치에서 조금만 흔든다. 없으면 예전처럼 고르게 무작위
+  const stats = type
+    ? (Object.fromEntries(STAT_KEYS.map((k) => [k, Math.max(0, type.stats[k] + Math.round(rng() * 6 - 3))])) as Record<StatKey, number>)
+    : {
+        health: r(30, 12),
+        intellect: r(25, 12),
+        charm: r(25, 12),
+        mental: r(32, 10),
+        leadership: 0,
+        faith: r(14, 8),
+      };
+  const traits = rollTraits(rng);
+  if (type) Object.assign(traits, { temper: type.temper, talent: type.talent, lateFaith: type.id === 'temple' ? false : traits.lateFaith });
   const state: GameState = {
     phase: 'play',
     name: name.trim() || '나',
@@ -136,8 +143,8 @@ export function newGame(name: string, gender: Gender, rng: Rng): GameState {
     friends: pickFriendNames(rng),
     seen: [],
     // 이번 판의 고양이 (세 마리 중 하나)
-    flags: [`cat:${1 + Math.floor(rng() * 3)}`],
-    traits: rollTraits(rng),
+    flags: [`cat:${1 + Math.floor(rng() * 3)}`, ...(type ? [`type:${type.id}`] : [])],
+    traits,
     stats,
     rel: { jiho: 30, seoyun: 25, haram: 25, gansa: 35, teacher: 35, monk: 20 },
     grade: CHAPTERS[0].slots[0].grade,
@@ -458,6 +465,13 @@ export function rollChance(roll: NonNullable<Choice['roll']>, state: GameState):
   return clamp(c, 0.05, 0.95);
 }
 
+/** 시작 성향: 잘하는 건 더 잘 늘고, 못하는 건 잘 안 는다 */
+function typeGain(state: GameState, k: StatKey) {
+  const type = archetypeOf(state.flags.find((f) => f.startsWith('type:'))?.slice(5));
+  if (!type) return 1;
+  return type.strong.includes(k) ? STRONG_GAIN : type.weak.includes(k) ? WEAK_GAIN : 1;
+}
+
 function addEffects(target: Deltas, eff: Effects | undefined, choice: Choice | null, state: GameState) {
   if (!eff) return;
   for (const [k, raw] of Object.entries(eff.stats ?? {}) as [StatKey, number][]) {
@@ -466,7 +480,7 @@ function addEffects(target: Deltas, eff: Effects | undefined, choice: Choice | n
     if (v > 0 && k === 'faith' && state.traits.lateFaith) v = Math.ceil(v * 0.5);
     if (k === 'leadership' && state.grade <= KIDS_LAST_GRADE) continue;
     if (v > 0) {
-      v = v * GAIN_SCALE * STAGE_GAIN[stageOf(state.grade)] * STAT_GAIN[k];
+      v = v * GAIN_SCALE * STAGE_GAIN[stageOf(state.grade)] * STAT_GAIN[k] * typeGain(state, k);
       // 체감 성장: 높을수록 덜 오른다 (40 이하 100%, 60 55%, 70 33%, 80 이상 15%).
       // 한쪽에 몰아주면 80까지도 갈 수 있게 넉넉히 두고, 대신 다른 쪽이 깎인다.
       const f = clamp((SOFT_CAP[stageOf(state.grade)] + 25 - state.stats[k]) / 45, 0.15, 1);
@@ -784,7 +798,10 @@ export function pickEnding(state: GameState, owned: string[] = []): Ending {
   const fixedEnding = fixed && ENDINGS.find((e) => e.id === fixed.slice(7));
   if (fixedEnding) return fixedEnding;
   const fallback = ENDINGS[ENDINGS.length - 1];
-  const fit = ENDINGS.filter((e) => e !== fallback && meets(state, e.when)).sort((a, b) => b.priority - a.priority);
+  // 시작 성향에 어울리는 엔딩은 조건이 맞으면 먼저
+  const type = archetypeOf(state.flags.find((f) => f.startsWith('type:'))?.slice(5));
+  const rank = (e: Ending) => e.priority + (type?.signature.includes(e.id) ? 40 : 0);
+  const fit = ENDINGS.filter((e) => e !== fallback && meets(state, e.when)).sort((a, b) => rank(b) - rank(a));
   return fit.find((e) => !owned.includes(e.id)) ?? fit[0] ?? fallback;
 }
 

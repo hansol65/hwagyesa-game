@@ -2,12 +2,14 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { advance, choose, enterStudent, enterUniversity, newGame, startNextYear } from './game/engine';
 import type { GameState, Gender } from './game/types';
+import type { ArchetypeId } from './game/archetypes';
 
 const rng = Math.random;
 
 interface Store {
   game: GameState | null;
-  start: (name: string, gender: Gender) => void;
+  /** type: 시작할 때 고른 아이의 성향 */
+  start: (name: string, gender: Gender, type?: ArchetypeId) => void;
   /** played: 미니게임을 직접 한 결과 */
   choose: (index: number, played?: { success: boolean }) => void;
   next: () => void;
@@ -25,7 +27,7 @@ export const useGame = create<Store>()(
   persist(
     (set) => ({
       game: null,
-      start: (name, gender) => set({ game: newGame(name, gender, rng) }),
+      start: (name, gender, type) => set({ game: newGame(name, gender, rng, type) }),
       choose: (index, played) => set((s) => (s.game ? { game: choose(s.game, index, rng, played) } : s)),
       next: () => set((s) => (s.game ? { game: advance(s.game, rng) } : s)),
       nextYear: () => set((s) => (s.game ? { game: startNextYear(s.game, rng) } : s)),
