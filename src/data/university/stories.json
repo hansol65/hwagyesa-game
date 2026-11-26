@@ -378,5 +378,95 @@
         }
       }
     ]
+  },
+  {
+    "id": "cross-un",
+    "title": "대3, 한 학기를 어디에 쓸까",
+    "requires": {
+      "records": {
+        "__crossroad_only": 99
+      }
+    },
+    "text": [
+      "휴학 신청 마감이 다음 주예요. 템플스테이 사무국에서 한 철 살아 볼 사람을 찾고, 붙은 인턴 회사는 바로 나오래요. 창업 동아리 친구는 \"같이 하자, 지금 아니면 못 해\"래요."
+    ],
+    "choices": [
+      {
+        "label": "휴학하고 템플스테이에서 한 철 산다",
+        "heavy": true,
+        "text": "새벽 세 시에 일어나 도량석을 따라 돌았어요. 석 달이 지나니 마음이 조용해졌어요. 동기들은 먼저 졸업했어요.",
+        "effects": {
+          "stats": {
+            "faith": 8,
+            "mental": 6,
+            "intellect": -3,
+            "leadership": -3
+          },
+          "rel": {
+            "monk": 8
+          }
+        },
+        "record": "templestay",
+        "flag": "cross:temple",
+        "attend": true,
+        "highlight": "휴학하고 템플스테이에서 한 철 살았다."
+      },
+      {
+        "label": "인턴을 한다",
+        "heavy": true,
+        "text": "정장을 사고 아침마다 지옥철을 탔어요. 일은 금방 익혔어요. 대학생회 단톡방은 읽기만 했어요.",
+        "effects": {
+          "stats": {
+            "intellect": 7,
+            "leadership": 5,
+            "faith": -5,
+            "mental": -2
+          },
+          "rel": {
+            "gansa": -4,
+            "teacher": -4
+          }
+        },
+        "record": "study",
+        "flag": "cross:work",
+        "highlight": "대3, 법회 대신 인턴을 했다."
+      },
+      {
+        "label": "친구랑 창업한다 (모 아니면 도)",
+        "heavy": true,
+        "gamble": true,
+        "roll": {
+          "chance": 0.45,
+          "stat": "leadership",
+          "statWeight": 0.008,
+          "success": {
+            "text": "첫 달 매출이 났어요! 작은 사무실도 얻었어요. 친구가 \"우리 진짜 하네\" 하고 울었어요.",
+            "effects": {
+              "stats": {
+                "leadership": 8,
+                "charm": 4,
+                "intellect": 3
+              }
+            },
+            "record": "gamble_win",
+            "flag": "cross:startup",
+            "highlight": "대3에 친구랑 창업해서 첫 매출을 냈다."
+          },
+          "fail": {
+            "text": "석 달 만에 접었어요. 모아 둔 돈이 다 날아갔어요. 그래도 다음엔 뭘 하면 안 되는지는 알게 됐어요.",
+            "effects": {
+              "stats": {
+                "mental": -5,
+                "intellect": -2,
+                "faith": -2
+              }
+            },
+            "record": "gamble_lose",
+            "flag": "cross:startup",
+            "highlight": "대3에 친구랑 창업했다가 석 달 만에 접었다."
+          }
+        }
+      }
+    ]
   }
 ]

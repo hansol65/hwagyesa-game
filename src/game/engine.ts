@@ -1,5 +1,6 @@
 // 게임 규칙. React와 무관한 순수 함수라서 시뮬레이션 스크립트에서도 그대로 쓴다.
 import { archetypeOf, STRONG_GAIN, WEAK_GAIN, type ArchetypeId } from './archetypes';
+import { DREAM_BONUS, dreamOf, type DreamId } from './dreams';
 import programsData from '../data/programs.json';
 import statusData from '../data/status.json';
 import sundayData from '../data/sunday.json';
@@ -27,6 +28,8 @@ import { catName, seniorName, uniBuddy } from './names';
 import {
   REL_KEYS,
   STAT_KEYS,
+  STAT_LABEL,
+  type LogEntry,
   type Choice,
   type Cond,
   type Deltas,
@@ -146,7 +149,8 @@ export function newGame(name: string, gender: Gender, rng: Rng, archetype?: Arch
     flags: [`cat:${1 + Math.floor(rng() * 3)}`, ...(type ? [`type:${type.id}`] : [])],
     traits,
     stats,
-    rel: { jiho: 30, seoyun: 25, haram: 25, gansa: 35, teacher: 35, monk: 20 },
+    // 나랑 닮은 친구(장난꾸러기는 지호, 모범생은 서윤, 조용한 아이는 하람)와는 처음부터 가깝다
+    rel: { jiho: 30, seoyun: 25, haram: 25, gansa: 35, teacher: 35, monk: 20, ...(type?.friend ? { [type.friend]: 45 } : {}) },
     grade: CHAPTERS[0].slots[0].grade,
     chapter: 0,
     slotIndex: 0,
@@ -314,6 +318,7 @@ function sideChoices(state: GameState, event: GameEvent, rng: Rng): Choice[] {
     const down = Object.fromEntries(shuffled.slice(0, 4).map((k) => [k, -SIDE.gambleDown]));
     out.push({
       label: g.label,
+      gamble: true,
       roll: {
         chance: 0.42,
         stat: 'mental',
@@ -618,7 +623,17 @@ export function choose(prev: GameState, index: number, rng: Rng, played?: { succ
     result: { text, deltas: total, choice: choice.label },
     log: [
       ...state.log,
-      { grade: state.grade, id: event.id, kind: slot.kind, label: slot.label, title: event.title, choice: choice.label, text },
+      {
+        grade: state.grade,
+        id: event.id,
+        kind: slot.kind,
+        label: slot.label,
+        title: event.title,
+        choice: choice.label,
+        text,
+        marks: [choice.record, outcome?.record, choice.flag, outcome?.flag].filter((m): m is string => !!m),
+        gain: total.stats,
+      },
     ].slice(-200),
   };
   // 법회에 안 가면 결과 화면 없이 바로 다음 일정으로. 그날 한 일은 다음 화면 맨 위에 한 줄로 남긴다.
@@ -694,13 +709,13 @@ export function startNextYear(state: GameState, rng: Rng): GameState {
  * 어린이회 졸업 → 학생회 중1. 친구·스탯·기록은 그대로, 리더십이 열리고
  * 간사 쌤과 지도 선생님은 학생회의 새 사람으로 바뀐다(정은 처음부터).
  */
-export function enterStudent(state: GameState, rng: Rng): GameState {
+export function enterStudent(state: GameState, rng: Rng, dream?: DreamId): GameState {
   if (state.phase !== 'graduated' || CHAPTERS[state.chapter].stage !== 'kid') return state;
   const stats = { ...state.stats, leadership: Math.max(state.stats.leadership, 20) };
   return openChapter(state, STAGE_FIRST_CHAPTER.student, rng, {
     stats,
     rel: { ...state.rel, gansa: 30, teacher: 30 },
-    flags: [...state.flags, 'stage:student'],
+    flags: [...state.flags, 'stage:student', ...(dream ? [`dream:${dream}`] : [])],
     absentStreak: 0,
   });
 }
@@ -800,9 +815,54 @@ export function pickEnding(state: GameState, owned: string[] = []): Ending {
   const fallback = ENDINGS[ENDINGS.length - 1];
   // 시작 성향에 어울리는 엔딩은 조건이 맞으면 먼저
   const type = archetypeOf(state.flags.find((f) => f.startsWith('type:'))?.slice(5));
-  const rank = (e: Ending) => e.priority + (type?.signature.includes(e.id) ? 40 : 0);
+  // 꿈으로 고른 엔딩은 그보다도 먼저
+  const dream = dreamOf(state.flags);
+  const rank = (e: Ending) => e.priority + (type?.signature.includes(e.id) ? 40 : 0) + (dream?.endings.includes(e.id) ? DREAM_BONUS : 0);
   const fit = ENDINGS.filter((e) => e !== fallback && meets(state, e.when)).sort((a, b) => rank(b) - rank(a));
   return fit.find((e) => !owned.includes(e.id)) ?? fit[0] ?? fallback;
+}
+
+/** 엔딩 조건에 쓰인 기록·기억 표시 (any 안쪽까지) */
+function condKeys(c: Cond): string[] {
+  return [...Object.keys(c.records ?? {}), ...(c.flags ?? []), ...(c.any ?? []).flatMap(condKeys)];
+}
+
+export interface Moment {
+  grade: number;
+  label: string;
+  choice: string;
+  /** 왜 결정적이었나: "신앙 +9" 같은 한 줄 */
+  why: string;
+}
+
+/**
+ * 이 엔딩을 만든 선택 몇 개: 엔딩 조건에 든 기록을 남긴 선택, 그리고 엔딩이 보는 스탯을 가장 크게 올린 선택.
+ */
+export function decisiveMoments(state: GameState, ending: Ending, n = 3): Moment[] {
+  const keys = new Set(condKeys(ending.when));
+  // 스탯 조건이 없는 엔딩(회사원)은 무엇이든 가장 크게 바꾼 선택을 보여 준다
+  const need = ending.when.stats ? (Object.keys(ending.when.stats) as StatKey[]) : STAT_KEYS;
+  const log = state.log.filter((e) => e.gain || e.marks);
+  const picked = new Map<LogEntry, string>();
+  for (const e of log) {
+    if (picked.size >= Math.min(2, n)) break;
+    const hit = e.marks?.find((m) => keys.has(m));
+    if (hit) picked.set(e, '이 일이 엔딩을 열었어요');
+  }
+  const gainOf = (e: LogEntry) => need.reduce((a, k) => a + Math.max(0, e.gain?.[k] ?? 0), 0);
+  for (const e of [...log].sort((a, b) => gainOf(b) - gainOf(a))) {
+    if (picked.size >= n || gainOf(e) <= 0) break;
+    if (picked.has(e)) continue;
+    const parts = need
+      .filter((k) => (e.gain?.[k] ?? 0) > 0)
+      .sort((x, y) => e.gain![y]! - e.gain![x]!)
+      .slice(0, 3)
+      .map((k) => `${STAT_LABEL[k]} +${e.gain![k]}`);
+    picked.set(e, parts.join(' · '));
+  }
+  return [...picked]
+    .sort((a, b) => state.log.indexOf(a[0]) - state.log.indexOf(b[0]))
+    .map(([e, why]) => ({ grade: e.grade, label: e.label, choice: e.choice, why }));
 }
 
 export { REL_KEYS };

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { currentSlot } from '../game/engine';
+import { currentSlot, rollChance } from '../game/engine';
 import { CHAPTERS, FESTIVE_KINDS, gradeLabel } from '../game/calendar';
 import type { GameState } from '../game/types';
 import { useGame } from '../store';
@@ -164,6 +164,17 @@ export function Scene({ game }: { game: GameState }) {
                       <span className="key" aria-hidden="true">{i + 1}</span>
                       {/* 결과(스탯 변화)는 고른 뒤에만 보여 준다 */}
                       <span className="label">{c.label}</span>
+                      {/* 모 아니면 도·갈림길은 고르기 전에 알려 준다 (숫자 변화는 여전히 고른 뒤에) */}
+                      {(c.gamble || c.heavy) && !c.minigame && (
+                        <span className="meta">
+                          {c.gamble && c.roll && (
+                            <span className="risk-tag gamble">
+                              🎲 모 아니면 도 · 성공 {Math.round(rollChance(c.roll, game) * 100)}% · 실패하면 여러 스탯이 크게 깎여요
+                            </span>
+                          )}
+                          {c.heavy && !c.gamble && <span className="risk-tag heavy">갈림길 · 고르면 다른 길은 다시 안 와요</span>}
+                        </span>
+                      )}
                       {c.minigame && (
                         <span className="meta">
                           <span className="mg-tag">🎮 미니게임 · {({ dodgeball: '피구 (건강)', dance: '율동 (매력)', pungmul: '풍물 (건강)', moktak: '목탁 (신앙)' } as const)[c.minigame]}</span>

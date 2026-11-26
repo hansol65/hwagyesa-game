@@ -1,7 +1,7 @@
 // 시작 캐릭터: 판마다 여섯 성향 중 셋이 나오고, 하나를 골라 시작한다.
 // 성향마다 잘하는 것과 못하는 것이 뚜렷해서, 아무렇게나 골라도 갈 수 있는 엔딩 쪽이 달라진다.
 // 처음 셋(장난꾸러기·모범생·조용한 아이)은 친구 셋(지호·서윤·하람)의 성격을 그대로 가져왔다.
-import type { StatKey, Talent, Temper } from './types';
+import type { FriendKey, StatKey, Talent, Temper } from './types';
 
 export type ArchetypeId = 'rascal' | 'model' | 'quiet' | 'chatter' | 'temple' | 'leader';
 
@@ -22,6 +22,8 @@ export interface Archetype {
   weak: StatKey[];
   /** 이 아이에게 어울리는 엔딩: 조건이 맞으면 먼저 나온다 */
   signature: string[];
+  /** 이 아이와 닮은 친구: 처음부터 가깝다 */
+  friend?: FriendKey;
 }
 
 export const STRONG_GAIN = 1.35;
@@ -30,6 +32,7 @@ export const WEAK_GAIN = 0.6;
 export const ARCHETYPES: Archetype[] = [
   {
     id: 'rascal',
+    friend: 'jiho',
     name: '장난꾸러기',
     desc: '피구할 때 제일 신나는 아이. 가만히 앉아 있는 건 3분이 한계예요.',
     good: '건강 · 매력',
@@ -43,6 +46,7 @@ export const ARCHETYPES: Archetype[] = [
   },
   {
     id: 'model',
+    friend: 'seoyun',
     name: '모범생',
     desc: '법문 시간에 맨 앞에 앉는 아이. 숙제는 늘 먼저 끝내요.',
     good: '지능 · 신앙',
@@ -56,6 +60,7 @@ export const ARCHETYPES: Archetype[] = [
   },
   {
     id: 'quiet',
+    friend: 'haram',
     name: '조용한 아이',
     desc: '구석에서 그림을 그리는 아이. 말은 적어도 오래 버텨요.',
     good: '멘탈 · 손재주',

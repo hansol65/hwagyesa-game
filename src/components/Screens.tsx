@@ -1,9 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { computeEnding, openStats, attendRate } from "../game/engine";
-import { CHAPTERS } from "../game/calendar";
+import {
+  computeEnding,
+  decisiveMoments,
+  openStats,
+  attendRate,
+} from "../game/engine";
+import { DREAMS, dreamOf, type DreamId } from "../game/dreams";
+import { CHAPTERS, shortGrade } from "../game/calendar";
 import {
   STAT_KEYS,
   STAT_LABEL,
+  type FriendKey,
   type GameState,
   type Gender,
   type StatKey,
@@ -20,6 +27,13 @@ import { rollArchetypes, type ArchetypeId } from "../game/archetypes";
 
 /** 시작 카드에 보여 줄 능력치 (리더십은 처음엔 숨어 있다) */
 const CARD_STATS: StatKey[] = ["health", "intellect", "charm", "mental", "faith"];
+
+/** 닮은 친구가 있는 성향: 처음부터 그 친구와 가깝다 (친구 이름은 판마다 바뀌어서 성격으로 부른다) */
+const FRIEND_LIKE: Record<FriendKey, string> = {
+  jiho: "장난꾸러기 친구와 처음부터 단짝이에요",
+  seoyun: "모범생 친구와 처음부터 단짝이에요",
+  haram: "그림 그리는 친구와 처음부터 단짝이에요",
+};
 
 export function StartScreen() {
   const { start } = useGame();
@@ -113,6 +127,11 @@ export function StartScreen() {
                     <span>잘하는 것 · {a.good}</span>
                     <span>약한 것 · {a.bad}</span>
                   </span>
+                  {a.friend && (
+                    <span className="kt-friend">
+                      {FRIEND_LIKE[a.friend]}
+                    </span>
+                  )}
                 </label>
               ))}
             </div>
@@ -230,6 +249,7 @@ export function Graduated({ game }: { game: GameState }) {
     game.flags.some((f) => f.startsWith("ending:")) ? "ending" : "photo",
   );
   const toEnding = useCallback(() => setStep("ending"), []);
+  const [dream, setDream] = useState<DreamId | null>(null);
   useEffect(() => {
     if (step === "ending") window.scrollTo({ top: 0 });
   }, [step]);
@@ -282,11 +302,40 @@ export function Graduated({ game }: { game: GameState }) {
                     : "봄부터는 대학생회예요. 간사 쌤도 지도 선생님도 없이, 이제 우리가 직접 꾸려요."}
                 </li>
               </ul>
+              {stage === "kid" && (
+                <fieldset className="field dreams">
+                  <legend>중학생이 되면서, 나의 꿈은</legend>
+                  <div className="dream-list">
+                    {DREAMS.map((d) => (
+                      <label key={d.id} className="dream">
+                        <input
+                          type="radio"
+                          name="dream"
+                          value={d.id}
+                          checked={dream === d.id}
+                          onChange={() => setDream(d.id)}
+                        />
+                        <span className="dr-name">{d.name}</span>
+                        <span className="dr-desc">{d.desc}</span>
+                        <span className="dr-need">
+                          키울 것 · {d.need.map((k) => STAT_LABEL[k]).join(" · ")}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                  <p className="dream-note">
+                    꿈은 수첩에 적어 둘게요. 그 스탯을 키우면 10년 뒤에 이룰 수 있어요.
+                  </p>
+                </fieldset>
+              )}
               <div className="coda">
                 <button
                   className="seal-btn"
-                  onClick={stage === "kid" ? toStudent : toUniversity}
-                  autoFocus
+                  onClick={() =>
+                    stage === "kid" ? dream && toStudent(dream) : toUniversity()
+                  }
+                  disabled={stage === "kid" && !dream}
+                  autoFocus={stage !== "kid"}
                 >
                   {stage === "kid" ? "학생회로" : "대학생회로"} <Arrow />
                 </button>
@@ -316,6 +365,9 @@ function EndingView({
   const [book, setBook] = useState(false);
   const owned = loadEndings();
   const no = ENDINGS.findIndex((e) => e.id === ending.id) + 1;
+  const dream = dreamOf(game.flags);
+  const dreamDone = !!dream?.endings.includes(ending.id);
+  const [moments] = useState(() => decisiveMoments(game, ending));
   return (
     <>
       <section className="ending-card" aria-labelledby="ending-title">
@@ -335,7 +387,42 @@ function EndingView({
           {withEunNeun(game.name)} {ending.title}
         </h1>
         <p className="ending-text">{fillEnding(ending.text, game)}</p>
+        {dream && (
+          <p className={dreamDone ? "dream-result done" : "dream-result"}>
+            {dreamDone
+              ? `중학생 때 꿈, ‘${dream.name}’${final(dream.name) ? "을" : "를"} 이뤘어요.`
+              : `중학생 때 꿈은 ‘${dream.name}’${final(dream.name) ? "이었" : "였"}어요. 다른 길로 왔어요.`}
+            {!dreamDone && (
+              <small>
+                {" "}
+                {dream.need.map((k) => STAT_LABEL[k]).join("·")}을 더 키웠다면
+                닿았을지도 몰라요.
+              </small>
+            )}
+          </p>
+        )}
       </section>
+
+      {moments.length > 0 && (
+        <section className="moments" aria-labelledby="moments-h">
+          <h3 className="sub-h" id="moments-h">
+            여기까지 오게 한 선택
+          </h3>
+          <ol>
+            {moments.map((m, i) => (
+              <li key={i}>
+                <span className="mo-when">
+                  {m.label.startsWith(shortGrade(m.grade))
+                    ? m.label
+                    : `${shortGrade(m.grade)} · ${m.label}`}
+                </span>
+                <span className="mo-choice">‘{m.choice}’</span>
+                {m.why && <span className="mo-why">{m.why}</span>}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       <div className="diploma-grid">
         <div>
@@ -384,4 +471,10 @@ function EndingView({
 function fillEnding(text: string, game: GameState) {
   const female = game.gender !== "male";
   return text.replaceAll("언니(누나)", female ? "언니" : "누나");
+}
+
+/** 마지막 글자에 받침이 있나 (조사 고르기) */
+function final(word: string) {
+  const code = word.charCodeAt(word.length - 1) - 0xac00;
+  return code >= 0 && code <= 11171 && code % 28 !== 0;
 }

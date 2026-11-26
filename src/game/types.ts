@@ -85,6 +85,10 @@ export interface Choice {
   next?: 'program';
   /** 고르면 미니게임을 한다. 결과가 roll의 확률 대신 성공·실패를 정한다 ('알아서 하기'면 확률) */
   minigame?: MinigameKind;
+  /** 모 아니면 도: 성공하면 크게 오르고 실패하면 크게 깎인다. 고르기 전에 표시한다 */
+  gamble?: boolean;
+  /** 갈림길: 한쪽을 고르면 다른 쪽은 다시 오지 않는다. 고르기 전에 표시한다 */
+  heavy?: boolean;
 }
 
 export type MinigameKind = 'dodgeball' | 'dance' | 'pungmul' | 'moktak';
@@ -189,6 +193,10 @@ export interface LogEntry {
   title: string;
   choice: string;
   text: string;
+  /** 이 선택이 남긴 기록·기억 표시 (엔딩의 '결정적 순간'을 찾을 때 쓴다) */
+  marks?: string[];
+  /** 이 선택으로 오른·내린 스탯 */
+  gain?: Partial<Record<StatKey, number>>;
 }
 
 export type Phase = 'start' | 'play' | 'result' | 'yearEnd' | 'graduated';

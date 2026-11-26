@@ -3,6 +3,7 @@ import { advance, choose, computeEnding, ENDINGS, enterStudent, enterUniversity,
 import { CHAPTERS } from '../src/game/calendar';
 import { STAT_KEYS, type Choice, type GameState, type StatKey } from '../src/game/types';
 import { ARCHETYPES, type ArchetypeId } from '../src/game/archetypes';
+import { DREAMS } from '../src/game/dreams';
 
 type Policy = (s: GameState) => number;
 
@@ -13,7 +14,7 @@ function playThrough(policy: Policy, type?: ArchetypeId): { s: GameState; screen
   for (let i = 0; i < 500; i++) {
     if (s.phase === 'graduated') {
       const stage = CHAPTERS[s.chapter].stage;
-      if (stage === 'kid') s = enterStudent(s, Math.random);
+      if (stage === 'kid') s = enterStudent(s, Math.random, DREAMS[Math.floor(Math.random() * DREAMS.length)].id);
       else if (stage === 'student') s = enterUniversity(s, Math.random);
       else return { s, screens };
       continue;
@@ -27,6 +28,11 @@ function playThrough(policy: Policy, type?: ArchetypeId): { s: GameState; screen
 }
 
 const randomPolicy: Policy = (s) => Math.floor(Math.random() * s.event!.choices.length);
+/** 모 아니면 도는 알고 피하는 플레이 (표시가 생긴 뒤 보통 사람) */
+const carefulPolicy: Policy = (s) => {
+  const ok = s.event!.choices.map((c, i) => ({ c, i })).filter(({ c }) => !c.gamble);
+  return ok.length ? ok[Math.floor(Math.random() * ok.length)].i : randomPolicy(s);
+};
 const attendBias = (p: number): Policy => (s) => {
   const cs = s.event!.choices;
   if (cs.some((c) => c.attend !== undefined)) {
@@ -53,6 +59,7 @@ const sums: Record<string, number> = {};
 let screens = 0;
 const policies: [string, Policy][] = [
   ['random', randomPolicy],
+  ['careful', carefulPolicy],
   ['eager', attendBias(0.95)],
   ['rare', attendBias(0.2)],
   ...STAT_KEYS.map((k) => [`max-${k}`, statPolicy(k)] as [string, Policy]),

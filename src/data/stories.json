@@ -1399,5 +1399,76 @@
         }
       }
     ]
+  },
+  {
+    "id": "cross-kid",
+    "title": "같은 날, 세 군데서 부른다",
+    "requires": {
+      "records": {
+        "__crossroad_only": 99
+      }
+    },
+    "text": [
+      "추석 전 일요일이에요. 축구부 감독님이 오늘 입단 테스트에 오래요. 스님은 합동 차례 때 옆에서 도와 달라고 하셨어요. 엄마는 경시대회 학원 특강을 끊어 놨대요. 셋 다 오늘이에요."
+    ],
+    "choices": [
+      {
+        "label": "축구부 입단 테스트에 간다",
+        "heavy": true,
+        "text": "공을 차는 내내 숨이 턱까지 찼는데 이상하게 웃음이 났어요. 감독님이 \"다음 주부터 나와\" 하셨어요. 그날 차례는 다른 친구가 도왔대요.",
+        "effects": {
+          "stats": {
+            "health": 7,
+            "charm": 2,
+            "faith": -4,
+            "intellect": -3
+          }
+        },
+        "record": "run",
+        "flag": "cross:sports",
+        "highlight": "추석 전날, 절 대신 축구부 테스트에 갔다."
+      },
+      {
+        "label": "스님 옆에서 차례를 돕는다",
+        "heavy": true,
+        "text": "향을 피우고 술잔을 올리는 순서를 다 외웠어요. 스님이 \"너는 절집 사람이 다 됐다\" 하셨어요. 축구부는 그날로 끝이었어요.",
+        "effects": {
+          "stats": {
+            "faith": 7,
+            "mental": 3,
+            "health": -3,
+            "charm": -2
+          },
+          "rel": {
+            "monk": 8
+          }
+        },
+        "record": "bows",
+        "flag": "cross:temple",
+        "attend": true,
+        "highlight": "추석 합동 차례에서 스님 옆에 섰다."
+      },
+      {
+        "label": "학원 특강에 간다",
+        "heavy": true,
+        "text": "문제집을 세 권 풀었어요. 경시대회에서 상을 받았는데, 그날 법회 단체 사진에는 내가 없어요.",
+        "effects": {
+          "stats": {
+            "intellect": 7,
+            "mental": 1,
+            "charm": -3,
+            "faith": -3
+          },
+          "rel": {
+            "jiho": -4,
+            "seoyun": 2,
+            "haram": -4
+          }
+        },
+        "record": "study",
+        "flag": "cross:study",
+        "highlight": "법회 대신 경시대회 특강에 갔다."
+      }
+    ]
   }
 ]

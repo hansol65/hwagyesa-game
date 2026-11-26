@@ -439,5 +439,79 @@
         }
       }
     ]
+  },
+  {
+    "id": "cross-st",
+    "title": "고2 가을, 하나만 고르래요",
+    "requires": {
+      "records": {
+        "__crossroad_only": 99
+      }
+    },
+    "text": [
+      "담임 선생님이 진로 상담에서 그러셨어요. \"이제 하나만 골라. 다 하려다가 다 놓친다.\" 학생회는 가을 축제 총괄을 맡아 달라고 하고, 밴드부 친구들은 공연을 같이 하자고 해요."
+    ],
+    "choices": [
+      {
+        "label": "학생회를 쉬고 공부만 한다",
+        "heavy": true,
+        "text": "일요일에도 독서실에 갔어요. 성적이 확 올랐어요. 단톡방 알림은 꺼 뒀어요.",
+        "effects": {
+          "stats": {
+            "intellect": 8,
+            "mental": -2,
+            "leadership": -4,
+            "faith": -3
+          },
+          "rel": {
+            "gansa": -5,
+            "teacher": -3
+          }
+        },
+        "record": "study",
+        "flag": "cross:study",
+        "highlight": "고2 가을, 학생회를 쉬고 공부만 했다."
+      },
+      {
+        "label": "가을 축제 총괄을 맡는다",
+        "heavy": true,
+        "text": "석 달 내내 회의를 했어요. 축제 날 무대 뒤에서 무전기를 들고 뛰어다녔어요. 성적은 조금 떨어졌어요.",
+        "effects": {
+          "stats": {
+            "leadership": 8,
+            "charm": 3,
+            "intellect": -4
+          },
+          "rel": {
+            "gansa": 6,
+            "teacher": 5
+          }
+        },
+        "record": "volunteer",
+        "flag": "cross:lead",
+        "attend": true,
+        "highlight": "가을 축제 총괄을 맡았다."
+      },
+      {
+        "label": "밴드부 공연에 올인한다",
+        "heavy": true,
+        "text": "합주실에서 살았어요. 공연 날 강당이 꽉 찼고, 앵콜이 두 번 나왔어요. 법회는 몇 주 빠졌어요.",
+        "effects": {
+          "stats": {
+            "charm": 8,
+            "mental": 3,
+            "faith": -4,
+            "intellect": -3
+          },
+          "rel": {
+            "jiho": 4,
+            "haram": 4
+          }
+        },
+        "record": "karaoke",
+        "flag": "cross:art",
+        "highlight": "밴드부 공연에서 앵콜이 두 번 나왔다."
+      }
+    ]
   }
 ]

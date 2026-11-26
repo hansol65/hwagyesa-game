@@ -1,6 +1,8 @@
 import { openStats, attendRate } from '../game/engine';
 import { REL_KEYS, type GameState } from '../game/types';
 import { StatHex } from './StatHex';
+import { dreamOf } from '../game/dreams';
+import { STAT_LABEL } from '../game/types';
 import { personName, personRole } from '../game/names';
 
 
@@ -46,6 +48,15 @@ export function SidePanel({ game }: { game: GameState }) {
             {game.attendance.total > 0 && ` · ${Math.round(attendRate(game) * 100)}%`}
           </b>
         </div>
+        {dreamOf(game.flags) && (
+          <div>
+            <span>나의 꿈</span>
+            <b>
+              {dreamOf(game.flags)!.name}
+              <small className="dream-need"> · {dreamOf(game.flags)!.need.map((k) => STAT_LABEL[k]).join('·')}</small>
+            </b>
+          </div>
+        )}
         <div>
           <span>숨은 성향</span>
           <b>졸업 때 알게 돼요</b>

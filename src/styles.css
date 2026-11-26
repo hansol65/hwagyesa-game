@@ -297,11 +297,40 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .kid-type:has(input:checked) .kt-meter > span { background: var(--seal); }
 .kt-gb { display: grid; margin-top: auto; font-size: 12px; line-height: 1.5; color: var(--ink-faint); }
 .kt-reroll { margin-top: 10px; align-self: flex-start; }
+.kt-friend { font-size: 12px; color: var(--seal); }
+
+/* 어린이회 졸업: 꿈 고르기 */
+.field.dreams { margin: 22px 0 6px; text-align: left; }
+.dream-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.field .dream { margin: 0; font-size: inherit; color: inherit; position: relative; display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1.5px solid var(--rule); border-radius: 6px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.dream:hover { border-color: var(--ink-faint); }
+.dream input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.dream:has(input:checked) { border-color: var(--seal); background: color-mix(in srgb, var(--seal) 7%, var(--paper)); }
+.dream:has(input:focus-visible) { outline: 2px solid var(--seal); outline-offset: 2px; }
+.dr-name { font-weight: 700; font-size: 15px; color: var(--ink); }
+.dream:has(input:checked) .dr-name { color: var(--seal); }
+.dr-desc { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+.dr-need { margin-top: auto; font-size: 12px; color: var(--ink-faint); }
+.dream-note { margin: 10px 0 0; font-size: 13px; color: var(--ink-faint); }
+.dream-need { font-weight: 400; color: var(--ink-faint); }
+.mstats-dream { margin: 0; font-size: 12.5px; color: var(--ink-soft); }
+
+/* 엔딩: 꿈과 결정적 순간 */
+.dream-result { margin: 14px 0 0; font-size: 15px; color: var(--ink-soft); }
+.dream-result.done { color: var(--seal); font-weight: 600; }
+.dream-result small { font-size: 13px; color: var(--ink-faint); font-weight: 400; }
+.moments { margin: 28px 0 0; }
+.moments ol { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.moments li { display: grid; gap: 2px; padding-left: 14px; border-left: 2px solid var(--rule); }
+.mo-when { font-size: 12.5px; color: var(--ink-faint); }
+.mo-choice { font-family: var(--serif); font-size: 16px; color: var(--ink); }
+.mo-why { font-size: 13px; color: var(--seal); }
 @media (max-width: 640px) {
   .kid-types { grid-template-columns: 1fr; }
   .kt-desc { min-height: 0; }
   .kt-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 14px; }
   .field .kid-type { padding: 12px; gap: 6px; }
+  .dream-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .seal-btn {
   justify-self: start; display: inline-flex; align-items: center; gap: 10px;
@@ -429,6 +458,9 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
   color: #f3c9c0; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 .mg-dodgeball .mg-flash { top: 22%; }
+.risk-tag { display: inline-block; margin-top: 4px; font-size: 13px; line-height: 1.45; border: 1px solid currentColor; border-radius: 10px; padding: 1px 8px; }
+.risk-tag.gamble { color: var(--seal); border-style: dashed; }
+.risk-tag.heavy { color: var(--ink-soft); }
 .mg-tag { display: inline-block; margin-top: 4px; font-size: 13px; color: var(--seal); border: 1px solid currentColor; border-radius: 999px; padding: 1px 8px; }
 .mg-count {
   position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: 7;

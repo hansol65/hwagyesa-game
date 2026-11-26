@@ -1,5 +1,6 @@
 import { openStats } from '../game/engine';
 import { STAT_LABEL, type GameState } from '../game/types';
+import { dreamOf } from '../game/dreams';
 
 /**
  * 휴대폰 화면에서만 보이는 위쪽 스탯 줄. 가로 막대로 한눈에 보고,
@@ -20,6 +21,11 @@ export function MobileStats({ game, open, onToggle }: { game: GameState; open: b
           </li>
         ))}
       </ul>
+      {dreamOf(game.flags) && (
+        <p className="mstats-dream">
+          꿈 · {dreamOf(game.flags)!.name} ({dreamOf(game.flags)!.need.map((k) => STAT_LABEL[k]).join('·')})
+        </p>
+      )}
       <button className="textlink mstats-toggle" onClick={onToggle} aria-expanded={open}>
         {open ? '수첩 접기 ▴' : '사람·출석 수첩 ▾'}
       </button>

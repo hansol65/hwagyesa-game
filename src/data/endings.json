@@ -701,7 +701,7 @@
       "title": "세 번 망하고 네 번째 창업 중이다",
       "when": {
         "records": {
-          "gamble_lose": 2
+          "gamble_lose": 3
         }
       },
       "text": "창업했다가 세 번 망했다. 지금 네 번째다. 망할 때마다 화계사 마당 계단에 앉아 있었고, 그때마다 스님이 \"또 왔냐\" 하셨다. 이번엔 될 것 같다. 매번 그랬다."
@@ -713,7 +713,7 @@
       "title": "개발자가 되었다",
       "when": {
         "stats": {
-          "intellect": 85
+          "intellect": 89
         },
         "statsBelow": {
           "faith": 50
