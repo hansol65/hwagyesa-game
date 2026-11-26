@@ -297,7 +297,7 @@ function rhythmSpec(kind: Exclude<MinigameKind, 'dodgeball'>, g: GameState): Rhy
   return {
     title: '목탁: 박자를 지켜라!',
     how: `처음 6박은 스님이 같이 쳐 주세요(똑 표시가 보여요). 그다음 6박은 표시 없이 같은 박자를 혼자 지켜요. 12박 중 7박만 맞히면 돼요. 지금 신앙 ${g.stats.faith}: ${g.stats.faith >= 60 ? '마음이 고요해서 판정이 너그러워요.' : '마음이 들떠서 판정이 깐깐해요.'}`,
-    button: '똑!', bg: stage === 'kid' ? 'kids-room' : 'students-room', glyph: () => '똑', hiddenFrom: 6, travel: 1400, win, beats,
+    button: '똑!', bg: stage === 'kid' ? 'kids-room' : stage === 'university' ? 'univ-room' : 'students-room', glyph: () => '똑', hiddenFrom: 6, travel: 1400, win, beats,
     need: 7, partner: `${stage}/monk`,
   };
 }

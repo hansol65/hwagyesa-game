@@ -114,6 +114,8 @@ export function staging(opts: {
   let bg = def.bg ?? base.bg ?? 'kids-room';
   // 학생회부터는 법회실이 바뀐다 (장면에 어린이회 법회실을 콕 집었으면 그대로: 대학생 간사가 어린이회에 갈 때)
   if (stage !== 'kid' && bg === 'kids-room' && def.bg !== 'kids-room') bg = 'students-room';
+  // 대학생회는 예전 법회실 그림, 학생회(청소년회)는 학생회 법당
+  if (stage === 'university' && bg === 'students-room') bg = 'univ-room';
 
   const pose: Pose = def.pose ?? KEYWORD_POSE.find(([re]) => re.test(text))?.[1] ?? 'idle';
   const heroPose: Pose = opts.mood ?? pose;
