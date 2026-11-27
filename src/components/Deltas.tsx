@@ -2,7 +2,7 @@ import { personName, withWa } from '../game/names';
 import { STAT_LABEL, type Effects, type RelKey, type StatKey } from '../game/types';
 import { useGame } from '../store';
 
-/** "신앙 +3 · 건강 −2" — 먹 글씨로, 오르면 솔빛, 내리면 낙관빛 */
+/** "신앙 +3  건강 −2": 먹 글씨로, 오르면 솔빛, 내리면 낙관빛 */
 export function Deltas({ effects, showRel = true, luck = false }: { effects?: Effects; showRel?: boolean; luck?: boolean }) {
   const game = useGame((s) => s.game);
   const items: { key: string; label: string; v: number }[] = [];

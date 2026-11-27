@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { openStats } from '../game/engine';
 import { STAT_LABEL, type GameState } from '../game/types';
 import { dreamOf } from '../game/dreams';
@@ -15,7 +16,7 @@ export function MobileStats({ game, open, onToggle }: { game: GameState; open: b
           <li key={k}>
             <span className="lbl">{STAT_LABEL[k]}</span>
             <span className="bar" aria-hidden="true">
-              <i style={{ width: `${game.stats[k]}%` }} />
+              <i style={{ transform: `scaleX(${Math.min(100, Math.max(0, game.stats[k])) / 100})` }} />
             </span>
             <b className="tabular">{game.stats[k]}</b>
           </li>
@@ -23,11 +24,12 @@ export function MobileStats({ game, open, onToggle }: { game: GameState; open: b
       </ul>
       {dreamOf(game.flags) && (
         <p className="mstats-dream">
-          꿈 · {dreamOf(game.flags)!.name} ({dreamOf(game.flags)!.need.map((k) => STAT_LABEL[k]).join('·')})
+          꿈: {dreamOf(game.flags)!.name} ({dreamOf(game.flags)!.need.map((k) => STAT_LABEL[k]).join('·')})
         </p>
       )}
       <button className="textlink mstats-toggle" onClick={onToggle} aria-expanded={open}>
-        {open ? '수첩 접기 ▴' : '사람·출석 수첩 ▾'}
+        {open ? '수첩 접기' : '사람·출석 수첩'}
+        {open ? <ChevronUp className="tag-icon" size={14} strokeWidth={1.75} aria-hidden="true" /> : <ChevronDown className="tag-icon" size={14} strokeWidth={1.75} aria-hidden="true" />}
       </button>
     </div>
   );

@@ -17,7 +17,7 @@ import {
 } from "../game/types";
 import { useGame } from "../store";
 import { StatHex } from "./StatHex";
-import { Arrow, AttendStamp, BrushLine } from "./Ink";
+import { AttendStamp, BrushLine } from "./Ink";
 import { GradPhoto } from "./GradPhoto";
 import { Flashback } from "./Flashback";
 import { addEnding, EndingBook, endingArt, loadEndings } from "./EndingBook";
@@ -151,7 +151,7 @@ export function StartScreen() {
             type="submit"
             disabled={!name.trim() || !type}
           >
-            법회에 가기 <Arrow />
+            법회에 가기
           </button>
         </form>
         <p className="save-note">
@@ -227,7 +227,7 @@ export function YearEnd({ game }: { game: GameState }) {
       )}
       <StatLine change={r.statChange} />
       <button className="next" onClick={nextYear} autoFocus>
-        {CHAPTERS[r.chapter + 1]?.title} 이야기로 <Arrow />
+        {CHAPTERS[r.chapter + 1]?.title} 이야기로
       </button>
     </section>
   );
@@ -337,7 +337,7 @@ export function Graduated({ game }: { game: GameState }) {
                   disabled={stage === "kid" && !dream}
                   autoFocus={stage !== "kid"}
                 >
-                  {stage === "kid" ? "학생회로" : "대학생회로"} <Arrow />
+                  {stage === "kid" ? "학생회로" : "대학생회로"}
                 </button>
               </div>
             </>
@@ -450,7 +450,7 @@ function EndingView({
 
       <div className="coda">
         <button className="seal-btn" onClick={onReset} autoFocus>
-          다른 어른으로 살아 보기 <Arrow />
+          다른 어른으로 살아 보기
         </button>
         <button
           className="textlink"

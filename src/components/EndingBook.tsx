@@ -54,9 +54,8 @@ export function EndingBook({ owned, current }: { owned: string[]; current?: stri
   const names = loadEndingNames();
   return (
     <section className="ending-book" aria-label={`엔딩 도감 ${n}/${ENDINGS.length}`}>
-      <h3>
-        엔딩 도감 <span className="tabular">{n} / {ENDINGS.length}</span>
-      </h3>
+      <h3>엔딩 도감</h3>
+      <p className="book-count tabular">{n} / {ENDINGS.length}</p>
       <ol>
         {ENDINGS.map((e, i) => (
           <EndingTile key={e.id} e={e} no={i + 1} has={owned.includes(e.id)} now={e.id === current} names={names[e.id] ?? []} onOpen={() => setOpen(e.id)} />
@@ -158,7 +157,7 @@ function EndingLightbox({ id, owned, names, onMove, onClose }: { id: string; own
       <div className="lb-bar">
         {list.length > 1 && (
           <button type="button" className="textlink" onClick={() => step(-1)}>
-            ← 이전
+            이전
           </button>
         )}
         <button type="button" className="textlink" onClick={() => ref.current?.close()} autoFocus>
@@ -166,7 +165,7 @@ function EndingLightbox({ id, owned, names, onMove, onClose }: { id: string; own
         </button>
         {list.length > 1 && (
           <button type="button" className="textlink" onClick={() => step(1)}>
-            다음 →
+            다음
           </button>
         )}
       </div>

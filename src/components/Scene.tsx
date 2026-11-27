@@ -7,7 +7,8 @@ import { Deltas } from './Deltas';
 import { SceneStage } from './SceneStage';
 import { Minigame } from './Minigame';
 import { staging } from '../art/scene';
-import { Arrow, BrushLine, InkCircle, LanternRow, TrackMark } from './Ink';
+import { Dices, Gamepad2 } from 'lucide-react';
+import { BrushLine, InkCircle, LanternRow, TrackMark } from './Ink';
 
 function YearTrack({ game }: { game: GameState }) {
   const slots = CHAPTERS[game.chapter].slots;
@@ -100,7 +101,7 @@ export function Scene({ game }: { game: GameState }) {
       {game.lastNote && (
         <p className="lastnote">
           <span className="when-small">{game.lastNote.label}, 법회 대신</span> {game.lastNote.choice}
-          {game.lastNote.text && <span className="note-text"> — {game.lastNote.text}</span>}{' '}
+          {game.lastNote.text && <span className="note-text">: {game.lastNote.text}</span>}{' '}
           <Deltas effects={game.lastNote.deltas} showRel={false} />
         </p>
       )}
@@ -169,15 +170,16 @@ export function Scene({ game }: { game: GameState }) {
                         <span className="meta">
                           {c.gamble && c.roll && (
                             <span className="risk-tag gamble">
-                              🎲 모 아니면 도 · 성공 {Math.round(rollChance(c.roll, game) * 100)}% · 실패하면 여러 스탯이 크게 깎여요
+                              <Dices className="tag-icon" size={14} strokeWidth={1.75} aria-hidden="true" />
+                              모 아니면 도: 성공 {Math.round(rollChance(c.roll, game) * 100)}%, 실패하면 여러 스탯이 크게 깎여요
                             </span>
                           )}
-                          {c.heavy && !c.gamble && <span className="risk-tag heavy">갈림길 · 고르면 다른 길은 다시 안 와요</span>}
+                          {c.heavy && !c.gamble && <span className="risk-tag heavy">갈림길: 고르면 다른 길은 다시 안 와요</span>}
                         </span>
                       )}
                       {c.minigame && (
                         <span className="meta">
-                          <span className="mg-tag">🎮 미니게임 · {({ dodgeball: '피구 (건강)', dance: '율동 (매력)', pungmul: '풍물 (건강)', moktak: '목탁 (신앙)' } as const)[c.minigame]}</span>
+                          <span className="mg-tag"><Gamepad2 className="tag-icon" size={14} strokeWidth={1.75} aria-hidden="true" /> 미니게임: {({ dodgeball: '피구 (건강)', dance: '율동 (매력)', pungmul: '풍물 (건강)', moktak: '목탁 (신앙)' } as const)[c.minigame]}</span>
                         </span>
                       )}
                     </button>
@@ -198,7 +200,7 @@ export function Scene({ game }: { game: GameState }) {
                 <Deltas effects={game.result.deltas} />
               </p>
               <button className="next" onClick={next} autoFocus>
-                다음 장으로 <Arrow />
+                다음 장으로
               </button>
               <p className="hint">Enter 키로도 넘어가요.</p>
             </>
